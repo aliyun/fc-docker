@@ -1,6 +1,6 @@
-.PHONY: login build build-push update-latest
+.PHONY: login build build-and-push update-latest
 
-IMAGE_PREFIX := sbox-
+IMAGE_PREFIX := runtime-
 
 # build or empty
 TAG_PREFIX := $(VARIANT:run%=%)
@@ -44,7 +44,7 @@ build: check-runtime-env check-variant-env check-repo-env check-tag
 	cd $(DIR) && \
 	docker build -t "$(IMAGE)" .
 
-build-push: build login 
+build-and-push: build login 
 	docker push $(IMAGE)
 
 update-latest: check-runtime-env check-variant-env check-repo-env login 
