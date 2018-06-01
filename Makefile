@@ -1,6 +1,10 @@
 .PHONY: login build build-and-push update-latest
 
-IMAGE_PREFIX := runtime-
+IMAGE_PREFIX ?= runtime-
+REPO ?= aliyunfc
+
+RUNTIMES ?= java8 nodejs4.4 nodejs6.10.3 nodejs8 python2.7 python3.6
+VARIANTS ?= build
 
 # build or empty
 TAG_PREFIX := $(VARIANT:run%=%)
@@ -27,11 +31,6 @@ ifndef VARIANT
 	$(error VARIANT is undefined)
 endif
 
-check-repo-env:
-ifndef REPO
-	$(error REPO is undefined)
-endif
-
 check-tag:
 ifndef TRAVIS_TAG
 	$(error TRAVIS_TAG is undefined)
@@ -40,16 +39,46 @@ endif
 login:
 	echo "$$DOCKER_PASS" | docker login -u $$DOCKER_USER --password-stdin
 
-build: check-runtime-env check-variant-env check-repo-env check-tag
+build: check-runtime-env check-variant-env
 	cd $(DIR) && \
 	docker build -t "$(IMAGE)" .
 
-build-and-push: build login 
+build-all:
+	for RUNTIME in $(RUNTIMES) ; do \
+		for VARIANT in $(VARIANTS) ; do \
+			make build RUNTIME=$$RUNTIME VARIANT=$$VARIANT TRAVIS_TAG=$$TRAVIS_TAG; \
+		done \
+	done 
+
+push: check-runtime-env check-variant-env login
 	docker push $(IMAGE)
 
-update-latest: check-runtime-env check-variant-env check-repo-env login 
+push-all:
+	for RUNTIME in $(RUNTIMES) ; do \
+		for VARIANT in $(VARIANTS) ; do \
+			make push RUNTIME=$$RUNTIME VARIANT=$$VARIANT TRAVIS_TAG=$$TRAVIS_TAG; \
+		done \
+	done 
+
+build-and-push: build push
+
+build-and-push-all: login
+	for RUNTIME in $(RUNTIMES) ; do \
+		for VARIANT in $(VARIANTS) ; do \
+			make build-and-push RUNTIME=$$RUNTIME VARIANT=$$VARIANT TRAVIS_TAG=$$TRAVIS_TAG; \
+		done \
+	done 
+
+update-latest: check-runtime-env check-variant-env login 
 	LATEST_VERSION=$(shell (head -n 1 LATEST)); \
 	if [ "run" != "$$VARIANT" ]; then DEST_TAG=build; SOURCE_TAG=build-$$LATEST_VERSION; else DEST_TAG=latest; SOURCE_TAG=$$LATEST_VERSION; fi; \
 	docker pull $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG && \
-	docker tag $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG $(REPO)/$(RUNTIME):$$DEST_TAG && \
+	docker tag $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG && \
 	docker push $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG
+
+update-latest-all: login 
+	for RUNTIME in $(RUNTIMES) ; do \
+		for VARIANT in $(VARIANTS) ; do \
+			make update-latest RUNTIME=$$RUNTIME VARIANT=$$VARIANT; \
+		done \
+	done 
