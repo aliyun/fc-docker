@@ -39,12 +39,28 @@ endif
 login:
 	echo "$$DOCKER_PASS" | docker login -u $$DOCKER_USER --password-stdin
 
-build: check-runtime-env check-variant-env check-tag
+build: check-runtime-env check-variant-env
 	cd $(DIR) && \
 	docker build -t "$(IMAGE)" .
 
-build-and-push: build login 
+build-all:
+	for RUNTIME in $(RUNTIMES) ; do \
+		for VARIANT in $(VARIANTS) ; do \
+			make build RUNTIME=$$RUNTIME VARIANT=$$VARIANT TRAVIS_TAG=$$TRAVIS_TAG; \
+		done \
+	done 
+
+push: check-runtime-env check-variant-env login
 	docker push $(IMAGE)
+
+push-all:
+	for RUNTIME in $(RUNTIMES) ; do \
+		for VARIANT in $(VARIANTS) ; do \
+			make push RUNTIME=$$RUNTIME VARIANT=$$VARIANT TRAVIS_TAG=$$TRAVIS_TAG; \
+		done \
+	done 
+
+build-and-push: build push
 
 build-and-push-all: login
 	for RUNTIME in $(RUNTIMES) ; do \
