@@ -1,0 +1,30 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  dump-service: # service name
+    Type: 'Aliyun::Serverless::Service'
+    Properties:
+      Description: 'dump service'
+      Policies:
+        - AliyunOSSFullAccess
+    dump-nodejs8: # function name
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: dump-nodejs8.handler
+        Runtime: nodejs8
+        CodeUri: ./dump-nodejs8
+        Timeout: 3
+        EnvironmentVariables:
+          Bucket: 'my-fc-testt'
+          OSSRegion: 'oss-cn-shanghai'
+    dump-java8: # function name
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: com.aliyun.fc.runtime.DumpJava8::handleRequest
+        Runtime: java8
+        CodeUri: ./dump-java8/target/dump-java8-1.0.0.jar
+        Timeout: 3
+        EnvironmentVariables:
+          Bucket: 'my-fc-testt'
+          OSSRegion: 'oss-cn-shanghai'
+          OSSEndpoint: 'http://oss-cn-shanghai.aliyuncs.com'

@@ -1,6 +1,10 @@
 */.DS_Store
-.idea/*
-.settings/*
+.idea/
+.settings/
 .classpath
 .project
 *~
+node_modules/
+.vscode
+utils/dump/dump-java8/target/
+*.iml
