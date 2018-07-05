@@ -6,6 +6,9 @@ MAINTAINER alibaba-serverless-fc
 # $ docker run --env <key>=<value>
 ENV FC_SERVER_PATH=/var/fc/runtime/java8
 
+ENV FC_RUNTIME_ROOT_PATH=${FC_SERVER_PATH}/bootstrap \
+    FC_RUNTIME_SYSTEM_PATH=${FC_SERVER_PATH}
+
 ENV FC_SERVER_PORT=9000 \
     FC_SERVER_LOG_PATH=${FC_SERVER_PATH}/var/log \
     FC_SERVER_LOG_LEVEL=debug \
@@ -31,7 +34,12 @@ RUN apt-get update && apt-get install -y \
         imagemagick=8:6.9.7.4+dfsg-11+deb9u4 \
         libopencv-dev=2.4.9.1+dfsg1-2 \
         fonts-wqy-zenhei=0.9.45-6 \
-        fonts-wqy-microhei=0.2.0-beta-2
+        fonts-wqy-microhei=0.2.0-beta-2 \
+        lsof \
+        vim 
+
+RUN ln -s /bin/bash /usr/bin/bash \
+    && ln -s /bin/grep /usr/bin/grep
 
 # Suppress opencv error: "libdc1394 error: Failed to initialize libdc1394"
 RUN ln /dev/null /dev/raw1394
