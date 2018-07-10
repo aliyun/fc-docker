@@ -1,7 +1,5 @@
 package com.aliyun.fc.runtime;
 
-import com.aliyun.fc.runtime.Context;
-import com.aliyun.fc.runtime.StreamRequestHandler;
 import com.aliyun.oss.OSSClient;
 
 import java.io.File;
@@ -13,7 +11,7 @@ import java.util.Scanner;
 public class DumpJava8 implements StreamRequestHandler {
 
     @Override
-    public void handleRequest(InputStream inputStream, OutputStream outputStream, jdk.nashorn.internal.runtime.Context context) throws IOException {
+    public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
 
         String filename = "java8.tgz";
         String bucketName = System.getenv("Bucket");
@@ -60,48 +58,5 @@ public class DumpJava8 implements StreamRequestHandler {
 
         context.getLogger().info("Uploading done!");
         outputStream.write(new String("Zipping done and uploading done!").getBytes());
-    }
-
-    public static void main(String[] args) throws IOException {
-        Credentials credentials = new Credentials() {
-            @Override
-            public String getAccessKeyId() {
-                return "LTAI2l7G5O2Wr3Ra";
-            }
-
-            @Override
-            public String getAccessKeySecret() {
-                return "OjE4lLjgrpatD9ds0qD39ShMxYDA63";
-            }
-
-            @Override
-            public String getSecurityToken() {
-                return null;
-            }
-        };
-
-        Context context = new Context() {
-            @Override
-            public String getRequestId() {
-                return null;
-            }
-
-            @Override
-            public Credentials getExecutionCredentials() {
-                return credentials;
-            }
-
-            @Override
-            public FunctionParam getFunctionParam() {
-                return null;
-            }
-
-            @Override
-            public FunctionComputeLogger getLogger() {
-                return null;
-            }
-        };
-
-        new DumpJava8().handleRequest(null, System.out, context);
     }
 }
