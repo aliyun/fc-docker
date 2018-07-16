@@ -12,8 +12,7 @@ public class DumpJava8 implements StreamRequestHandler {
 
     @Override
     public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
-
-        String filename = "java8.tgz";
+        String filename = System.getenv("FileName");
         String bucketName = System.getenv("Bucket");
         String endpoint = System.getenv("OSSEndpoint");
         String source = String.format("/tmp/%s", filename);

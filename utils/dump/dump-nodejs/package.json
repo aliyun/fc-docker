@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ali-oss": "^5.3.1"
+    "ali-oss": "^4.3.0"
   }
 }
