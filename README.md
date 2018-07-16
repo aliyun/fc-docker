@@ -59,8 +59,7 @@ docker run --rm -it -v $(pwd):/code aliyunfc/runtime-python2.7:build bash
 使用方法为：
 
 ```shell
-docker run --rm -it -e FC_ACCESS_KEY_ID=xxxxxxx -e FC_ACCE
-SS_KEY_SECRET=xxxxxxxx -v $(pwd):/code nodejs6
+docker run --rm -it -e FC_ACCESS_KEY_ID=xxxxxxx -e FC_ACCESS_KEY_SECRET=xxxxxxxx -v $(pwd):/code nodejs6
 ```
 
 ## build 环境中包含的依赖
