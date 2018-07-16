@@ -6,11 +6,15 @@ services: docker
 env:
   matrix:
   - RUNTIME=python2.7 VARIANT=build
+  - RUNTIME=python2.7 VARIANT=run
   - RUNTIME=python3.6 VARIANT=build
-  - RUNTIME=nodejs4.4 VARIANT=build
-  - RUNTIME=nodejs6.10.3 VARIANT=build
+  - RUNTIME=python3.6 VARIANT=run
+  - RUNTIME=nodejs6 VARIANT=build
+  - RUNTIME=nodejs6 VARIANT=run
   - RUNTIME=nodejs8 VARIANT=build
+  - RUNTIME=nodejs8 VARIANT=run
   - RUNTIME=java8 VARIANT=build
+  - RUNTIME=java8 VARIANT=run
 
   global:
   - REPO=aliyunfc
@@ -22,5 +26,5 @@ before_script:
   - if [ "$TRAVIS_BRANCH" != "master" ] && [ -z "$TRAVIS_TAG" ]; then travis_terminate 0; fi
 
 script:
-  - if [ -n "$TRAVIS_TAG" ]; then make build-and-push; fi
+  - if [ -n "$TRAVIS_TAG" ]; then make build-and-push TAG="$TRAVIS_TAG"; fi
   - if [ "$TRAVIS_BRANCH" == "master" ]; then make update-latest; fi

@@ -16,7 +16,7 @@ RUN mkdir -p ${FC_SERVER_PATH}
 WORKDIR ${FC_FUNC_CODE_PATH}
 
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
-COPY sources.list /etc/apt/
+COPY commons/debian-jessie-sources.list /etc/apt/sources.list
 
 # Install server dependencies.
 RUN npm install \
