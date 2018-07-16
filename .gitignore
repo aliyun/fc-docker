@@ -9,3 +9,4 @@ node_modules/
 utils/dump/dump-java8/target/
 *.iml
 target/
+*.pyc
