@@ -1,4 +1,7 @@
+import logging
+
 def handler(event, context):
-    print (event)
-    print (context)
+    logger = logging.getLogger("handler")
+    logger.setLevel(logging.INFO)
+
     return 'hello'

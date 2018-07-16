@@ -10,3 +10,4 @@ utils/dump/dump-java8/target/
 *.iml
 target/
 *.pyc
+__pycache__/
