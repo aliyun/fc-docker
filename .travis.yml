@@ -5,14 +5,19 @@ services: docker
 
 env:
   matrix:
+  - RUNTIME=python2.7 VARIANT=base
   - RUNTIME=python2.7 VARIANT=build
   - RUNTIME=python2.7 VARIANT=run
+  - RUNTIME=python3.6 VARIANT=base
   - RUNTIME=python3.6 VARIANT=build
   - RUNTIME=python3.6 VARIANT=run
+  - RUNTIME=nodejs6 VARIANT=base
   - RUNTIME=nodejs6 VARIANT=build
   - RUNTIME=nodejs6 VARIANT=run
+  - RUNTIME=nodejs8 VARIANT=base
   - RUNTIME=nodejs8 VARIANT=build
   - RUNTIME=nodejs8 VARIANT=run
+  - RUNTIME=java8 VARIANT=base
   - RUNTIME=java8 VARIANT=build
   - RUNTIME=java8 VARIANT=run
 
