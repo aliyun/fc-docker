@@ -51,15 +51,17 @@ docker run --rm -it -v $(pwd):/code aliyunfc/runtime-python2.7:build bash
 
 本项目支持通过环境变量定制容器的一些行为，可用的环境变量包括：
 
-FC_ACCESS_KEY_ID
-FC_ACCESS_KEY_SECRET
-FC_SECURITY_TOKEN
-FC_FUNCTION_NAME
+- FC_ACCESS_KEY_ID
+- FC_ACCESS_KEY_SECRET
+- FC_SECURITY_TOKEN
+- FC_FUNCTION_NAME
 
 使用方法为：
 
+```shell
 docker run --rm -it -e FC_ACCESS_KEY_ID=xxxxxxx -e FC_ACCE
 SS_KEY_SECRET=xxxxxxxx -v $(pwd):/code nodejs6
+```
 
 ## build 环境中包含的依赖
 
