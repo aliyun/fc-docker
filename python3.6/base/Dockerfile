@@ -25,9 +25,8 @@ RUN pip install coverage
 RUN apt-get update && apt-get install -y \
         libopencv-dev=2.4.9.1+dfsg1-2 \
         fonts-wqy-zenhei=0.9.45-6 \
-        fonts-wqy-microhei=0.2.0-beta-2 \
-        lsof
-
+        fonts-wqy-microhei=0.2.0-beta-2 
+        
 # Suppress opencv error: "libdc1394 error: Failed to initialize libdc1394"
 RUN ln /dev/null /dev/raw1394
 

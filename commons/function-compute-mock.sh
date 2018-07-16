@@ -29,8 +29,9 @@ fi
 
 exec "$agentPath" start &
 
-# wait for service start
-while ! lsof -i :${serverPort} > /dev/null 2>&1; do 
+# wait until server started
+# link https://stackoverflow.com/questions/9609130/efficiently-test-if-a-port-is-open-on-linux-without-nmap-or-netcat
+while ! &>/dev/null </dev/tcp/127.0.0.1/${serverPort}; do
     sleep 0.01;
 done
 
