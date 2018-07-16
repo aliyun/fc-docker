@@ -1,4 +1,4 @@
-FROM aliyunfc/runtime-nodejs6.10.3:build
+FROM aliyunfc/runtime-nodejs6:base
 
 RUN rm -rf /var/runtime /var/lang && \
   curl https://my-fc-testt.oss-cn-shanghai.aliyuncs.com/nodejs6.10.3.tgz | tar -zx -C /

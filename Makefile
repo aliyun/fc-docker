@@ -7,7 +7,7 @@ IMAGE_PREFIX ?= runtime-
 REPO ?= aliyunfc
 
 RUNTIMES ?= java8 nodejs6 nodejs8 python2.7 python3.6
-VARIANTS ?= build run
+VARIANTS ?= base build run
 
 # build or empty
 TAG_PREFIX := $(VARIANT:run%=%)

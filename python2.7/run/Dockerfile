@@ -1,4 +1,4 @@
-FROM aliyunfc/runtime-python2.7:build
+FROM aliyunfc/runtime-python2.7:base
 
 RUN rm -rf /var/runtime /var/lang && \
   curl https://my-fc-testt.oss-cn-shanghai.aliyuncs.com/python2.7.tgz | tar -zx -C /
