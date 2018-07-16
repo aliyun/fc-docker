@@ -19,7 +19,6 @@ memoryLimit=$([ $hostLimit -le $dockerLimit ] && echo $hostLimit || echo $docker
 
 serverPort=${FC_SERVER_PORT:-9000}
 
-
 export fc_max_server_heap_size="$[ memoryLimit / 10 * 9 ]m"
 export fc_min_server_heap_size="10m"
 
