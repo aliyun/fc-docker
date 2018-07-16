@@ -1,0 +1,69 @@
+ROSTemplateFormatVersion: '2015-09-01'
+Transform: 'Aliyun::Serverless-2018-04-03'
+Resources:
+  dump-service: 
+    Type: 'Aliyun::Serverless::Service'
+    Properties:
+      Description: 'dump service'
+      Policies:
+        - AliyunOSSFullAccess
+    dump-nodejs8:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: dump-nodejs.handler
+        Runtime: nodejs8
+        CodeUri: ./dump-nodejs
+        Timeout: 3
+        EnvironmentVariables:
+          Bucket: 'my-fc-testt'
+          OSSRegion: 'oss-cn-shanghai'
+          FileName: 'nodejs8.tgz'
+    dump-nodejs6: 
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: dump-nodejs.handler
+        Runtime: nodejs6
+        CodeUri: ./dump-nodejs
+        Timeout: 3
+        EnvironmentVariables:
+          Bucket: 'my-fc-testt'
+          OSSRegion: 'oss-cn-shanghai'
+          FileName: 'nodejs6.tgz'
+    dump-python27: 
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: dump-python.handler
+        Runtime: python2.7
+        CodeUri: ./dump-python
+        Timeout: 3
+        EnvironmentVariables:
+          Bucket: 'my-fc-testt'
+          OSSRegion: 'oss-cn-shanghai'
+          OSSEndpoing: 'http://oss-cn-shanghai.aliyuncs.com'
+          FileName: 'python2.7.tgz'
+          PackageDir: /var/fc/runtime/python2.7
+    dump-python36: 
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: dump-python.handler
+        Runtime: python3
+        CodeUri: ./dump-python
+        Timeout: 3
+        EnvironmentVariables:
+          Bucket: 'my-fc-testt'
+          OSSRegion: 'oss-cn-shanghai'
+          OSSEndpoing: 'http://oss-cn-shanghai.aliyuncs.com'
+          FileName: 'python3.6.tgz'
+          PackageDir: /var/fc/runtime/python3
+    dump-java8: # function name
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: com.aliyun.fc.runtime.DumpJava8::handleRequest
+        Runtime: java8
+        CodeUri: ./dump-java8/target/dump-java8-1.0.0.jar
+        Timeout: 3
+        EnvironmentVariables:
+          FileName: 'java8.tgz'
+          Bucket: 'my-fc-testt'
+          OSSRegion: 'oss-cn-shanghai'
+          OSSEndpoint: 'http://oss-cn-shanghai.aliyuncs.com'

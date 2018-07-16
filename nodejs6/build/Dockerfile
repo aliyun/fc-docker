@@ -1,4 +1,4 @@
-FROM aliyunfc/runtime-python2.7:base
+FROM aliyunfc/runtime-nodejs6:base
 
 WORKDIR /code
 
@@ -9,3 +9,5 @@ RUN apt-get install -y vim \
     build-essential \
     libgmp3-dev \
     python2.7-dev 
+
+CMD ["npm", "rebuild"]
