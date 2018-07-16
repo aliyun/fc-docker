@@ -1,1 +1,1 @@
-docker run --rm -it -v $(pwd):/code tanhe123/runtime-python2.7
+docker run --rm -it -v $(pwd):/code aliyunfc/runtime-python2.7
