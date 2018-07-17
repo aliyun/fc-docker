@@ -19,7 +19,7 @@ fc docker 是对线上函数运行环境的完全模拟，并且能够让您在�
 您可以在 demos 目录体验：
 
 ```shell
-# 进入 demos/nodejs 目录，执行下面命令分别在 nodejs6 和 nodejs8 中运行函数：
+# 进入 demos/nodejs6 或者 demos/nodejs8 目录，执行下面命令分别在 nodejs6 和 nodejs8 中运行函数：
 docker run --rm -v $(pwd):/code aliyunfc/runtime-nodejs6
 docker run --rm -v $(pwd):/code aliyunfc/runtime-nodejs8
 docker run --rm -v $(pwd):/code aliyunfc/runtime-nodejs6 index.handler '{"some": "event"}'

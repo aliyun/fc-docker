@@ -52,6 +52,11 @@ login:
 build: check-runtime-env check-variant-env
 	docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" .
 
+test: check-runtime-env check-variant-env
+	if ! docker run --rm -it -v $$(pwd)/demos/$(RUNTIME):/code $(IMAGE) | grep -q 'hello' ; then \
+		echo "runtime $(RUNTIME) test failed"; \
+		exit 1; \
+	fi;
 
 build-all:
 	@for RUNTIME in $(RUNTIMES) ; do \
@@ -76,10 +81,12 @@ build-push-all: login build-all push-all
 
 update-latest: check-runtime-env check-variant-env login 
 	@LATEST_VERSION=$(shell (head -n 1 LATEST)); \
-	if [ "run" != "$$VARIANT" ]; then DEST_TAG=build; SOURCE_TAG=build-$$LATEST_VERSION; else DEST_TAG=latest; SOURCE_TAG=$$LATEST_VERSION; fi; \
-	docker pull $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG && \
-	docker tag $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG && \
-	docker push $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG
+	if [ "run" != "$$VARIANT" ]; then DEST_TAG=$$VARIANT; SOURCE_TAG=$$VARIANT-$$LATEST_VERSION; else DEST_TAG=latest; SOURCE_TAG=$$LATEST_VERSION; fi; \
+	if docker pull $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG; then \
+		docker pull $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG && \
+		docker tag $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG && \
+		docker push $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG; \
+	fi; 
 
 update-latest-all: login 
 	@for RUNTIME in $(RUNTIMES) ; do \
