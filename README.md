@@ -43,7 +43,8 @@ build 镜像的使用方法：
 docker run --rm -v $(pwd):/code aliyunfc/runtime-nodejs6:build
 
 # 在 build 容器中运行自定义命令
-docker run --rm -v $(pwd):/code aliyunfc/runtime-python2.7:build pip 
+docker run --rm -v $(pwd):/code aliyunfc/runtime-python2.7:build fun 
+docker run --rm -v $(pwd):/code aliyunfc/runtime-python3.6:build fcli
 
 # 在 build 容器中运行交互式 bash
 docker run --rm -it -v $(pwd):/code aliyunfc/runtime-python2.7:build bash
@@ -66,6 +67,8 @@ docker run --rm -it -e FC_ACCESS_KEY_ID=xxxxxxx -e FC_ACCESS_KEY_SECRET=xxxxxxxx
 
 ## build 环境中包含的依赖
 
+- fcli
+- fun
 - vim 
 - zip
 - git
