@@ -31,5 +31,5 @@ before_script:
   - if [ "$TRAVIS_BRANCH" != "master" ] && [ -z "$TRAVIS_TAG" ]; then travis_terminate 0; fi
 
 script:
-  - if [ -n "$TRAVIS_TAG" ]; then make build-and-push TAG="$TRAVIS_TAG"; fi
+  - if [ -n "$TRAVIS_TAG" ]; then make build-push TAG="$TRAVIS_TAG"; fi
   - if [ "$TRAVIS_BRANCH" == "master" ]; then make update-latest; fi
