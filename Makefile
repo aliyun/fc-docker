@@ -52,6 +52,11 @@ login:
 build: check-runtime-env check-variant-env
 	docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" .
 
+test: check-runtime-env check-variant-env
+	if ! docker run --rm -it -v $$(pwd)/demos/$(RUNTIME):/code $(IMAGE) | grep -q 'hello' ; then \
+		echo "runtime $(RUNTIME) test failed"; \
+		exit 1; \
+	fi;
 
 build-all:
 	@for RUNTIME in $(RUNTIMES) ; do \
