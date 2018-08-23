@@ -20,6 +20,9 @@ env:
   - RUNTIME=java8 VARIANT=base
   - RUNTIME=java8 VARIANT=build
   - RUNTIME=java8 VARIANT=run
+  - RUNTIME=php7 VARIANT=base
+  - RUNTIME=php7 VARIANT=build
+  - RUNTIME=php7 VARIANT=run
 
   global:
   - REPO=aliyunfc

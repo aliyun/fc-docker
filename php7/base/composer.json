@@ -1,0 +1,7 @@
+{
+  "require": {
+    "aliyuncs/oss-sdk-php": "~2.0",
+    "aliyun/aliyun-tablestore-sdk-php": "~4.0",
+    "wushunyi/aliyun-sdk-mns":"^1.3.5"
+  }
+}
