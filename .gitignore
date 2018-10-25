@@ -8,6 +8,7 @@ node_modules/
 .vscode
 utils/dump/dump-java8/target/
 *.iml
-target/
+demos/java8/target/**
+!demos/java8/target/java8-1.0.0.jar
 *.pyc
 __pycache__/

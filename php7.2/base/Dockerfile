@@ -41,7 +41,7 @@ RUN pecl install redis-4.1.1 \
 WORKDIR ${FC_PHP_LIB_PATH}
 
 # Install third party libraries for user function.
-COPY php7/base/composer.json ./
+COPY php7.2/base/composer.json ./
 RUN composer install --no-dev
 
 # Change work directory.

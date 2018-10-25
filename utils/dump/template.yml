@@ -67,16 +67,16 @@ Resources:
           Bucket: 'my-fc-testt'
           OSSRegion: 'oss-cn-shanghai'
           OSSEndpoint: 'http://oss-cn-shanghai.aliyuncs.com'
-    dump-php7: 
+    dump-php72: 
       Type: 'Aliyun::Serverless::Function'
       Properties:
         Handler: dump-php.handler
-        Runtime: php7
+        Runtime: php7.2
         CodeUri: ./dump-php
         Timeout: 3
         EnvironmentVariables:
           Bucket: 'my-fc-testt'
           OSSRegion: 'oss-cn-shanghai'
           OSSEndpoing: 'http://oss-cn-shanghai.aliyuncs.com'
-          FileName: 'php7.tgz'
-          PackageDir: /var/fc/runtime/php7
+          FileName: 'php7.2.tgz'
+          PackageDir: /var/fc/runtime/php7.2

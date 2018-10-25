@@ -8,7 +8,7 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 handler="${1:-index.handler}"
-agentPath="${SHELL_DIR}/agent.sh"
+agentPath="${SHELL_DIR}/${AGENT_SCRIPT:-agent.sh}"
 requestId="$(cat /proc/sys/kernel/random/uuid)"
 
 hostLimit="$(free -m | awk 'NR==2{printf $2 }')"
