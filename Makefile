@@ -6,7 +6,7 @@ SHELL = /bin/bash
 IMAGE_PREFIX ?= runtime-
 REPO ?= aliyunfc
 
-RUNTIMES ?= java8 nodejs6 nodejs8 python2.7 python3.6
+RUNTIMES ?= java8 nodejs6 nodejs8 python2.7 python3.6 php7.2
 VARIANTS ?= base build run
 
 # build or empty
@@ -52,11 +52,13 @@ login:
 build: check-runtime-env check-variant-env
 	docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" .
 
-test: check-runtime-env check-variant-env
-	if ! docker run --rm -it -v $$(pwd)/demos/$(RUNTIME):/code $(IMAGE) | grep -q 'hello' ; then \
-		echo "runtime $(RUNTIME) test failed"; \
-		exit 1; \
-	fi;
+test: check-runtime-env
+	IMAGE=$(IMAGE) RUNTIME=$(RUNTIME) ./test.sh 
+
+test-all:
+	@for RUNTIME in $(RUNTIMES) ; do \
+		make test RUNTIME=$$RUNTIME VARIANT=run TAG=$$TAG; \
+	done 
 
 build-all:
 	@for RUNTIME in $(RUNTIMES) ; do \

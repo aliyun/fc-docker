@@ -6,7 +6,7 @@ fc docker 是对线上函数运行环境的完全模拟，并且能够让您在�
 
 您能够通过 fc-docker 在本地机器开发测试您的函数，并且该函数的运行结果会与线上结果一致。
 
-目前已经获得支持的 fc runtime 有：nodejs6、nodejs8、python2.7、python3.6、java8。
+目前已经获得支持的 fc runtime 有：nodejs6、nodejs8、python2.7、python3.6、java8、php7.2。
 
 除了可以运行您的函数，本项目还包含 runtime 对应的用于编译项目的镜像。他们包含了常用的编译工具打包工具，比如 gcc、g++、npm、maven 等。
 
@@ -31,6 +31,10 @@ docker run --rm -v $(pwd):/code aliyunfc/runtime-python2.7 index.handler '{"some
 # 进入 demos/python3.6 目录，执行下面命令在 python3.6 中运行函数：
 docker run --rm -v $(pwd):/code aliyunfc/runtime-python3.6
 docker run --rm -v $(pwd):/code aliyunfc/runtime-python3.6 index.handler '{"some": "event"}'
+
+# 进入 demos/php7.2 目录，执行下面命令在 php7.2 中运行函数：
+docker run --rm -v $(pwd):/code aliyunfc/runtime-php7.2
+docker run --rm -v $(pwd):/code aliyunfc/runtime-php7.2 index.handler '{"some": "event"}'
 
 # 进入 demos/java8 目录，执行 mvn package 打包函数，然后执行下面命令运行函数:
 docker run -v $(pwd)/target/java8-1.0.0.jar:/code/java8-1.0.0.jar aliyunfc/runtime-java8 examples.Hello::handleRequest

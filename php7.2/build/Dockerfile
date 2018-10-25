@@ -1,12 +1,14 @@
-FROM aliyunfc/runtime-php7:base
+FROM aliyunfc/runtime-php7.2:base
 
-RUN apt-get install -y vim \
-    cmake \
-    zip \
-    clang \
-    build-essential \
-    libgmp3-dev \
-    python2.7-dev
+RUN apt-get update \
+    && apt-get install -y vim \
+        cmake \
+        zip \
+        clang \
+        build-essential \
+        libgmp3-dev \
+        python2.7-dev \
+    && rm -r /var/lib/apt/lists/*
 
 RUN curl -s https://gosspublic.alicdn.com/fcli/fcli-v0.20-linux-amd64.zip > fcli.zip \
     && unzip -o fcli.zip -d /usr/local/bin/ \
