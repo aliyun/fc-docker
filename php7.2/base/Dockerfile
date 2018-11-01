@@ -8,6 +8,10 @@ ENV FC_SERVER_PATH=/var/fc/runtime/php7
 # php package path.
 ENV FC_PHP_LIB_PATH=${FC_SERVER_PATH}/builtIn
 
+# Function configuration.
+ENV FC_FUNC_CODE_PATH=/code/ \
+    FC_FUNC_LOG_PATH=/var/log/fc/
+
 # Change work directory.
 WORKDIR ${FC_SERVER_PATH}
 
@@ -19,7 +23,7 @@ RUN apt-get update && apt-get install -y \
         unzip\
         fonts-wqy-zenhei=0.9.45-6 \
         fonts-wqy-microhei=0.2.0-beta-2 \
-        imagemagick=8:6.8.9.9-5+deb8u13 \
+        imagemagick \
         libmagickwand-dev \
         libmagickcore-dev \
     --no-install-recommends && rm -r /var/lib/apt/lists/*

@@ -20,25 +20,36 @@ fc docker 是对线上函数运行环境的完全模拟，并且能够让您在�
 
 ```shell
 # 进入 demos/nodejs6 或者 demos/nodejs8 目录，执行下面命令分别在 nodejs6 和 nodejs8 中运行函数：
-docker run --rm -v $(pwd):/code aliyunfc/runtime-nodejs6
-docker run --rm -v $(pwd):/code aliyunfc/runtime-nodejs8
+
 docker run --rm -v $(pwd):/code aliyunfc/runtime-nodejs6 index.handler '{"some": "event"}'
+docker run --rm -v $(pwd):/code aliyunfc/runtime-nodejs6 --handler "index.handler" --event "{"some": "event"}"
 
 # 进入 demos/python2.7 目录，执行下面命令在 python2.7 中运行函数：
-docker run --rm -v $(pwd):/code aliyunfc/runtime-python2.7
 docker run --rm -v $(pwd):/code aliyunfc/runtime-python2.7 index.handler '{"some": "event"}'
+docker run --rm -v $(pwd):/code aliyunfc/runtime-python2.7 --handler "index.handler" --event "{"some": "event"}"
 
 # 进入 demos/python3.6 目录，执行下面命令在 python3.6 中运行函数：
-docker run --rm -v $(pwd):/code aliyunfc/runtime-python3.6
 docker run --rm -v $(pwd):/code aliyunfc/runtime-python3.6 index.handler '{"some": "event"}'
+docker run --rm -v $(pwd):/code aliyunfc/runtime-python3.6 --handler "index.handler" --event "{"some": "event"}"
 
 # 进入 demos/php7.2 目录，执行下面命令在 php7.2 中运行函数：
-docker run --rm -v $(pwd):/code aliyunfc/runtime-php7.2
 docker run --rm -v $(pwd):/code aliyunfc/runtime-php7.2 index.handler '{"some": "event"}'
+docker run --rm -v $(pwd):/code aliyunfc/runtime-php7.2 --handler "index.handler" --event "{"some": "event"}"
 
 # 进入 demos/java8 目录，执行 mvn package 打包函数，然后执行下面命令运行函数:
-docker run -v $(pwd)/target/java8-1.0.0.jar:/code/java8-1.0.0.jar aliyunfc/runtime-java8 examples.Hello::handleRequest
+docker run -v $(pwd)/target/java8-1.0.0.jar:/code/java8-1.0.0.jar aliyunfc/runtime-java8 --handler "examples.Hello::handleRequest"
+
 ```
+
+支持更多的长/短参数，列表如下：
+
+| 长参数  | 短参数  | 参数含义 |
+| :---------- |:---------------:| -----:|
+| -h     |--handler| 函数入口 |
+|   无    | --timeout        |    函数超时时间 |
+| -i |--initializer        |    函数初始化入口 |
+| -e |--initializationTimeout        |    初始化超时时间 |
+| 无 |    --event    |    上传event |
 
 build 镜像的使用方法：
 

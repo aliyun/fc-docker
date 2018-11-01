@@ -8,6 +8,31 @@ GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
 handler="${1:-index.handler}"
+
+if [ -n "$2" ]; then
+    event="$2"
+else
+    event="{}"
+fi
+
+timeout=3
+initializer=
+initializationTimeout=3
+originHandler=
+originEvent=
+
+while true; do
+  case "$1" in
+    -h | --handler ) handler="$2"; shift 2;;
+    -i | --initializer ) initializer="$2"; shift 2;;
+    -e | --initializationTimeout ) initializationTimeout="$2"; shift 2 ;;
+    --timeout ) timeout="$2"; shift 2 ;;
+    --event ) event="$2"; shift 2 ;;
+    -- ) shift; break ;;
+    * ) echo -e "\n\t Please use the long and short parameter mode. \n\t For more details, please refer to https://github.com/aliyun/fc-docker. \n\n"; break ;;
+  esac
+done
+
 agentPath="${SHELL_DIR}/${AGENT_SCRIPT:-agent.sh}"
 requestId="$(cat /proc/sys/kernel/random/uuid)"
 
@@ -21,12 +46,6 @@ if [ ! -f "$agentPath" ]; then
     exit 1;
 fi
 
-if [ -n "$2" ]; then
-    event="$2"
-else
-    event="{}"
-fi
-
 exec "$agentPath" start &
 
 # wait until server started
@@ -37,13 +56,30 @@ done
 
 startTimestamp="$(date '+%s')$(date '+%N')"
 
+if [ -n "$initializer" ]; then
+    curl -s -X POST localhost:${serverPort}/initialize \
+        -H "Content-Type: application/octet-stream" \
+        -H "x-fc-request-id: $requestId" \
+        -H "x-fc-function-name: ${FC_FUNCTION_NAME:-fc-docker}" \
+        -H "x-fc-function-memory: ${memoryLimit}" \
+        -H "x-fc-function-timeout: ${timeout}" \
+        -H "x-fc-initialization-timeout: ${initializationTimeout}" \
+        -H "x-fc-function-initializer: ${initializer}" \
+        -H "x-fc-function-handler: ${handler}" \
+        -H "x-fc-access-key-id: ${FC_ACCESS_KEY_ID}" \
+        -H "x-fc-access-key-secret: ${FC_ACCESS_KEY_SECRET}" \
+        -H "x-fc-security-token: ${FC_SECURITY_TOKEN}"
+fi
+
 curl -s -X POST localhost:${serverPort}/invoke \
     -H "Content-Type: application/octet-stream" \
     -H "x-fc-request-id: $requestId" \
     -H "x-fc-function-name: ${FC_FUNCTION_NAME:-fc-docker}" \
     -H "x-fc-function-memory: ${memoryLimit}" \
-    -H "x-fc-function-timeout: 3" \
+    -H "x-fc-function-timeout: ${timeout}" \
     -H "x-fc-function-handler: ${handler}" \
+    -H "x-fc-initialization-timeout: ${initializationTimeout}" \
+    -H "x-fc-function-initializer: ${initializer}" \
     -H "x-fc-access-key-id: ${FC_ACCESS_KEY_ID}" \
     -H "x-fc-access-key-secret: ${FC_ACCESS_KEY_SECRET}" \
     -H "x-fc-security-token: ${FC_SECURITY_TOKEN}" \
