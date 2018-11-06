@@ -18,8 +18,6 @@ fi
 timeout=3
 initializer=
 initializationTimeout=3
-originHandler=
-originEvent=
 
 while true; do
   case "$1" in
