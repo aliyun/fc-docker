@@ -15,7 +15,7 @@ fi
 
 echo "mount: $MOUNT"
 
-if ! docker run --rm -it -v $MOUNT:/code $IMAGE $HANDLER | grep -q 'hello' ; then 
+if ! docker run --rm -it -v $MOUNT:/code $IMAGE $HANDLER | grep -q '2' ; then
     echo "runtime $RUNTIME test failed"; 
     exit 1; 
 fi 

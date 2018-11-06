@@ -1,6 +1,5 @@
 package examples;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,15 +8,25 @@ import java.util.Scanner;
 
 import com.aliyun.fc.runtime.*;
 
-
-public class Hello implements StreamRequestHandler {
+public class Hello implements StreamRequestHandler, FunctionInitializer {
+    public int counter;
+    public Hello() {
+        this.counter = 0;
+    }
 
     @Override
+    public void initialize(Context context) throws IOException {
+        FunctionComputeLogger logger = context.getLogger();
+        logger.debug(String.format("RequestID is %s %n", context.getRequestId()));
+        this.counter = this.counter + 1;
+    }
+    @Override
     public void handleRequest(InputStream inputStream, OutputStream outputStream, Context context) throws IOException {
-        Credentials creds = context.getExecutionCredentials();
-        
-        outputStream.write(new String(creds.toString() + '\n').getBytes());
-        outputStream.write(new String("accessKeyId: " + creds.getAccessKeyId() + " accessSecretKey: " + creds.getAccessKeySecret() + "\n").getBytes());
-        outputStream.write(new String("hello world\n").getBytes());
+        FunctionComputeLogger logger = context.getLogger();
+        logger.debug(String.format("Handle request %s %n", context.getRequestId()));
+        this.counter = this.counter + 2;
+        String counterString = String.format("%d", this.counter);
+        outputStream.write(new String(counterString).getBytes());
+        outputStream.flush();
     }
 }
