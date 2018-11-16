@@ -20,9 +20,9 @@ env:
   - RUNTIME=java8 VARIANT=base
   - RUNTIME=java8 VARIANT=build
   - RUNTIME=java8 VARIANT=run
-  - RUNTIME=php7 VARIANT=base
-  - RUNTIME=php7 VARIANT=build
-  - RUNTIME=php7 VARIANT=run
+  - RUNTIME=php7.2 VARIANT=base
+  - RUNTIME=php7.2 VARIANT=build
+  - RUNTIME=php7.2 VARIANT=run
 
   global:
   - REPO=aliyunfc
@@ -35,6 +35,6 @@ before_script:
 
 script:
   - if [ -n "$TRAVIS_TAG" ]; then make build TAG="$TRAVIS_TAG"; fi
-  - if [ "$RUNTIME" != 'java8' ] && [ "$VARIANT" == 'run' ] ; then make test; fi
+  - if [ "$VARIANT" == 'run' ] ; then make test; fi
   - if [ -n "$TRAVIS_TAG" ]; then make push TAG="$TRAVIS_TAG"; fi
   - if [ "$TRAVIS_BRANCH" == "master" ]; then make update-latest; fi
