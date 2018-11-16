@@ -31,10 +31,10 @@ env:
 
 before_script:
   - env | sort
-  - if [ "$TRAVIS_BRANCH" != "master" ] && [ -z "$TRAVIS_TAG" ]; then travis_terminate 0; fi
 
 script:
-  - if [ -n "$TRAVIS_TAG" ]; then make build TAG="$TRAVIS_TAG"; fi
+  - make build TAG="$TRAVIS_TAG";
   - if [ "$VARIANT" == 'run' ] ; then make test; fi
+  - if [ "$TRAVIS_BRANCH" != "master" ] && [ -z "$TRAVIS_TAG" ]; then travis_terminate 0; fi
   - if [ -n "$TRAVIS_TAG" ]; then make push TAG="$TRAVIS_TAG"; fi
   - if [ "$TRAVIS_BRANCH" == "master" ]; then make update-latest; fi
