@@ -1,5 +1,7 @@
 ## fc-docker
 
+[![Build Status](https://travis-ci.org/aliyun/fc-docker.svg?branch=master)](https://travis-ci.org/aliyun/fc-docker)
+
 fc docker 是对线上函数运行环境的完全模拟，并且能够让您在本地编译、运行函数。
 
 ![fc docker nodejs6](./figures/fc-docker-nodejs6.png)

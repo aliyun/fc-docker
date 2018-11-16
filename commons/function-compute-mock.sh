@@ -9,12 +9,6 @@ NC='\033[0m' # No Color
 
 handler="${1:-index.handler}"
 
-if [ -n "$2" ]; then
-    event="$2"
-else
-    event="{}"
-fi
-
 timeout=3
 initializer=
 initializationTimeout=3
@@ -27,7 +21,8 @@ while true; do
     --timeout ) timeout="$2"; shift 2 ;;
     --event ) event="$2"; shift 2 ;;
     -- ) shift; break ;;
-    * ) echo -e "\n\t Please use the long and short parameter mode. \n\t For more details, please refer to https://github.com/aliyun/fc-docker. \n\n"; break ;;
+    "" ) break ;;
+    * ) echo -e "\n\t Please use the long and short parameter mode. \n\t For more details, please refer to https://github.com/aliyun/fc-docker. \n\n"; exit -1 ;;
   esac
 done
 
@@ -36,8 +31,13 @@ requestId="$(cat /proc/sys/kernel/random/uuid)"
 
 hostLimit="$(free -m | awk 'NR==2{printf $2 }')"
 dockerLimit="$[$(cat /sys/fs/cgroup/memory/memory.limit_in_bytes) / 1024 / 1024]"
+# min(hostLimit, dockerLimit)
 memoryLimit=$([ $hostLimit -le $dockerLimit ] && echo $hostLimit || echo $dockerLimit)
 serverPort=${FC_SERVER_PORT:-9000}
+
+# used for java runtime
+export fc_max_server_heap_size="$[ memoryLimit / 10 * 9 ]m"
+export fc_min_server_heap_size="10m"
 
 if [ ! -f "$agentPath" ]; then
     echo "error: agent.sh not exist"
