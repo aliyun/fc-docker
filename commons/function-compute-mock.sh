@@ -3,6 +3,7 @@
 set -e
 
 SHELL_DIR="$(dirname $0)"
+event="{}"
 
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
