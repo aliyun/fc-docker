@@ -12,6 +12,8 @@ fc docker 是对线上函数运行环境的完全模拟，并且能够让您在�
 
 除了可以运行您的函数，本项目还包含 runtime 对应的用于编译项目的镜像。他们包含了常用的编译工具打包工具，比如 gcc、g++、npm、maven 等。
 
+注意：[Fun](https://github.com/aliyun/fun) 现已基于 fc-docker，推出了 fun local 子命令，用于本地运行、调试函数。体验更好，推荐优先使用 Fun。
+
 ## 使用条件
 
 要使用本项目，需要首先安装 [docker](https://www.docker.com/)。
