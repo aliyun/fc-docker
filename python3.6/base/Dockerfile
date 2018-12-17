@@ -31,20 +31,29 @@ RUN apt-get update && apt-get install -y \
 RUN ln /dev/null /dev/raw1394
 
 # Install third party libraries for user function.
-# aliyun-log-python-sdk and tablestore protobuf version has conflict, don't change their installation sequence
 RUN pip install \
-    oss2==2.3.3 \
     wand==0.4.4 \
     opencv-python==3.3.0.10 \
-    numpy==1.13.1 \
-    scipy==0.19.1 \
     matplotlib==2.0.2 \
     scrapy==1.4.0 \
     cbor==1.0.0 \
     aliyun-fc==0.6 \
-    aliyun-log-python-sdk==0.6.14 \
-    tablestore==4.3.2 \
-    aliyun-fc2==2.0.2
+    tablestore==4.3.4 \
+    aliyun-fc2==2.1.0 \
+    aliyun-python-sdk-core==2.9.5 \
+    aliyun-python-sdk-iot==6.1.0 \
+    aliyun-python-sdk-ecs==4.10.1 \
+    aliyun-python-sdk-vpc==3.0.2 \
+    aliyun-python-sdk-rds==2.1.4 \
+    aliyun-python-sdk-kms==2.5.0 \
+    aliyun-python-sdk-imm==1.3.4 \
+    aliyun-log-python-sdk==0.6.38 \
+    aliyun-python-sdk-ram==3.0.0 \
+    aliyun-python-sdk-sts==3.0.0 \
+    aliyun-mns==1.1.5 \
+    aliyun-python-sdk-cdn==2.6.2 \
+    pydatahub==2.11.2 \
+    oss2==2.6.0
 
 # Generate usernames
 RUN for i in $(seq 10000 10999); do \
