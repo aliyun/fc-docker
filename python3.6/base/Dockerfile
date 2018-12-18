@@ -40,7 +40,7 @@ RUN pip install \
     aliyun-fc==0.6 \
     tablestore==4.3.4 \
     aliyun-fc2==2.1.0 \
-    aliyun-python-sdk-core==2.9.5 \
+    aliyun-python-sdk-core-v3==2.9.4 \
     aliyun-python-sdk-iot==6.1.0 \
     aliyun-python-sdk-ecs==4.10.1 \
     aliyun-python-sdk-vpc==3.0.2 \
