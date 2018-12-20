@@ -54,6 +54,7 @@ docker run -v $(pwd)/target/java8-1.0.0.jar:/code/java8-1.0.0.jar aliyunfc/runti
 | -i |--initializer        |    函数初始化入口 |
 | -e |--initializationTimeout        |    初始化超时时间 |
 | 无 |    --event    |    上传event |
+| 无 |    --stdin    |   event 从 stdin 中获取 | 
 
 build 镜像的使用方法：
 
