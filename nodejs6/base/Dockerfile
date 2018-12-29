@@ -1,4 +1,4 @@
-FROM node:6.10.3
+FROM node:6.14.2-jessie
 
 MAINTAINER alibaba-serverless-fc
 
