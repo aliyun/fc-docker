@@ -55,10 +55,8 @@ done
 
 startTimestamp="$(date '+%s')$(date '+%N')"
 
-HTTP_PARAMS_HEADER="${FC_HTTP_PARAMS:+x-fc-http-params: $FC_HTTP_PARAMS}"
-
 curlUtil() {
-    curl -s -X POST localhost:${serverPort}/$1 \
+    curl -s -X POST $3 localhost:${serverPort}/$1 \
         -H "Content-Type: application/octet-stream" \
         -H "Expect: " \
         -H "x-fc-request-id: $requestId" \
@@ -79,23 +77,22 @@ if [ -n "$initializer" ]; then
     curlUtil initialize ""
 fi
 
+HTTP_PARAMS_HEADER="${FC_HTTP_PARAMS:+x-fc-http-params: $FC_HTTP_PARAMS}"
+
 # use stdin as event
 if [ -n "$STDIN" ]; then 
     # display http response headers and body
     if [ -n "$HTTP_MODE" ]; then
-        RESPONSE=$(curlUtil invoke @-)
-        echo "--------------------response begin-----------------"
-        echo "$RESPONSE" | base64
-        echo "--------------------response end-----------------"
-
-        echo "--------------------execution info begin-----------------"
-        echo -e "${requestId}\n${billedTime}\n${memoryLimit}\n${memoryUsage}" | base64
-        echo "--------------------execution info end-----------------"
+        RESPONSE=$(curlUtil invoke @- '-i')
     else 
         curlUtil invoke @-
     fi
 else 
-    curlUtil invoke $event
+    if [ -n "$HTTP_MODE" ]; then
+        RESPONSE=$(curlUtil invoke $event '-i')
+    else 
+        curlUtil invoke "$event"
+    fi
 fi
 
 
@@ -104,8 +101,17 @@ memoryUsage=$[$(cat /sys/fs/cgroup/memory/memory.usage_in_bytes) / 1024 / 1024]
 
 billedTime=$[(endTimestamp - startTimestamp) / 1000000]
 
-executionInfo="\n\n${GREEN}RequestId: ${requestId} \t Billed Duration: ${billedTime} ms \t Memory Size: ${memoryLimit} MB \t Max Memory Used: ${memoryUsage} MB${NC}\n"
-echo -e "$executionInfo"
+echo -e "\n\n${GREEN}RequestId: ${requestId} \t Billed Duration: ${billedTime} ms \t Memory Size: ${memoryLimit} MB \t Max Memory Used: ${memoryUsage} MB${NC}\n"
+
+if [ -n "$HTTP_MODE" ]; then
+    echo "--------------------response begin-----------------"
+    echo "$RESPONSE" | base64
+    echo "--------------------response end-----------------"
+
+    echo "--------------------execution info begin-----------------"
+    echo -e "${requestId}\n${billedTime}\n${memoryLimit}\n${memoryUsage}" | base64
+    echo "--------------------execution info end-----------------"
+fi
 
 # kill all child process before exit.
 # pkill -SIGINT -P "$(jobs -p)"
