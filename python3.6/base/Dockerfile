@@ -12,7 +12,7 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
 ENV FC_FUNC_CODE_PATH=/code/
 
 COPY commons/pip.conf /etc/pip.conf
-COPY commons/debian-stretch-sources.list /etc/apt/sources.list
+COPY commons/debian-jessie-sources.list /etc/apt/sources.list
 
 # Change work directory.
 WORKDIR ${FC_FUNC_CODE_PATH}
@@ -23,7 +23,7 @@ RUN pip install coverage
 # Install common libraries
 # imagemagick=8:6.9.7.4+dfsg-11+deb9u3 already installed
 RUN apt-get update && apt-get install -y \
-        libopencv-dev=2.4.9.1+dfsg1-2 \
+        libopencv-dev=2.4.9.1+dfsg-1+deb8u2 \
         fonts-wqy-zenhei=0.9.45-6 \
         fonts-wqy-microhei=0.2.0-beta-2 
         

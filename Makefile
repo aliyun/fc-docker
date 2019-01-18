@@ -49,8 +49,14 @@ login:
 		fi; \
 	fi; 
 
-build: check-runtime-env check-variant-env
-	docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" .
+build: check-runtime-env 
+	@if [ -n "$(VARIANT)" ]; then \
+		docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" . ; \
+	else \
+		for VARIANT in "base" "build" "run" ; do \
+			make build RUNTIME=$(RUNTIME) VARIANT=$$VARIANT TAG=$$TAG; \
+		done \
+	fi;
 
 test: check-runtime-env
 	IMAGE=$(IMAGE) RUNTIME=$(RUNTIME) ./test.sh 
@@ -67,8 +73,15 @@ build-all:
 		done; \
 	done 
 
-push: check-runtime-env check-variant-env login
-	docker push $(IMAGE)
+push: check-runtime-env login
+	@if [ -n "$(VARIANT)" ]; then \
+		echo "docker push $(IMAGE)"; \
+		docker push $(IMAGE); \
+	else \
+		for VARIANT in "base" "build" "run" ; do \
+			make push RUNTIME=$$RUNTIME VARIANT=$$VARIANT TAG=$$TAG; \
+		done \
+	fi;
 
 push-all:
 	@for RUNTIME in $(RUNTIMES) ; do \
@@ -81,14 +94,21 @@ build-push: login build push
 
 build-push-all: login build-all push-all
 
-update-latest: check-runtime-env check-variant-env login 
-	@LATEST_VERSION=$(shell (head -n 1 LATEST)); \
-	if [ "run" != "$$VARIANT" ]; then DEST_TAG=$$VARIANT; SOURCE_TAG=$$VARIANT-$$LATEST_VERSION; else DEST_TAG=latest; SOURCE_TAG=$$LATEST_VERSION; fi; \
-	if docker pull $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG; then \
-		docker pull $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG && \
-		docker tag $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG && \
-		docker push $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG; \
-	fi; 
+update-latest: check-runtime-env login 
+	@if [ -n "$(VARIANT)" ]; then \
+		LATEST_VERSION=$(shell (head -n 1 LATEST)); \
+		if [ "run" != "$$VARIANT" ]; then DEST_TAG=$$VARIANT; SOURCE_TAG=$$VARIANT-$$LATEST_VERSION; else DEST_TAG=latest; SOURCE_TAG=$$LATEST_VERSION; fi; \
+		if docker pull $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG; then \
+			docker pull $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG && \
+			docker tag $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG && \
+			docker push $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG; \
+		fi; \
+	else \
+		for VARIANT in "base" "build" "run" ; do \
+			make update-latest RUNTIME=$$RUNTIME VARIANT=$$VARIANT TAG=$$TAG; \
+		done \
+	fi;
+
 
 update-latest-all: login 
 	@for RUNTIME in $(RUNTIMES) ; do \
