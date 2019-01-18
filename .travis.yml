@@ -25,4 +25,4 @@ script:
   - make test;
   - if [ "$TRAVIS_BRANCH" != "master" ] && [ -z "$TRAVIS_TAG" ]; then travis_terminate 0; fi
   - if [ -n "$TRAVIS_TAG" ]; then make push TAG="$TRAVIS_TAG"; fi
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then make update-latest; fi
+  - if [ -n "$TRAVIS_TAG" ]; then make update-latest; fi
