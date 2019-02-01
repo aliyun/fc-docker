@@ -1,4 +1,4 @@
-FROM python:2.7-jessie
+FROM python:2.7.13-jessie
 
 MAINTAINER alibaba-serverless-fc
 
