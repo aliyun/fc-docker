@@ -11,6 +11,7 @@ handler="index.handler"
 timeout=3
 initializer=
 initializationTimeout=3
+agentArgs="&"
 
 while true; do
   case "$1" in
@@ -20,14 +21,16 @@ while true; do
     --timeout ) timeout="$2"; shift 2 ;;
     --event ) event="$2"; shift 2 ;;
     --stdin ) STDIN=true; shift ;; # use stdin as event
-    --http ) HTTP_MODE=true; shift ;; 
+    --http ) HTTP_MODE=true; shift ;;
+    --server) agentArgs=""; shift ;;
     -- ) shift; break ;;
     "" ) break ;;
     * ) echo -e "\n\t Please use the long and short parameter mode. \n\t For more details, please refer to https://github.com/aliyun/fc-docker. \n\n"; exit -1 ;;
   esac
 done
 
-agentPath="${SHELL_DIR}/${AGENT_SCRIPT:-agent.sh}"
+agentScript="${AGENT_SCRIPT:-agent.sh}"
+agentPath="${SHELL_DIR}/${agentScript}"
 requestId="$(cat /proc/sys/kernel/random/uuid)"
 
 hostLimit="$(free -m | awk 'NR==2{printf $2 }')"
@@ -45,7 +48,9 @@ if [ ! -f "$agentPath" ]; then
     exit 1;
 fi
 
-exec "$agentPath" start &
+if ! ps aux | grep "$agentScript"  | grep -q -v grep ; then
+    eval exec "$agentPath" start $agentArgs
+fi
 
 # wait until server started
 # link https://stackoverflow.com/questions/9609130/efficiently-test-if-a-port-is-open-on-linux-without-nmap-or-netcat
@@ -94,7 +99,6 @@ else
         curlUtil invoke "$event"
     fi
 fi
-
 
 endTimestamp="$(date '+%s')$(date '+%N')"
 memoryUsage=$[$(cat /sys/fs/cgroup/memory/memory.usage_in_bytes) / 1024 / 1024]
