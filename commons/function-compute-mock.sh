@@ -11,7 +11,6 @@ handler="index.handler"
 timeout=3
 initializer=
 initializationTimeout=3
-agentArgs="&"
 
 while true; do
   case "$1" in
@@ -22,7 +21,7 @@ while true; do
     --event ) event="$2"; shift 2 ;;
     --stdin ) STDIN=true; shift ;; # use stdin as event
     --http ) HTTP_MODE=true; shift ;;
-    --server) agentArgs=""; shift ;;
+    --server) SERVER_MODE=true; shift ;;
     -- ) shift; break ;;
     "" ) break ;;
     * ) echo -e "\n\t Please use the long and short parameter mode. \n\t For more details, please refer to https://github.com/aliyun/fc-docker. \n\n"; exit -1 ;;
@@ -49,7 +48,13 @@ if [ ! -f "$agentPath" ]; then
 fi
 
 if ! ps aux | grep "$agentScript"  | grep -q -v grep ; then
-    eval exec "$agentPath" start $agentArgs
+
+    if [ -n "$SERVER_MODE" ]; then
+        exec "$agentPath" start
+        exit 0;
+    else
+        exec "$agentPath" start &
+    fi
 fi
 
 # wait until server started
