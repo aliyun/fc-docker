@@ -23,14 +23,18 @@ RUN pip install coverage
 # Install common libraries
 # imagemagick=8:6.9.7.4+dfsg-11+deb9u3 already exist, ignore
 RUN apt-get update && apt-get install -y \
-        libopencv-dev=2.4.9.1+dfsg-1+deb8u2 \
+        imagemagick \
+        libopencv-dev \
         fonts-wqy-zenhei=0.9.45-6 \
-        fonts-wqy-microhei=0.2.0-beta-2 
+        fonts-wqy-microhei=0.2.0-beta-2
         
 # Suppress opencv error: "libdc1394 error: Failed to initialize libdc1394"
 RUN ln /dev/null /dev/raw1394
 
 # Install third party libraries for user function.
+RUN pip install -U six
+RUN pip install -U pip && pip install -U setuptools
+
 RUN pip install \
     wand==0.4.4 \
     opencv-python==3.3.0.10 \
@@ -38,8 +42,9 @@ RUN pip install \
     scrapy==1.4.0 \
     cbor==1.0.0 \
     aliyun-fc==0.6 \
-    tablestore==4.3.4 \
+    meinheld==0.6.1 \
     aliyun-fc2==2.1.0 \
+    tablestore==4.6.0 \
     aliyun-python-sdk-core==2.9.5 \
     aliyun-python-sdk-iot==6.1.0 \
     aliyun-python-sdk-ecs==4.10.1 \

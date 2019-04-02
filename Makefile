@@ -51,10 +51,12 @@ login:
 
 build: check-runtime-env 
 	@if [ -n "$(VARIANT)" ]; then \
-		docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" . ; \
+		if ! docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" .; then \
+			exit 1; \
+		fi \
 	else \
 		for VARIANT in "base" "build" "run" ; do \
-			make build RUNTIME=$(RUNTIME) VARIANT=$$VARIANT TAG=$$TAG; \
+			make build RUNTIME=$(RUNTIME) VARIANT=$$VARIANT TAG=$$TAG || exit 1; \
 		done \
 	fi;
 
@@ -63,13 +65,13 @@ test: check-runtime-env
 
 test-all:
 	@for RUNTIME in $(RUNTIMES) ; do \
-		make test RUNTIME=$$RUNTIME VARIANT=run TAG=$$TAG; \
+		make test RUNTIME=$$RUNTIME VARIANT=run TAG=$$TAG; || exit 1; \
 	done 
 
 build-all:
 	@for RUNTIME in $(RUNTIMES) ; do \
 		for VARIANT in $(VARIANTS) ; do \
-			make build RUNTIME=$$RUNTIME VARIANT=$$VARIANT TAG=$$TAG; \
+			make build RUNTIME=$$RUNTIME VARIANT=$$VARIANT TAG=$$TAG || exit 1; \
 		done; \
 	done 
 
