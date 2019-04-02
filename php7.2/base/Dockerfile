@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y \
         imagemagick \
         libmagickwand-dev \
         libmagickcore-dev \
+        libmemcached-dev=1.0.18-4 \
     --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 # phpunit and xdebug
@@ -39,14 +40,17 @@ RUN pecl install redis-4.1.1 \
     && pecl install  xdebug-2.6.0 \
     && pecl install imagick-3.4.3 \
     && pecl install protobuf-3.6.0 \
-    && docker-php-ext-enable redis xdebug imagick protobuf
+    && pecl install memcached-3.0.4 \
+    && docker-php-ext-enable redis xdebug imagick protobuf memcached
+
+RUN docker-php-ext-install zip
 
 # Change work directory.
 WORKDIR ${FC_PHP_LIB_PATH}
 
 # Install third party libraries for user function.
 COPY php7.2/base/composer.json ./
-RUN composer install --no-dev
+RUN composer install && echo "update fc-php-sdk to 1.1.1"
 
 # Change work directory.
 WORKDIR ${FC_SERVER_PATH}
