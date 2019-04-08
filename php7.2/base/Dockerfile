@@ -15,6 +15,9 @@ ENV FC_FUNC_CODE_PATH=/code/ \
 # Change work directory.
 WORKDIR ${FC_SERVER_PATH}
 
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
+COPY commons/debian-jessie-sources.list /etc/apt/sources.list
+
 RUN /bin/sh -c 'curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer'
 
 RUN apt-get update && apt-get install -y \
@@ -50,7 +53,7 @@ WORKDIR ${FC_PHP_LIB_PATH}
 
 # Install third party libraries for user function.
 COPY php7.2/base/composer.json ./
-RUN composer install && echo "update fc-php-sdk to 1.1.1"
+RUN composer install --no-dev
 
 # Change work directory.
 WORKDIR ${FC_SERVER_PATH}

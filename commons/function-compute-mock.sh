@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SHELL_DIR="$(dirname $0)"
-event="{}"
+event=""
 
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
@@ -21,6 +21,7 @@ while true; do
     --event ) event="$2"; shift 2 ;;
     --stdin ) STDIN=true; shift ;; # use stdin as event
     --http ) HTTP_MODE=true; shift ;;
+    --event-decode ) event=$(echo $event | base64 -d); shift ;;
     --server) SERVER_MODE=true; shift ;;
     -- ) shift; break ;;
     "" ) break ;;
@@ -98,8 +99,9 @@ if [ -n "$STDIN" ]; then
         curlUtil invoke @-
     fi
 else 
+    # event may be empty, must use quotation marks
     if [ -n "$HTTP_MODE" ]; then
-        RESPONSE=$(curlUtil invoke $event '-i')
+        RESPONSE=$(curlUtil invoke "$event" '-i')
     else 
         curlUtil invoke "$event"
     fi
