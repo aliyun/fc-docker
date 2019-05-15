@@ -21,7 +21,7 @@ while true; do
     --event ) event="$2"; shift 2 ;;
     --stdin ) STDIN=true; shift ;; # use stdin as event
     --http ) HTTP_MODE=true; shift ;;
-    --event-decode ) event=$(echo $event | base64 -d); shift ;;
+    --event-decode ) EVENT_DECODE=true; shift ;; 
     --server) SERVER_MODE=true; shift ;;
     -- ) shift; break ;;
     "" ) break ;;
@@ -94,16 +94,25 @@ HTTP_PARAMS_HEADER="${FC_HTTP_PARAMS:+x-fc-http-params: $FC_HTTP_PARAMS}"
 if [ -n "$STDIN" ]; then 
     # display http response headers and body
     if [ -n "$HTTP_MODE" ]; then
-        RESPONSE=$(curlUtil invoke @- '-i')
+        RESPONSE=$(curlUtil invoke @- '-i' | base64)
     else 
         curlUtil invoke @-
     fi
 else 
     # event may be empty, must use quotation marks
     if [ -n "$HTTP_MODE" ]; then
-        RESPONSE=$(curlUtil invoke "$event" '-i')
+        if [ -n "$EVENT_DECODE" ]; then
+            # why use pipes see https://stackoverflow.com/questions/6570531/assign-string-containing-null-character-0-to-a-variable-in-bash/24511770#24511770
+            RESPONSE=$(echo "$event" | base64 -d | curlUtil invoke @- '-i' | base64)
+        else
+            RESPONSE=$(echo "$event" | curlUtil invoke @- '-i' | base64)
+        fi
     else 
-        curlUtil invoke "$event"
+        if [ -n "$EVENT_DECODE" ]; then
+            echo "$event" | base64 -d | curlUtil invoke @-
+        else
+            echo "$event" | curlUtil invoke @-
+        fi
     fi
 fi
 
@@ -116,7 +125,7 @@ echo -e "\n\n${GREEN}RequestId: ${requestId} \t Billed Duration: ${billedTime} m
 
 if [ -n "$HTTP_MODE" ]; then
     echo "--------------------response begin-----------------"
-    echo "$RESPONSE" | base64
+    echo "$RESPONSE"
     echo "--------------------response end-----------------"
 
     echo "--------------------execution info begin-----------------"
