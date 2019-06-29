@@ -17,4 +17,10 @@ RUN curl -s https://gosspublic.alicdn.com/fun/fun-v2.9.3-linux-x64.zip > fun.zip
     && rm fun.zip \
     && mv /usr/local/bin/fun-v* /usr/local/bin/fun
 
+RUN mv /usr/bin/update-alternatives  /usr/bin/update-alternatives-origin 
+
+COPY python3.6/build/update-alternatives.sh  /usr/bin/
+
+RUN mv /usr/bin/update-alternatives.sh /usr/bin/update-alternatives
+
 WORKDIR /code
