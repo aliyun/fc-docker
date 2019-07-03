@@ -1,4 +1,4 @@
-FROM aliyunfc/runtime-php7.2:base-1.5.3
+FROM aliyunfc/runtime-php7.2:base-1.5.4
 
 RUN apt-get update \
     && apt-get install -y vim \
