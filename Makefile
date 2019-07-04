@@ -51,6 +51,7 @@ login:
 
 build: check-runtime-env 
 	@if [ -n "$(VARIANT)" ]; then \
+		echo "docker build -f \"$(DIR)/Dockerfile\" -t \"$(IMAGE)\" ."; \
 		if ! docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" .; then \
 			exit 1; \
 		fi \
