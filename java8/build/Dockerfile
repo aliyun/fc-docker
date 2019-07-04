@@ -1,4 +1,4 @@
-FROM aliyunfc/runtime-java8:base-1.5.4
+FROM aliyunfc/runtime-java8:base-1.5.5
 
 RUN apt-get install -y vim \ 
     cmake \
