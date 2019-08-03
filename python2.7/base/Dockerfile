@@ -22,7 +22,7 @@ RUN pip install coverage
 
 # Install common libraries
 # imagemagick=8:6.9.7.4+dfsg-11+deb9u3 already exist, ignore
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install dialog -y && apt-get install -y --no-install-recommends apt-utils && apt-get install -y \
         imagemagick \
         libopencv-dev \
         fonts-wqy-zenhei=0.9.45-6 \

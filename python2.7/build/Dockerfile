@@ -1,5 +1,7 @@
 FROM aliyunfc/runtime-python2.7:base-1.5.5
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get install -y vim \ 
     cmake \
     zip \

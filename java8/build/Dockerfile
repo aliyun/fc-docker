@@ -1,4 +1,5 @@
 FROM aliyunfc/runtime-java8:base-1.5.5
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get install -y vim \ 
     cmake \

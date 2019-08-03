@@ -24,7 +24,7 @@ RUN npm install \
         --registry http://registry.npm.taobao.org
 
 # Install common libraries
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install dialog -y && apt-get install -y --no-install-recommends apt-utils && apt-get install -y \
         imagemagick  \
         libopencv-dev \
         fonts-wqy-zenhei=0.9.45-6 \
