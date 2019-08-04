@@ -20,7 +20,7 @@ RUN curl -s https://gosspublic.alicdn.com/fun/fun-v2.9.3-linux-x64.zip > fun.zip
 
 RUN mv /usr/bin/update-alternatives  /usr/bin/update-alternatives-origin 
 
-COPY ./update-alternatives  /usr/bin/
+COPY commons/update-alternatives  /usr/bin/
 
 WORKDIR /code
 
