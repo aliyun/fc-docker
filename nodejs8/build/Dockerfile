@@ -1,4 +1,4 @@
-FROM aliyunfc/runtime-nodejs8:base-1.5.5
+FROM aliyunfc/runtime-nodejs8:base-1.5.6
 
 RUN apt-get install -y vim \ 
     cmake \

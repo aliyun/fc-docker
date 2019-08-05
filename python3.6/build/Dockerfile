@@ -1,4 +1,4 @@
-FROM aliyunfc/runtime-python3.6:base-1.5.5
+FROM aliyunfc/runtime-python3.6:base-1.5.6
 
 RUN apt-get install -y vim \ 
     cmake \
