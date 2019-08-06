@@ -1,13 +1,17 @@
 FROM aliyunfc/runtime-java8:base-1.5.5
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get install -y vim \ 
-    cmake \
-    zip \
-    clang \
-    build-essential \
-    libgmp3-dev \
-    python2.7-dev 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends apt-utils \
+        dialog \
+        vim \ 
+        cmake \
+        zip \
+        clang \
+        build-essential \
+        libgmp3-dev \
+        python2.7-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN curl -s https://gosspublic.alicdn.com/fcli/fcli-v1.0.1-linux-amd64.zip > fcli.zip \
     && unzip -o fcli.zip -d /usr/local/bin/ \

@@ -24,11 +24,13 @@ RUN npm install \
         --registry http://registry.npm.taobao.org
 
 # Install common libraries
-RUN apt-get update && apt-get install dialog -y && apt-get install -y --no-install-recommends apt-utils && apt-get install -y \
+RUN apt-get update \
+    && apt-get install -y \
         imagemagick  \
         libopencv-dev \
         fonts-wqy-zenhei=0.9.45-6 \
-        fonts-wqy-microhei=0.2.0-beta-2
+        fonts-wqy-microhei=0.2.0-beta-2 \
+    && rm -rf /var/lib/apt/lists/*
 
 # Suppress opencv error: "libdc1394 error: Failed to initialize libdc1394"
 RUN ln /dev/null /dev/raw1394
