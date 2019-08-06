@@ -41,7 +41,11 @@ endif
 
 login:
 	@if [ -n "$(DOCKER_PASS)" ] && [ -n "$(DOCKER_USER)" ]; then \
-		echo "$(DOCKER_PASS)" | docker login -u $(DOCKER_USER) --password-stdin; \
+		if [ -n "$(REGISTRY)" ]; then \
+			echo "$(ALIYUN_DOCKER_PASS)" | docker login -u $(ALIYUN_DOCKER_USER) --password-stdin $(REGISTRY); \
+		else \
+			echo "$(DOCKER_PASS)" | docker login -u $(DOCKER_USER) --password-stdin; \
+		fi \
 	else \
 		if ! grep -q "index.docker.io" ~/.docker/config.json; then \
 			echo "you must provide DOCKER_USER and DOCKER_PASS for docker login."; \
@@ -79,7 +83,12 @@ build-all:
 push: check-runtime-env login
 	@if [ -n "$(VARIANT)" ]; then \
 		echo "docker push $(IMAGE)"; \
-		docker push $(IMAGE); \
+		if [ -n "$(REGISTRY)" ]; then \
+			docker tag $(IMAGE) $(REGISTRY)/$(IMAGE) && \
+			docker push $(REGISTRY)/$(IMAGE); \
+		else \
+			docker push $(IMAGE); \
+		fi \
 	else \
 		for VARIANT in "base" "build" "run" ; do \
 			make push RUNTIME=$$RUNTIME VARIANT=$$VARIANT TAG=$$TAG; \
@@ -87,7 +96,7 @@ push: check-runtime-env login
 	fi;
 
 push-all:
-	@for RUNTIME in $(RUNTIMES) ; do \
+	for RUNTIME in $(RUNTIMES) ; do \
 		for VARIANT in $(VARIANTS) ; do \
 			make push RUNTIME=$$RUNTIME VARIANT=$$VARIANT TAG=$$TAG; \
 		done \
@@ -102,9 +111,15 @@ update-latest: check-runtime-env login
 		LATEST_VERSION=$(shell (head -n 1 LATEST)); \
 		if [ "run" != "$$VARIANT" ]; then DEST_TAG=$$VARIANT; SOURCE_TAG=$$VARIANT-$$LATEST_VERSION; else DEST_TAG=latest; SOURCE_TAG=$$LATEST_VERSION; fi; \
 		if docker pull $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG; then \
-			docker pull $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG && \
-			docker tag $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG && \
-			docker push $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG; \
+			if [ -n "$(REGISTRY)" ] ; then \
+				docker pull $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG && \
+				docker tag $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG $(REGISTRY)/$(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG && \
+				docker push $(REGISTRY)/$(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG; \
+			else \
+				docker pull $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG && \
+				docker tag $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$SOURCE_TAG $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG && \
+				docker push $(REPO)/$(IMAGE_PREFIX)$(RUNTIME):$$DEST_TAG; \
+			fi \
 		fi; \
 	else \
 		for VARIANT in "base" "build" "run" ; do \
