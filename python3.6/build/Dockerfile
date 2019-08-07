@@ -26,7 +26,8 @@ RUN curl -s https://gosspublic.alicdn.com/fun/fun-v2.9.3-linux-x64.zip > fun.zip
 RUN mv /usr/bin/update-alternatives  /usr/bin/update-alternatives-origin \
  && mv /usr/bin/pycompile  /usr/bin/pycompile-origin
 
-COPY commons/update-alternatives  /usr/bin/ \
-  && commons/pycompile  /usr/bin/
+COPY commons/update-alternatives  /usr/bin/ 
+
+COPY commons/pycompile  /usr/bin/
 
 WORKDIR /code
