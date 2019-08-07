@@ -39,6 +39,8 @@ RUN pip install -U six
 RUN pip install -U pip && pip install -U setuptools
 
 RUN pip install \
+    numpy==1.13.3 \
+    scipy==1.0.0.0 \
     wand==0.4.4 \
     opencv-python==3.3.0.10 \
     matplotlib==2.0.2 \
