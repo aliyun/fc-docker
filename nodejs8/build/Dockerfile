@@ -2,7 +2,7 @@ FROM aliyunfc/runtime-nodejs8:base-1.5.5
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends apt-utils \
+    && apt-get install -y apt-utils \
         dialog \
         vim \ 
         cmake \
