@@ -1,7 +1,11 @@
 FROM aliyunfc/runtime-php7.2:base-1.5.6
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update \
-    && apt-get install -y vim \
+    && apt-get install -y apt-utils \
+        dialog \
+        vim \
         cmake \
         zip \
         clang \
@@ -19,9 +23,12 @@ RUN curl -s https://gosspublic.alicdn.com/fun/fun-v2.9.3-linux-x64.zip > fun.zip
     && rm fun.zip \
     && mv /usr/local/bin/fun-v* /usr/local/bin/fun
 
-RUN mv /usr/bin/update-alternatives  /usr/bin/update-alternatives-origin 
+RUN mv /usr/bin/update-alternatives  /usr/bin/update-alternatives-origin \
+ && mv /usr/bin/pycompile  /usr/bin/pycompile-origin
 
-COPY commons/update-alternatives  /usr/bin/
+COPY commons/update-alternatives  /usr/bin/ 
+
+COPY commons/pycompile  /usr/bin/
 
 WORKDIR /code
 

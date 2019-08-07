@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "The command \`pycompile $*\` is ignored by fc-docker. If you have any problem, please submit an issue to  https://github.com/aliyun/fc-docker/issues ."
+exit 0
+

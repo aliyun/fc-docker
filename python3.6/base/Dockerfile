@@ -22,11 +22,14 @@ RUN pip install coverage
 
 # Install common libraries
 # imagemagick=8:6.9.7.4+dfsg-11+deb9u3 already installed
-RUN apt-get update && apt-get install -y \
+RUN apt-get update \
+    && apt-get install -y \
         imagemagick \
         libopencv-dev=2.4.9.1+dfsg-1+deb8u2 \
         fonts-wqy-zenhei=0.9.45-6 \
-        fonts-wqy-microhei=0.2.0-beta-2 
+        fonts-wqy-microhei=0.2.0-beta-2 \
+    && rm -rf /var/lib/apt/lists/*
+
         
 # Suppress opencv error: "libdc1394 error: Failed to initialize libdc1394"
 RUN ln /dev/null /dev/raw1394

@@ -29,12 +29,14 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
 COPY commons/debian-stretch-sources.list /etc/apt/sources.list
 
 # Install common libraries
-RUN apt-get update && apt-get install -y \
+RUN apt-get update \
+    && apt-get install -y \
         imagemagick \
         make=4.1-9.1 \
         libopencv-dev=2.4.9.1+dfsg1-2 \
         fonts-wqy-zenhei=0.9.45-6 \
-        fonts-wqy-microhei=0.2.0-beta-2
+        fonts-wqy-microhei=0.2.0-beta-2 \
+    && rm -rf /var/lib/apt/lists/*
         
 RUN ln -s /bin/bash /usr/bin/bash \
     && ln -s /bin/grep /usr/bin/grep
