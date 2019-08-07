@@ -35,16 +35,29 @@ case ${command} in
             unset $key
         done
 
-        /usr/bin/java ${DEBUG_OPTIONS} -cp ${fc_runtime_root_path}/*:${fc_runtime_root_path} \
-             -Dlog4j.configurationFile=${fc_server_path}/fc-cagent-log4j2.xml \
-             -Dfc.runtime.system.path=${fc_runtime_system_path} \
-             -Dfc.func.code.path=${fc_func_code_path} \
-             -Dfile.encoding=UTF-8 \
-             -Dsun.jnu.encoding=UTF-8 \
-             -Dfc.server.log.path=${fc_server_log_path} \
-             -Xmx${fc_max_server_heap_size} -Xms${fc_min_server_heap_size} \
-             -Dsun.net.httpserver.idleInterval=3600  \
-             aliyun.serverless.runtime.ContainerAgent
+        params="${DEBUG_OPTIONS} "
+        params+="-cp ${fc_runtime_root_path}/*:${fc_runtime_root_path} "
+        if [[ "${fc_enable_log4j_config}" == "true" ]]; then
+           params+="-Dlog4j.configurationFile=${fc_server_path}/src/main/resources/log4j2.xml "
+        fi
+        params+="-Dfc.runtime.system.path=${fc_runtime_system_path} "
+        params+="-Dfc.func.code.path=${fc_func_code_path} "
+        params+="-Dfile.encoding=UTF-8 "
+        params+="-Dsun.jnu.encoding=UTF-8 "
+        params+="-Dfc.server.log.path=${fc_server_log_path} "
+        params+="-Xmx${fc_max_server_heap_size} -Xms${fc_min_server_heap_size} "
+
+        if [[ "${fc_enable_new_java_ca}" == "true" ]]; then
+            params+="-XX:+UseSerialGC "
+            params+="-Xshare:on "
+            params+="-Dfc.enable.debug.java.ca=${fc_enable_debug_java_ca} "
+            params+="-Djava.security.egd=file:/dev/./urandom "
+            /usr/bin/java $params aliyun.serverless.runtime.http.AliFCAgent
+        else
+            params+="-Dsun.net.httpserver.idleInterval=3600 "
+            /usr/bin/java $params aliyun.serverless.runtime.ContainerAgent
+        fi
+
         ;;
     "help")
         Help
