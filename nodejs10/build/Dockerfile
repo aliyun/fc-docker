@@ -1,11 +1,9 @@
-FROM aliyunfc/runtime-nodejs6:base-1.5.6
-
-ENV DEBIAN_FRONTEND=noninteractive
+FROM aliyunfc/runtime-nodejs10:base-1.5.6
 
 RUN apt-get update \
     && apt-get install -y apt-utils \
         dialog \
-        vim \
+        vim \ 
         cmake \
         zip \
         clang \
@@ -26,8 +24,7 @@ RUN curl -s https://gosspublic.alicdn.com/fun/fun-v2.16.1-linux-x64.zip > fun.zi
 RUN mv /usr/bin/update-alternatives  /usr/bin/update-alternatives-origin \
  && mv /usr/bin/pycompile  /usr/bin/pycompile-origin
 
-COPY commons/update-alternatives  /usr/bin/ 
-
+COPY commons/update-alternatives  /usr/bin/
 COPY commons/pycompile  /usr/bin/
 
 WORKDIR /code

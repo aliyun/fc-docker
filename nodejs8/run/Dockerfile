@@ -5,6 +5,6 @@ RUN rm -rf /var/runtime /var/lang && \
   rm -rf /var/fc/runtime/*/var/log/*
 
 COPY commons/function-compute-mock.sh /var/fc/runtime/nodejs8/mock.sh
-COPY nodejs8/run/agent.sh /var/fc/runtime/nodejs8/agent.sh
+COPY commons/nodejs-agent.sh /var/fc/runtime/nodejs8/agent.sh
 
 ENTRYPOINT ["/var/fc/runtime/nodejs8/mock.sh"]

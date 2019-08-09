@@ -8,7 +8,7 @@ fc docker 是对线上函数运行环境的完全模拟，并且能够让您在�
 
 您能够通过 fc-docker 在本地机器开发测试您的函数，并且该函数的运行结果会与线上结果一致。
 
-目前已经获得支持的 fc runtime 有：nodejs6、nodejs8、python2.7、python3.6、java8、php7.2。
+目前已经获得支持的 fc runtime 有：nodejs6、nodejs8、nodejs10、python2.7、python3.6、java8、php7.2。
 
 除了可以运行您的函数，本项目还包含 runtime 对应的用于编译项目的镜像。他们包含了常用的编译工具打包工具，比如 gcc、g++、npm、maven 等。
 
@@ -93,3 +93,5 @@ docker run --rm -it -e FC_ACCESS_KEY_ID=xxxxxxx -e FC_ACCESS_KEY_SECRET=xxxxxxxx
 - clang
 - libgmp3-dev
 - python2.7-dev
+- apt-utils
+- dialog
