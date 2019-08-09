@@ -7,6 +7,17 @@ Resources:
       Description: 'dump service'
       Policies:
         - AliyunOSSFullAccess
+    dump-nodejs10:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: dump-nodejs.handler
+        Runtime: nodejs10
+        CodeUri: ./dump-nodejs
+        Timeout: 3
+        EnvironmentVariables:
+          Bucket: 'my-fc-testt'
+          OSSRegion: 'oss-cn-shanghai'
+          FileName: 'nodejs10.tgz'
     dump-nodejs8:
       Type: 'Aliyun::Serverless::Function'
       Properties:
