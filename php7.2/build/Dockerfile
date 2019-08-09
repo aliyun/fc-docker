@@ -1,4 +1,4 @@
-FROM aliyunfc/runtime-php7.2:base-1.5.6
+FROM aliyunfc/runtime-php7.2:base-1.5.7
 
 ENV DEBIAN_FRONTEND=noninteractive
 
