@@ -2,13 +2,24 @@
 
 [![Build Status](https://travis-ci.org/aliyun/fc-docker.svg?branch=master)](https://travis-ci.org/aliyun/fc-docker)
 
+
 fc docker 是对线上函数运行环境的完全模拟，并且能够让您在本地编译、运行函数。
 
 ![fc docker nodejs6](./figures/fc-docker-nodejs6.png)
 
 您能够通过 fc-docker 在本地机器开发测试您的函数，并且该函数的运行结果会与线上结果一致。
 
-目前已经获得支持的 fc runtime 有：nodejs6、nodejs8、nodejs10、python2.7、python3.6、java8、php7.2。
+目前已经获得支持的 fc runtime 
+
+Runtime | Image
+------------ | -------------
+[nodejs6](https://hub.docker.com/r/aliyunfc/runtime-nodejs6/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs6?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs6/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-nodejs6.svg)
+[nodejs8](https://hub.docker.com/r/aliyunfc/runtime-nodejs8/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs8?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs8/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-nodejs8.svg)
+[nodejs10](https://hub.docker.com/r/aliyunfc/runtime-nodejs10/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs10?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs10/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-nodejs10.svg)
+[python2.7](https://hub.docker.com/r/aliyunfc/runtime-python2.7/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python2.7?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python2.7/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-python2.7.svg)
+[python3.6](https://hub.docker.com/r/aliyunfc/runtime-python3.6/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python3.6?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python3.6/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-python3.6.svg)
+[java8](https://hub.docker.com/r/aliyunfc/runtime-java8/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-java8?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-java8/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-java8.svg)
+[php7.2](https://hub.docker.com/r/aliyunfc/runtime-php7.2/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-php7.2?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-php7.2/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-php7.2.svg)
 
 除了可以运行您的函数，本项目还包含 runtime 对应的用于编译项目的镜像。他们包含了常用的编译工具打包工具，比如 gcc、g++、npm、maven 等。
 
