@@ -49,7 +49,6 @@ func waitHostPortAvailable(hostport string) error {
 
 	for {
 		conn, _ := net.DialTimeout("tcp", hostport, time.Duration(10)*time.Minute)
-
 		if conn != nil {
 			return conn.Close()
 		}
@@ -106,7 +105,6 @@ func getRequestBody() []byte {
 
 	if *stdin {
 		stdin, err := ioutil.ReadAll(os.Stdin)
-
 		checkError(err)
 
 		return stdin
@@ -116,9 +114,7 @@ func getRequestBody() []byte {
 
 	if *eventDecode {
 		decodedEvent, err := base64.StdEncoding.DecodeString(*event)
-
 		checkError(err)
-
 		requestBody = decodedEvent
 	} else {
 		requestBody = []byte(requestBody)
@@ -133,7 +129,6 @@ func main() {
 	flag.Parse()
 
 	cmd := exec.Command("sh", "-c", fmt.Sprintf("ps aux | grep \"%s\"  | grep -q -v grep", bootstrap))
-
 	_, err := cmd.CombinedOutput()
 
 	if err != nil {
@@ -141,14 +136,10 @@ func main() {
 
 		// start process
 		bootstrapExe = exec.Command("sh", "-c", fmt.Sprintf("%s", bootstrap))
-
 		bootstrapExe.Stdout = os.Stdout
 		bootstrapExe.Stderr = os.Stderr
 
-		fmt.Println("#### aaaaaa")
-
 		err := bootstrapExe.Start()
-
 		checkError(err)
 
 		if *serverMode {
@@ -179,11 +170,9 @@ func convertToPlainResponse(resp *http.Response, body []byte) bytes.Buffer {
 	var buffer bytes.Buffer
 
 	fmt.Fprintf(&buffer, "%s %s\r\n", resp.Proto, resp.Status)
-
 	resp.Header.Write(&buffer)
 
 	buffer.WriteString("\r\n")
-
 	buffer.Write(body)
 
 	return buffer
@@ -220,8 +209,6 @@ func updateHttpReqByHttpParams(req *http.Request) {
 
 	json.Unmarshal(decodeBytes, &httpParams)
 
-	fmt.Println(httpParams)
-
 	req.URL, err = url.Parse(fmt.Sprintf("http://localhost:%d%s", serverPort, httpParams.RequestURI))
 
 	checkError(err)
@@ -247,13 +234,11 @@ func doRequest(req *http.Request) *http.Response {
 
 func request(path, method, controlPath string, requestBody []byte) {
 	startTime := time.Now().UnixNano()
-
 	reqeustId := uuid.New().String()
 
 	memoryLimit := queryMemoryLimit()
 
 	req, err := http.NewRequest(method, fmt.Sprintf("http://localhost:%d%s", serverPort, path), nil)
-
 	checkError(err)
 
 	addFcReqHeaders(req, reqeustId, controlPath)
@@ -270,16 +255,13 @@ func request(path, method, controlPath string, requestBody []byte) {
 
 	body, err := ioutil.ReadAll(resp.Body)
 	checkError(err)
-
 	defer resp.Body.Close()
 
 	endTime := time.Now().UnixNano()
-
 	billedTime := (endTime - startTime) / int64(time.Millisecond)
 
 	if *httpFlag {
 		responseBuffer := convertToPlainResponse(resp, body)
-
 
 		fmt.Println("--------------------response begin-----------------")
 		fmt.Println(base64.StdEncoding.EncodeToString([]byte(responseBuffer.Bytes())))
