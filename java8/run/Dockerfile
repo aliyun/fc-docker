@@ -7,5 +7,4 @@ RUN rm -rf /var/runtime /var/lang && \
 COPY commons/function-compute-mock.sh /var/fc/runtime/java8/mock.sh
 COPY java8/run/agent.sh /var/fc/runtime/java8/agent.sh
 
-
 ENTRYPOINT ["/var/fc/runtime/java8/mock.sh"]
