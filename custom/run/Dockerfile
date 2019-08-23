@@ -12,7 +12,7 @@ FROM aliyunfc/runtime-custom:base-1.5.7
 
 RUN apt-get update \
   && apt-get install -y procps --no-install-recommends \
-  && rm -r /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /code/mock /var/fc/runtime/custom/mock
 

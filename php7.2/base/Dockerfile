@@ -51,7 +51,7 @@ RUN apt-get update && apt-get install -y \
         libmagickwand-dev \
         libmagickcore-dev \
         libmemcached-dev=1.0.18-4 \
-    --no-install-recommends && rm -r /var/lib/apt/lists/*
+    --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 # phpunit and xdebug
 RUN wget -O phpunit https://phar.phpunit.de/phpunit-7.2.7.phar

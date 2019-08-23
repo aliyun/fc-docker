@@ -9,7 +9,7 @@ RUN echo "deb http://deb.debian.org/debian/ stretch main contrib non-free" > /et
 
 RUN apt-get update && apt-get install -y \
         curl \
-    --no-install-recommends && rm -r /var/lib/apt/lists/*
+    --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh && bash nodesource_setup.sh
 RUN apt install -y nodejs --no-install-recommends && rm -rf nodesource_setup.sh
@@ -20,7 +20,7 @@ RUN mkdir -p /usr/share/man/man1
 RUN apt-get update && apt-get install -y \
         openjdk-8-jdk=8u222-b10-1~deb9u1 \
         build-essential=12.3 \
-    --no-install-recommends && rm -r /var/lib/apt/lists/*
+    --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 # Generate usernames
 RUN for i in $(seq 10000 10999); do \
