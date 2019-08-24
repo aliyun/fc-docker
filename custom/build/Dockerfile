@@ -1,5 +1,4 @@
-FROM aliyunfc/runtime-python2.7:base-1.5.7
-
+FROM aliyunfc/runtime-custom:base-1.5.7
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
@@ -11,9 +10,7 @@ RUN apt-get update \
         clang \
         build-essential \
         libgmp3-dev \
-        python2.7-dev \
     && rm -rf /var/lib/apt/lists/*
-
 
 RUN curl -s https://gosspublic.alicdn.com/fcli/fcli-v1.0.2-linux-amd64.zip > fcli.zip \
     && unzip -o fcli.zip -d /usr/local/bin/ \
