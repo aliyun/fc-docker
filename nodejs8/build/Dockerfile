@@ -22,7 +22,7 @@ RUN curl -s https://gosspublic.alicdn.com/fun/fun-v2.16.5-linux-x64.zip > fun.zi
     && rm fun.zip \
     && mv /usr/local/bin/fun-v* /usr/local/bin/fun
 
-RUN curl -s https://gosspublic.alicdn.com/fun-install/fun-install-v0.0.1-linux-64.zip > fun-install.zip \
+RUN curl -s https://gosspublic.alicdn.com/fun-install/fun-install-v0.1.0-linux-64.zip > fun-install.zip \
     && unzip -o fun-install.zip -d /usr/local/bin/ \
     && rm fun-install.zip \
     && mv /usr/local/bin/fun-install-v* /usr/local/bin/fun-install

@@ -2,7 +2,7 @@
 args=($*)
 install="--install"
 slave="--slave"
-prefix="/code/.fun/root"
+prefix=${FUN_INSTALL_PREFIX:-"/code/.fun/root"}
 
 if [ "$FUN_INSTALL_LOCAL" = "true" ]; then
     for ((i = 0; i < ${#args[@]}; i++)); do
@@ -11,10 +11,10 @@ if [ "$FUN_INSTALL_LOCAL" = "true" ]; then
             args[i + 3]=$prefix${args[i + 3]}
         fi
     done
-    mkdir -p /code/.fun/root/usr/bin
-    mkdir -p /code/.fun/root/etc/alternatives
+    mkdir -p $prefix/usr/bin
+    mkdir -p $prefix/etc/alternatives
 
-    update-alternatives-origin ${args[@]} --altdir /code/.fun/root/etc/alternatives
+    update-alternatives-origin ${args[@]} --altdir $prefix/etc/alternatives
 else
     update-alternatives-origin $*
 fi
