@@ -1,4 +1,4 @@
-FROM aliyunfc/runtime-python3.6:base-1.5.8
+FROM aliyunfc/runtime-python3.6:base-1.6.0
 
 ENV DEBIAN_FRONTEND=noninteractive
 

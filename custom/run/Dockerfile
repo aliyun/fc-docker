@@ -8,7 +8,7 @@ RUN go mod download
 
 RUN GOARCH=amd64 GOOS=linux go build -o mock main.go
 
-FROM aliyunfc/runtime-custom:base-1.5.8
+FROM aliyunfc/runtime-custom:base-1.6.0
 
 RUN apt-get update \
   && apt-get install -y procps --no-install-recommends \

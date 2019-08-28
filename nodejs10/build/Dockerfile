@@ -1,4 +1,4 @@
-FROM aliyunfc/runtime-nodejs10:base-1.5.8
+FROM aliyunfc/runtime-nodejs10:base-1.6.0
 
 RUN apt-get update \
     && apt-get install -y apt-utils \

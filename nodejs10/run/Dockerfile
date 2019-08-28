@@ -1,4 +1,4 @@
-FROM aliyunfc/runtime-nodejs10:base-1.5.8
+FROM aliyunfc/runtime-nodejs10:base-1.6.0
 
 RUN rm -rf /var/runtime /var/lang && \
   curl https://my-fc-testt.oss-cn-shanghai.aliyuncs.com/nodejs10.tgz | tar -zx -C / && \

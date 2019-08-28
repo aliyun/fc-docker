@@ -1,4 +1,4 @@
-FROM aliyunfc/runtime-custom:base-1.5.8
+FROM aliyunfc/runtime-custom:base-1.6.0
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
