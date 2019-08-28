@@ -1,4 +1,4 @@
-FROM aliyunfc/runtime-python3.6:base-1.5.7
+FROM aliyunfc/runtime-python3.6:base-1.5.8
 
 RUN pip install ptvsd
 

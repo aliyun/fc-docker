@@ -5,6 +5,11 @@ set -e
 RUNTIME=${RUNTIME:?missing runtime}
 IMAGE=${IMAGE:?image missing}
 
+if [ ! -d "$(pwd)/demos/$RUNTIME" ]; then
+    echo "folder $(pwd)/demos/$RUNTIME not exist, will skip related test"
+    exit 0
+fi
+
 if [[ "$RUNTIME" = "java8" ]]; then 
     MOUNT=$(pwd)/demos/$RUNTIME/target
     HANDLER=examples.Hello::handleRequest
