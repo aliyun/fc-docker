@@ -56,7 +56,7 @@ login:
 build: check-runtime-env 
 	@if [ -n "$(VARIANT)" ]; then \
 		echo "docker build -f \"$(DIR)/Dockerfile\" -t \"$(IMAGE)\" ."; \
-		if ! docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" .; then \
+		if ! docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" --build-arg TAG=base-$(TAG) .; then \
 			exit 1; \
 		fi \
 	else \

@@ -1,4 +1,5 @@
-FROM aliyunfc/runtime-nodejs10:base-1.6.0
+ARG TAG="latest"
+FROM aliyunfc/runtime-nodejs10:${TAG}
 
 RUN apt-get update \
     && apt-get install -y apt-utils \

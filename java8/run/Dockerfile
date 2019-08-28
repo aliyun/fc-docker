@@ -1,4 +1,5 @@
-FROM aliyunfc/runtime-java8:base
+ARG TAG="latest"
+FROM aliyunfc/runtime-java8:${TAG}
 
 RUN rm -rf /var/runtime /var/lang && \
   curl https://my-fc-testt.oss-cn-shanghai.aliyuncs.com/java8.tgz | tar -zx -C / && \

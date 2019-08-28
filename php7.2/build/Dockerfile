@@ -1,4 +1,5 @@
-FROM aliyunfc/runtime-php7.2:base-1.6.0
+ARG TAG="latest"
+FROM aliyunfc/runtime-php7.2:${TAG}
 
 ENV DEBIAN_FRONTEND=noninteractive
 

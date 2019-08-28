@@ -1,6 +1,6 @@
-FROM aliyunfc/runtime-java8:base-1.6.0
+ARG TAG="latest"
+FROM aliyunfc/runtime-java8:${TAG}
 ENV DEBIAN_FRONTEND=noninteractive
-
 
 RUN apt-get update \
     && apt-get install -y apt-utils \

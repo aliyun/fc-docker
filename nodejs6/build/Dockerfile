@@ -1,4 +1,5 @@
-FROM aliyunfc/runtime-nodejs6:base-1.6.0
+ARG TAG="latest"
+FROM aliyunfc/runtime-nodejs6:${TAG}
 
 ENV DEBIAN_FRONTEND=noninteractive
 

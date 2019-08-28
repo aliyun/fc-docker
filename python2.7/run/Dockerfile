@@ -1,4 +1,5 @@
-FROM aliyunfc/runtime-python2.7:base
+ARG TAG="latest"
+FROM aliyunfc/runtime-python2.7:${TAG}
 
 RUN pip install ptvsd
 

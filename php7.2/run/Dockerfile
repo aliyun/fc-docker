@@ -1,5 +1,5 @@
-
-FROM aliyunfc/runtime-php7.2:base-1.6.0
+ARG TAG="latest"
+FROM aliyunfc/runtime-php7.2:${TAG}
 
 RUN rm -rf /var/runtime /var/lang && \
   curl https://my-fc-testt.oss-cn-shanghai.aliyuncs.com/php7.2.tgz | tar -zx -C / && \

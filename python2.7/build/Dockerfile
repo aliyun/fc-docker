@@ -1,4 +1,5 @@
-FROM aliyunfc/runtime-python2.7:base-1.6.0
+ARG TAG="latest"
+FROM aliyunfc/runtime-python2.7:${TAG}
 
 ENV DEBIAN_FRONTEND=noninteractive
 

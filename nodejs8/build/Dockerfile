@@ -1,4 +1,5 @@
-FROM aliyunfc/runtime-nodejs8:base-1.6.0
+ARG TAG="latest"
+FROM aliyunfc/runtime-nodejs8:${TAG}
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
