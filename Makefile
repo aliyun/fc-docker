@@ -9,6 +9,10 @@ REPO ?= aliyunfc
 RUNTIMES ?= java8 nodejs6 nodejs8 python2.7 python3.6 php7.2 custom
 VARIANTS ?= base build run
 
+FUN_VERSION ?= v2.16.5
+FCLI_VERSION ?= v1.0.2
+FUN_INSTALL_VERSION ?= v0.1.0
+
 # build or empty
 TAG_PREFIX := $(VARIANT:run%=%)
 
@@ -56,7 +60,7 @@ login:
 build: check-runtime-env 
 	@if [ -n "$(VARIANT)" ]; then \
 		echo "docker build -f \"$(DIR)/Dockerfile\" -t \"$(IMAGE)\" ."; \
-		if ! docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" .; then \
+		if ! docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" --build-arg TAG=base-$(TAG) --build-arg FUN_VERSION=${FUN_VERSION} --build-arg FCLI_VERSION=${FCLI_VERSION} --build-arg FUN_INSTALL_VERSION=${FUN_INSTALL_VERSION}  .; then \
 			exit 1; \
 		fi \
 	else \

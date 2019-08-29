@@ -1,4 +1,5 @@
-FROM aliyunfc/runtime-nodejs10:base-1.5.8
+ARG TAG="latest"
+FROM aliyunfc/runtime-nodejs10:${TAG}
 
 RUN rm -rf /var/runtime /var/lang && \
   curl https://my-fc-testt.oss-cn-shanghai.aliyuncs.com/nodejs10.tgz | tar -zx -C / && \
