@@ -1,4 +1,5 @@
-FROM aliyunfc/runtime-custom:base-1.6.0
+ARG TAG="latest"
+FROM aliyunfc/runtime-custom:${TAG}
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
