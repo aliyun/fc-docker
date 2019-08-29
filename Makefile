@@ -59,7 +59,7 @@ login:
 
 build: check-runtime-env 
 	@if [ -n "$(VARIANT)" ]; then \
-		echo "docker build -f \"$(DIR)/Dockerfile\" -t \"$(IMAGE)\" ."; \
+		echo "docker build -f \"$(DIR)/Dockerfile\" -t \"$(IMAGE)\" --build-arg TAG=base-$(TAG) --build-arg FUN_VERSION=${FUN_VERSION} --build-arg FCLI_VERSION=${FCLI_VERSION} --build-arg FUN_INSTALL_VERSION=${FUN_INSTALL_VERSION} ."; \
 		if ! docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" --build-arg TAG=base-$(TAG) --build-arg FUN_VERSION=${FUN_VERSION} --build-arg FCLI_VERSION=${FCLI_VERSION} --build-arg FUN_INSTALL_VERSION=${FUN_INSTALL_VERSION}  .; then \
 			exit 1; \
 		fi \

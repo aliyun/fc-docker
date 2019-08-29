@@ -1,3 +1,4 @@
+ARG TAG="latest"
 FROM golang:1.12.9-stretch as builder
 
 COPY commons/mocker /code
@@ -8,7 +9,6 @@ RUN go mod download
 
 RUN GOARCH=amd64 GOOS=linux go build -o mock main.go
 
-ARG TAG="latest"
 FROM aliyunfc/runtime-custom:${TAG}
 
 RUN apt-get update \
