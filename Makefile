@@ -28,6 +28,8 @@ IMAGE := $(REPO)/$(IMAGE_PREFIX)$(RUNTIME)$(IMAGE_TAG)
 
 DIR := $(RUNTIME)$(if $(VARIANT),/$(VARIANT))
 
+BUILD_ARG_TAG := $(if $(TAG),base-$(TAG),base)
+
 check-runtime-env:
 ifndef RUNTIME
 	$(error RUNTIME is undefined)
@@ -59,8 +61,8 @@ login:
 
 build: check-runtime-env 
 	@if [ -n "$(VARIANT)" ]; then \
-		echo "docker build -f \"$(DIR)/Dockerfile\" -t \"$(IMAGE)\" --build-arg TAG=base-$(TAG) --build-arg FUN_VERSION=${FUN_VERSION} --build-arg FCLI_VERSION=${FCLI_VERSION} --build-arg FUN_INSTALL_VERSION=${FUN_INSTALL_VERSION} ."; \
-		if ! docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" --build-arg TAG=base-$(TAG) --build-arg FUN_VERSION=${FUN_VERSION} --build-arg FCLI_VERSION=${FCLI_VERSION} --build-arg FUN_INSTALL_VERSION=${FUN_INSTALL_VERSION}  .; then \
+		echo "docker build -f \"$(DIR)/Dockerfile\" -t \"$(IMAGE)\" --build-arg TAG=$(BUILD_ARG_TAG) --build-arg FUN_VERSION=${FUN_VERSION} --build-arg FCLI_VERSION=${FCLI_VERSION} --build-arg FUN_INSTALL_VERSION=${FUN_INSTALL_VERSION} ."; \
+		if ! docker build -f "$(DIR)/Dockerfile" -t "$(IMAGE)" --build-arg TAG=$(BUILD_ARG_TAG) --build-arg FUN_VERSION=${FUN_VERSION} --build-arg FCLI_VERSION=${FCLI_VERSION} --build-arg FUN_INSTALL_VERSION=${FUN_INSTALL_VERSION}  .; then \
 			exit 1; \
 		fi \
 	else \
