@@ -2,6 +2,7 @@ ARG TAG="latest"
 FROM aliyunfc/runtime-python3.6:${TAG}
 
 RUN pip install ptvsd
+RUN pip install pydevd
 
 RUN rm -rf /var/runtime /var/lang && \
   curl https://my-fc-testt.oss-cn-shanghai.aliyuncs.com/python3.6.tgz | tar -zx -C / && \
