@@ -3,6 +3,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 MAINTAINER alibaba-serverless-fc
 
+RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
+
 # Environment variables.
 ENV FC_SERVER_PATH=/var/fc/runtime/nodejs6 \
     FC_FUNC_CODE_PATH=/code \ 
@@ -37,14 +39,14 @@ RUN ln /dev/null /dev/raw1394
 
 # Install thrid party libraries for user function.
 RUN npm install --global --unsafe-perm \
-        --loglevel verbose \
+        --registry http://registry.npm.taobao.org \
         co@4.6.0 \
         gm@1.23.0 \
         ali-oss@4.10.1 \
         aliyun-sdk@1.11.10 \
         @alicloud/fc@1.2.2 \
-        opencv@6.0.0 \
-        tablestore@4.2.0\
+        opencv@6.2.0 \
+        tablestore@4.2.0 \
         @alicloud/fc2@2.1.0 \
         body@5.1.0 \
         raw-body@2.3.2 \

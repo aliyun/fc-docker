@@ -47,10 +47,10 @@ RUN pip install \
     cbor==1.0.0 \
     aliyun-fc==0.6 \
     meinheld==0.6.1 \
-    aliyun-fc2==2.1.0 \
-    tablestore==4.6.0 \
-    aliyun-python-sdk-core==2.9.5 \
-    aliyun-python-sdk-iot==6.1.0 \
+    aliyun-fc2==2.2.0 \
+    tablestore==5.1.0 \
+    aliyun-python-sdk-core-v3==2.13.3 \
+    aliyun-python-sdk-iot==7.8.0 \
     aliyun-python-sdk-ecs==4.10.1 \
     aliyun-python-sdk-vpc==3.0.2 \
     aliyun-python-sdk-rds==2.1.4 \
@@ -59,10 +59,14 @@ RUN pip install \
     aliyun-log-python-sdk==0.6.38 \
     aliyun-python-sdk-ram==3.0.0 \
     aliyun-python-sdk-sts==3.0.0 \
+    aliyun-python-sdk-fnf==1.0.0 \
     aliyun-mns==1.1.5 \
-    aliyun-python-sdk-cdn==2.6.2 \
+    aliyun-python-sdk-cdn==3.0.8 \
     pydatahub==2.11.2 \
     oss2==2.6.0
+
+# iot sdk support 6.1.0
+RUN curl --connect-timeout 60  -m 3600 -fsSL http://lambda-public.oss-cn-hangzhou.aliyuncs.com/lambda/aliyunsdkiot_py3_v20170420.tar.gz | tar -xzC /usr/local/lib/python3.6/site-packages/aliyunsdkiot/request/
 
 # Generate usernames
 RUN for i in $(seq 10000 10999); do \
