@@ -43,9 +43,9 @@ RUN npm install --global --unsafe-perm \
         ali-oss@4.10.1 \
         aliyun-sdk@1.11.10 \
         @alicloud/fc@1.2.2 \
-        opencv@6.0.0 \
-        tablestore@4.0.11\
-        @alicloud/fc2@2.0.5 \
+        opencv@6.2.0 \
+        tablestore@4.2.0\
+        @alicloud/fc2@2.1.0 \
         body@5.1.0 \
         raw-body@2.3.2 \
         ali-mns@2.6.5 \
