@@ -66,7 +66,7 @@ RUN pip install \
     oss2==2.6.0
 
 # iot sdk support 6.1.0
-RUN curl --connect-timeout 60  -m 3600 -fsSL http://lambda-public.oss-cn-hangzhou.aliyuncs.com/lambda/aliyunsdkiot_py3_v20170420.tar.gz | tar -xzC /usr/local/lib/python3.6/site-packages/aliyunsdkiot/request/
+RUN curl --connect-timeout 60  -m 3600 -fsSL http://lambda-public.oss-cn-hangzhou.aliyuncs.com/lambda/aliyunsdkiot_py2_v20170420.tar.gz | tar -xzC /usr/local/lib/python2.7/site-packages/aliyunsdkiot/request/
 
 # Generate usernames
 RUN for i in $(seq 10000 10999); do \
