@@ -37,7 +37,7 @@ fi
 command=$1
 case ${command} in
     "start")
-        python -W ignore ${DEBUG_OPTIONS} ${FC_SERVER_PATH}/src/server.py -u
+        python -W ignore ${DEBUG_OPTIONS} ${FC_SERVER_PATH}/src/server.py
         ;;
     "help")
         Help
