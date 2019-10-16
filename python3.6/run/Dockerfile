@@ -1,6 +1,8 @@
 ARG TAG="latest"
 FROM aliyunfc/runtime-python3.6:${TAG}
 
+ENV PYTHONUNBUFFERED=1
+
 RUN pip install ptvsd
 RUN pip install pydevd
 
