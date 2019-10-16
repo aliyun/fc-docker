@@ -2,7 +2,6 @@ ARG TAG="latest"
 FROM aliyunfc/runtime-python2.7:${TAG}
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV PYTHONUNBUFFERED=1
 
 RUN apt-get update \
     && apt-get install -y apt-utils \
