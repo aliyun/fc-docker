@@ -38,6 +38,7 @@ RUN ln /dev/null /dev/raw1394
 RUN pip install -U six
 RUN pip install -U pip && pip install -U setuptools
 
+# fc-docker fix: cprotobuf 0.1.10, dependency of pydatahub, could not be installed, so using 0.1.9
 RUN pip install \
     numpy==1.13.3 \
     scipy==1.0.0.0 \
@@ -63,6 +64,7 @@ RUN pip install \
     aliyun-python-sdk-fnf==1.0.0 \
     aliyun-mns==1.1.5 \
     aliyun-python-sdk-cdn==3.0.8 \
+    cprotobuf==0.1.9 \
     pydatahub==2.11.2 \
     oss2==2.6.0
 
