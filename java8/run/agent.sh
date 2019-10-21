@@ -49,7 +49,7 @@ case ${command} in
 
         if [[ "${fc_enable_new_java_ca}" == "true" ]]; then
             params+="-XX:+UseSerialGC "
-            params+="-Xshare:on "
+            params+="-Xshare:auto " # fc-docker fix: fix java http trigger could not debug bug
             params+="-Dfc.enable.debug.java.ca=${fc_enable_debug_java_ca} "
             params+="-Djava.security.egd=file:/dev/./urandom "
             /usr/bin/java $params aliyun.serverless.runtime.http.AliFCAgent
