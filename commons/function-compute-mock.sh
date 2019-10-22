@@ -72,11 +72,16 @@ curlUtil() {
         -H "Expect: " \
         -H "x-fc-request-id: $requestId" \
         -H "x-fc-function-name: ${FC_FUNCTION_NAME:-fc-docker}" \
-        -H "x-fc-function-memory: ${memoryLimit}" \
-        -H "x-fc-function-timeout: ${timeout}" \
-        -H "x-fc-initialization-timeout: ${initializationTimeout}" \
-        -H "x-fc-function-initializer: ${initializer}" \
-        -H "x-fc-function-handler: ${handler}" \
+        -H "x-fc-function-memory: ${FC_MEMORY_SIZE}" \
+        -H "x-fc-function-timeout: ${FC_TIMEOUT}" \
+        -H "x-fc-initialization-timeout: ${FC_INITIALIZATIONIMEOUT}" \
+        -H "x-fc-function-initializer: ${FC_INITIALIZER}" \
+        -H "x-fc-function-handler: ${FC_HANDLER}" \
+        -H "x-fc-account-id: ${FC_ACCOUND_ID}" \
+        -H "x-fc-region: ${FC_REGION}" \
+        -H "x-fc-service-name: ${FC_SERVICE_NAME}" \
+        -H "x-fc-service-logproject: ${FC_SERVICE_LOG_PROJECT}" \
+        -H "x-fc-service-logstore: ${FC_SERVICE_LOG_STORE}" \
         -H "x-fc-access-key-id: ${FC_ACCESS_KEY_ID}" \
         -H "x-fc-access-key-secret: ${FC_ACCESS_KEY_SECRET}" \
         -H "x-fc-security-token: ${FC_SECURITY_TOKEN}" \
