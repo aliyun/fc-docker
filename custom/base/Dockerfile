@@ -18,7 +18,7 @@ RUN npm cache clean --force
 # https://github.com/puckel/docker-airflow/issues/182
 RUN mkdir -p /usr/share/man/man1
 RUN apt-get update && apt-get install -y \
-        openjdk-8-jdk=8u222-b10-1~deb9u1 \
+        openjdk-8-jdk=8u232-b09-1~deb9u1 \
         build-essential=12.3 \
     --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
