@@ -9,9 +9,9 @@ REPO ?= aliyunfc
 RUNTIMES ?= java8 nodejs6 nodejs8 nodejs10 python2.7 python3.6 php7.2 custom
 VARIANTS ?= base build run
 
-FUN_VERSION ?= v2.16.5
+FUN_VERSION ?= v3.0.8
 FCLI_VERSION ?= v1.0.2
-FUN_INSTALL_VERSION ?= v0.3.0
+FUN_INSTALL_VERSION ?= v0.4.0
 
 # build or empty
 TAG_PREFIX := $(VARIANT:run%=%)
