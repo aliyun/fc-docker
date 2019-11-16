@@ -22,7 +22,7 @@ RUN curl -s https://gosspublic.alicdn.com/fcli/fcli-${FCLI_VERSION}-linux-amd64.
     && unzip -o fcli.zip -d /usr/local/bin/ \
     && rm fcli.zip
 
-RUN curl -s https://gosspublic.alicdn.com/fun/fun-${FUN_VERSION}-linux-x64.zip > fun.zip \
+RUN curl -s https://gosspublic.alicdn.com/fun/fun-${FUN_VERSION}-linux.zip > fun.zip \
     && unzip -o fun.zip -d /usr/local/bin/ \
     && rm fun.zip \
     && mv /usr/local/bin/fun-v* /usr/local/bin/fun
