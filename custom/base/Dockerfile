@@ -9,18 +9,33 @@ RUN echo "deb http://deb.debian.org/debian/ stretch main contrib non-free" > /et
 
 RUN apt-get update && apt-get install -y \
         curl \
-    --no-install-recommends && rm -rf /var/lib/apt/lists/*
+        wget \
+        unzip \
+    --no-install-recommends && rm -r /var/lib/apt/lists/*
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh && bash nodesource_setup.sh
-RUN apt install -y nodejs --no-install-recommends && rm -rf nodesource_setup.sh
-RUN npm cache clean --force
+RUN wget https://nodejs.org/download/release/v10.16.2/node-v10.16.2-linux-x64.tar.gz -O /tmp/node-v10.16.2-linux-x64.tar.gz \
+    && cd /tmp && tar -zxvf /tmp/node-v10.16.2-linux-x64.tar.gz \
+    && cp /tmp/node-v10.16.2-linux-x64/bin/node /usr/bin/ \
+    && cp -r /tmp/node-v10.16.2-linux-x64/lib/node_modules /usr/lib/node_modules \
+    && cp -r /tmp/node-v10.16.2-linux-x64/include/node /usr/include/node \
+    && ln -s /usr/lib/node_modules/npm/bin/npm-cli.js /usr/bin/npm \
+    && ln -s /usr/lib/node_modules/npm/bin/npx-cli.js /usr/bin/npx \
+    && rm -rf /tmp/node-v10.16.2-linux-x64*
+
+# https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-debian-9
+RUN apt-get update && apt-get install -y \
+        fonts-wqy-zenhei=0.9.45-6 \
+        fonts-wqy-microhei=0.2.0-beta-2 \
+        xfonts-wqy=1.0.0~rc1-6 \
+    --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 # https://github.com/puckel/docker-airflow/issues/182
 RUN mkdir -p /usr/share/man/man1
 RUN apt-get update && apt-get install -y \
         openjdk-8-jdk=8u232-b09-1~deb9u1 \
         build-essential=12.3 \
-    --no-install-recommends && rm -rf /var/lib/apt/lists/*
+    --no-install-recommends && rm -r /var/lib/apt/lists/*
+
 
 # Generate usernames
 RUN for i in $(seq 10000 10999); do \
