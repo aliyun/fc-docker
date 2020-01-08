@@ -11,7 +11,10 @@ RUN apt-get update \
         build-essential \
         libgmp3-dev \
         python2.7-dev \
+        sudo \
     && rm -rf /var/lib/apt/lists/*
+
+RUN echo "ALL ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 ARG FUN_VERSION
 ARG FCLI_VERSION

@@ -11,7 +11,10 @@ RUN apt-get update \
         clang \
         build-essential \
         libgmp3-dev \
+        sudo \
     && rm -rf /var/lib/apt/lists/*
+
+RUN echo "ALL ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 ARG FUN_VERSION
 ARG FCLI_VERSION
