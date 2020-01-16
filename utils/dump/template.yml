@@ -91,3 +91,14 @@ Resources:
           OSSEndpoing: 'http://oss-cn-shanghai.aliyuncs.com'
           FileName: 'php7.2.tgz'
           PackageDir: /var/fc/runtime/php7.2
+    dump-dotnetcore21:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: dump-dotnetcore::dump_dotnetcore.App::Handler
+        Runtime: dotnetcore2.1
+        Timeout: 3
+        CodeUri: ./dump-dotnetcore/bin/Release/netcoreapp2.1/publish/
+        EnvironmentVariables:
+          Bucket: 'fc-docker'
+          OSSEndpoint: 'oss-cn-shanghai.aliyuncs.com'
+          FileName: 'dotnetcore2.1.tgz'
