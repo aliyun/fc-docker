@@ -59,7 +59,6 @@ func waitHostPortAvailable(hostport string) error {
 
 const (
 	serverPort = 9000
-	bootstrap  = "/code/bootstrap"
 )
 
 func checkError(err error) {
@@ -123,27 +122,38 @@ func getRequestBody() []byte {
 	return requestBody
 }
 
+func getEnv(key, fallback string) string {
+	value := os.Getenv(key)
+	if len(value) == 0 {
+		return fallback
+	}
+	return value
+}
+
 func main() {
 	color.NoColor = false
 
 	flag.Parse()
 
-	cmd := exec.Command("sh", "-c", fmt.Sprintf("ps aux | grep \"%s\"  | grep -q -v grep", bootstrap))
+	agentScript := getEnv("AGENT_SCRIPT", "bootstrap")
+	agentDir := getEnv("AGENT_DIR", "/code")
+
+	cmd := exec.Command("sh", "-c", fmt.Sprintf("ps aux | grep \"%s\"  | grep -q -v grep", agentScript))
 	_, err := cmd.CombinedOutput()
 
 	if err != nil {
-		var bootstrapExe *exec.Cmd
+		var agentExe *exec.Cmd
 
 		// start process
-		bootstrapExe = exec.Command("sh", "-c", fmt.Sprintf("%s", bootstrap))
-		bootstrapExe.Stdout = os.Stdout
-		bootstrapExe.Stderr = os.Stderr
+		agentExe = exec.Command("sh", "-c", fmt.Sprintf("%s", agentDir + "/" + agentScript))
+		agentExe.Stdout = os.Stdout
+		agentExe.Stderr = os.Stderr
 
-		err := bootstrapExe.Start()
+		err := agentExe.Start()
 		checkError(err)
 
 		if *serverMode {
-			err = bootstrapExe.Wait()
+			err = agentExe.Wait()
 			checkError(err)
 			return
 		}
@@ -179,7 +189,7 @@ func convertToPlainResponse(resp *http.Response, body []byte) bytes.Buffer {
 }
 
 func addFcReqHeaders(req *http.Request, reqeustId, controlPath string) {
-	functionName := os.Getenv("FC_FUNCTION_NAME")
+	functionName := getEnv("FC_FUNCTION_NAME", "fc-docker")
 
 	securityToken := os.Getenv("FC_SECURITY_TOKEN")
 	accessKeyId := os.Getenv("FC_ACCESS_KEY_ID")
