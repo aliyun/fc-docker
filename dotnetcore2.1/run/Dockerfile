@@ -28,6 +28,8 @@ RUN bash /vsdbg/GetVsDbg.sh -v latest -l /vsdbg
 RUN apt-get purge -y unzip
 
 COPY dotnetcore2.1/run/runtime /var/fc/runtime/dotnetcore2.1/bootstrap
+# fix the dotnetcore2.1's bug on System.Net.HttpListener.dll. Once it's offically released, remove it.
+COPY commons/System.Net.HttpListener.dll /usr/share/dotnet/shared/Microsoft.NETCore.App/2.1.15
 
 COPY dotnetcore2.1/run/debugger /debugger
 WORKDIR /debugger
