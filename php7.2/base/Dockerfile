@@ -17,13 +17,13 @@ RUN chmod -R 777 /tmp/
 # php package path.
 ENV FC_PHP_LIB_PATH=${FC_SERVER_PATH}/builtIn
 
-ENV LD_LIBRARY_PATH=${FC_FUNC_CODE_PATH}:${FC_FUNC_CODE_PATH}/lib:/usr/local/lib
-
-ENV PHP_INI_SCAN_DIR=/usr/local/etc/php/conf.d:${FC_FUNC_CODE_PATH}extension
-
 # Function configuration.
 ENV FC_FUNC_CODE_PATH=/code/ \
     FC_FUNC_LOG_PATH=/var/log/fc/
+
+ENV LD_LIBRARY_PATH=${FC_FUNC_CODE_PATH}:${FC_FUNC_CODE_PATH}/lib:/usr/local/lib
+
+ENV PHP_INI_SCAN_DIR=/usr/local/etc/php/conf.d:${FC_FUNC_CODE_PATH}extension
 
 # Create directories.
 RUN mkdir -p \
