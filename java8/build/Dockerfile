@@ -3,7 +3,7 @@ FROM aliyunfc/runtime-java8:${TAG}
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get -o Acquire::Check-Valid-Until=false update \
-    && apt-get install -y apt-utils \
+    && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         dialog \
         vim \ 
         cmake \

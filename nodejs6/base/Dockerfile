@@ -27,7 +27,7 @@ RUN npm install \
 
 # Install common libraries
 RUN apt-get update \
-    && apt-get install -y \
+    && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         imagemagick \
         libopencv-dev \
         fonts-wqy-zenhei=0.9.45-6 \

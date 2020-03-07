@@ -41,7 +41,7 @@ COPY commons/debian-jessie-sources.list /etc/apt/sources.list
 
 RUN /bin/sh -c 'curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer'
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         git \
         wget \
         unzip\
@@ -51,7 +51,7 @@ RUN apt-get update && apt-get install -y \
         libmagickwand-dev \
         libmagickcore-dev \
         libmemcached-dev=1.0.18-4 \
-    --no-install-recommends && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
 # phpunit and xdebug
 RUN wget -O phpunit https://phar.phpunit.de/phpunit-7.2.7.phar
