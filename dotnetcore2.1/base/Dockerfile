@@ -4,7 +4,7 @@ MAINTAINER alibaba-serverless-fc
 
 # Install .NET CLI dependencies
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         curl \
     && rm -rf /var/lib/apt/lists/*
 
@@ -20,7 +20,7 @@ RUN curl -SL --output aspnetcore.tar.gz https://dotnetcli.blob.core.windows.net/
     && ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
+    && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
        libc6-dev=2.24-11+deb9u4 \
        libgdiplus=4.2-1+b1  \
     && rm -rf /var/lib/apt/lists/

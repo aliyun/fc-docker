@@ -7,11 +7,11 @@ RUN echo "deb http://deb.debian.org/debian/ stretch main contrib non-free" > /et
     && echo "deb http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list \
     && echo "deb-src http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         curl \
         wget \
         unzip \
-    --no-install-recommends && rm -r /var/lib/apt/lists/*
+    && rm -r /var/lib/apt/lists/*
 
 RUN wget https://nodejs.org/download/release/v10.16.2/node-v10.16.2-linux-x64.tar.gz -O /tmp/node-v10.16.2-linux-x64.tar.gz \
     && cd /tmp && tar -zxvf /tmp/node-v10.16.2-linux-x64.tar.gz \
@@ -23,18 +23,18 @@ RUN wget https://nodejs.org/download/release/v10.16.2/node-v10.16.2-linux-x64.ta
     && rm -rf /tmp/node-v10.16.2-linux-x64*
 
 # https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-debian-9
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         fonts-wqy-zenhei=0.9.45-6 \
         fonts-wqy-microhei=0.2.0-beta-2 \
         xfonts-wqy=1.0.0~rc1-6 \
-    --no-install-recommends && rm -r /var/lib/apt/lists/*
+    && rm -r /var/lib/apt/lists/*
 
 # https://github.com/puckel/docker-airflow/issues/182
 RUN mkdir -p /usr/share/man/man1
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         openjdk-8-jdk \
         build-essential=12.3 \
-    --no-install-recommends && rm -r /var/lib/apt/lists/*
+    && rm -r /var/lib/apt/lists/*
 
 
 # Generate usernames

@@ -16,7 +16,7 @@ RUN rm -rf /var/runtime /var/lang && \
   rm -rf /var/fc/runtime/*/var/log/*
 
 RUN apt-get update \
-  && apt-get install -y procps unzip --no-install-recommends \
+  && apt-get --no-install-recommends  install -y apt-utils ca-certificates procps unzip \
   && rm -rf /var/lib/apt/lists/*
 
 COPY dotnetcore2.1/run/agent.sh /var/fc/runtime/dotnetcore2.1/agent.sh

@@ -2,7 +2,7 @@ ARG TAG="latest"
 FROM aliyunfc/runtime-nodejs10:${TAG}
 
 RUN apt-get update \
-    && apt-get install -y apt-utils \
+    && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         dialog \
         vim \ 
         cmake \

@@ -30,7 +30,7 @@ COPY commons/debian-stretch-sources.list /etc/apt/sources.list
 
 # Install common libraries
 RUN apt-get -o Acquire::Check-Valid-Until=false update \
-    && apt-get install -y \
+    && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         imagemagick \
         make=4.1-9.1 \
         libopencv-dev=2.4.9.1+dfsg1-2 \

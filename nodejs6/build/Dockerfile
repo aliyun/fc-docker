@@ -4,7 +4,7 @@ FROM aliyunfc/runtime-nodejs6:${TAG}
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
-    && apt-get install -y apt-utils \
+    && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         dialog \
         vim \
         cmake \
