@@ -111,6 +111,10 @@ func getRequestBody() []byte {
 		requestBody = []byte(*event)
 	}
 
+	if len(requestBody) == 0 {
+		return requestBody
+	}
+
 	if *eventDecode {
 		decodedEvent, err := base64.StdEncoding.DecodeString(*event)
 		checkError(err)
@@ -234,7 +238,11 @@ func updateHttpReqByHttpParams(req *http.Request) {
 }
 
 func doRequest(req *http.Request) *http.Response {
-	client := &http.Client{}
+	client := &http.Client{
+		CheckRedirect: func(req *http.Request, via []*http.Request) error {
+			return http.ErrUseLastResponse
+		},
+	}
 
 	resp, err := client.Do(req)
 	checkError(err)
