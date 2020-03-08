@@ -40,7 +40,7 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
 COPY commons/debian-jessie-sources.list /etc/apt/sources.list
 
 # Install common libraries
-RUN apt-get update && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
+RUN apt-get update && apt-get --no-install-recommends install -y \
         cmake \
         imagemagick=8:6.8.9.9-5+deb8u15 \
         libopencv-dev=2.4.9.1+dfsg-1+deb8u2 \

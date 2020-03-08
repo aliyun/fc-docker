@@ -41,7 +41,7 @@ COPY commons/debian-jessie-sources.list /etc/apt/sources.list
 
 RUN /bin/sh -c 'curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer'
 
-RUN apt-get update && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
+RUN apt-get update && apt-get --no-install-recommends install -y \
         git \
         wget \
         unzip\

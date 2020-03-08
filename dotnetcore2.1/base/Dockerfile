@@ -4,7 +4,7 @@ MAINTAINER alibaba-serverless-fc
 
 # Install .NET CLI dependencies
 RUN apt-get update \
-    && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
+    && apt-get --no-install-recommends install -y \
         curl \
     && rm -rf /var/lib/apt/lists/*
 
