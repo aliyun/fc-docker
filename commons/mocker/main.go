@@ -198,6 +198,7 @@ func addFcReqHeaders(req *http.Request, reqeustId, controlPath string) {
 	securityToken := os.Getenv("FC_SECURITY_TOKEN")
 	accessKeyId := os.Getenv("FC_ACCESS_KEY_ID")
 	accessKeySecret := os.Getenv("FC_ACCESS_KEY_SECRET")
+	httpParams := os.Getenv("FC_HTTP_PARAMS")
 
 	req.Header.Add("Content-Type", "application/octet-stream")
 	req.Header.Add("x-fc-request-id", reqeustId)
@@ -211,6 +212,7 @@ func addFcReqHeaders(req *http.Request, reqeustId, controlPath string) {
 	req.Header.Add("x-fc-access-key-secret", accessKeySecret)
 	req.Header.Add("x-fc-security-token", securityToken)
 	req.Header.Add("x-fc-control-path", controlPath)
+	req.Header.Add("x-fc-http-params", httpParams)
 }
 
 func updateHttpReqByHttpParams(req *http.Request) {
