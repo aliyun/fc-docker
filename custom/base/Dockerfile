@@ -23,7 +23,7 @@ RUN wget https://nodejs.org/download/release/v10.16.2/node-v10.16.2-linux-x64.ta
 RUN apt-get update && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         fonts-wqy-zenhei=0.9.45-6 \
         fonts-wqy-microhei=0.2.0-beta-2 \
-        xfonts-wqy=1.0.0~rc1-6 \
+        xfonts-wqy \
     && rm -r /var/lib/apt/lists/*
 
 # https://github.com/puckel/docker-airflow/issues/182
