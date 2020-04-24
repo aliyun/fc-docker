@@ -10,6 +10,10 @@ utils/dump/dump-java8/target/
 *.iml
 demos/java8/target/**
 !demos/java8/target/java8-1.0.0.jar
+demos/dotnetcore2.1/[oO]bj
+demos/dotnetcore2.1/[bB]in
+dotnetcore2.1/run/debugger/[oO]bj
+dotnetcore2.1/run/debugger/[bB]in
 *.pyc
 __pycache__/
 .bash_history
