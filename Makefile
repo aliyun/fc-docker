@@ -11,7 +11,7 @@ VARIANTS ?= base build run
 
 FUN_VERSION ?= v3.6.0
 FCLI_VERSION ?= v1.0.2
-FUN_INSTALL_VERSION ?= v0.12.0
+FUN_INSTALL_VERSION ?= v0.13.0
 
 # build or empty
 TAG_PREFIX := $(VARIANT:run%=%)
