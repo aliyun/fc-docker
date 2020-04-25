@@ -4,6 +4,11 @@ MAINTAINER alibaba-serverless-fc
 
 COPY commons/debian-jessie-sources.list /etc/apt/sources.list
 
+RUN echo "deb http://deb.debian.org/debian/ stretch main contrib non-free" > /etc/apt/sources.list \
+    && echo "deb-src http://deb.debian.org/debian/ stretch main contrib non-free" >> /etc/apt/sources.list \
+    && echo "deb http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list \
+    && echo "deb-src http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list
+
 RUN apt-get update && apt-get --no-install-recommends install -y \
         curl \
         wget \
