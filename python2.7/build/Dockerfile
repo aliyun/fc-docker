@@ -3,6 +3,7 @@ FROM aliyunfc/runtime-python2.7:${TAG}
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+RUN mkdir -p /mnt/auto
 RUN apt-get update \
     && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         dialog \
