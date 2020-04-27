@@ -1,6 +1,7 @@
 ARG TAG="latest"
 FROM aliyunfc/runtime-nodejs10:${TAG}
 
+RUN mkdir -p /mnt/auto
 RUN apt-get update \
     && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         dialog \

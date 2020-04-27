@@ -2,6 +2,7 @@ ARG TAG="latest"
 FROM aliyunfc/runtime-java8:${TAG}
 ENV DEBIAN_FRONTEND=noninteractive
 
+RUN mkdir -p /mnt/auto
 RUN apt-get -o Acquire::Check-Valid-Until=false update \
     && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         dialog \

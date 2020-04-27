@@ -2,6 +2,7 @@ ARG TAG="latest"
 FROM aliyunfc/runtime-nodejs8:${TAG}
 ENV DEBIAN_FRONTEND=noninteractive
 
+RUN mkdir -p /mnt/auto
 RUN apt-get update \
     && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
         dialog \
