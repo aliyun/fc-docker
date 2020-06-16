@@ -56,18 +56,17 @@ RUN npm install --global --unsafe-perm \
         --registry http://registry.npm.taobao.org \
         co@4.6.0 \
         gm@1.23.0 \
-        ali-oss@4.10.1 \
-        aliyun-sdk@1.11.10 \
-        @alicloud/fc@1.2.2 \
-        tablestore@4.2.0\
-        @alicloud/fc2@2.1.0 \
-        node-pre-gyp \
-        # node-gyp \ 
-        # opencv@6.2.0 \
+        ali-oss@6.6.0 \
+        aliyun-sdk@1.12.3 \
+        @alicloud/fc@1.2.3 \
+        tablestore@5.0.7\
+        @alicloud/fc2@2.2.0 \
+        opencv@7.0.0 \
         body@5.1.0 \
-        raw-body@2.3.2 \
-        ali-mns@2.6.5 \
-        @alicloud/pop-core@1.7.0
+        raw-body@2.4.1 \
+        ali-mns@2.6.8 \
+        @alicloud/pop-core@1.7.9 \
+        @alicloud/fnf-2019-03-15@1.1.0
 
 RUN npm cache clean --force
 
