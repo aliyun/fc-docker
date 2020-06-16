@@ -1,6 +1,6 @@
 FROM python:3.7.4-slim-stretch
 
-MAINTAINER alibaba-serverless-fc
+LABEL maintainer="alibaba-serverless-fc"
 
 COPY commons/debian-jessie-sources.list /etc/apt/sources.list
 

@@ -1,7 +1,6 @@
 FROM aliyunfc/php:7.2
 
-MAINTAINER alibaba-serverless-fc
-
+LABEL maintainer="alibaba-serverless-fc"
 
 # Server path.
 ENV FC_SERVER_PATH=/var/fc/runtime/php7.2
