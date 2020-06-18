@@ -3,7 +3,7 @@ FROM node:12.16.1-buster
 LABEL maintainer="alibaba-serverless-fc"
 
 # Environment variables.
-ENV FC_SERVER_PATH=/var/fc/runtime/nodejs10 \
+ENV FC_SERVER_PATH=/var/fc/runtime/nodejs12 \
     NODE_PATH=/usr/local/lib/node_modules \
     PATH=${FC_SERVER_PATH}/node_modules/.bin:${PATH}
 

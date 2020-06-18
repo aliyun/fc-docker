@@ -1,12 +1,23 @@
 ROSTemplateFormatVersion: '2015-09-01'
 Transform: 'Aliyun::Serverless-2018-04-03'
 Resources:
-  dump-service: 
+  dump-service:
     Type: 'Aliyun::Serverless::Service'
     Properties:
       Description: 'dump service'
       Policies:
         - AliyunOSSFullAccess
+    dump-nodejs12:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: dump-nodejs.handler
+        Runtime: nodejs12
+        CodeUri: ./dump-nodejs
+        Timeout: 3
+        EnvironmentVariables:
+          Bucket: 'aliyun-ellison'
+          OSSRegion: 'oss-cn-shanghai'
+          FileName: 'nodejs12.tgz'
     dump-nodejs10:
       Type: 'Aliyun::Serverless::Function'
       Properties:

@@ -3,17 +3,17 @@ var fs = require('fs');
 var childProcess = require('child_process');
 
 function uploadFile(path, dest, context, cb) {
-    console.log('bucket name: ', process.env['BucketName']);
+    console.log('bucket name: ', process.env['Bucket']);
     const oss = OSS.Wrapper({
         accessKeyId: context.credentials.accessKeyId,
         accessKeySecret: context.credentials.accessKeySecret,
-        stsToken: context.credentials.securityToken,       
+        stsToken: context.credentials.securityToken,
         bucket: process.env['Bucket'],
         region: process.env['OSSRegion']
     });
 
     const stream = fs.createReadStream(path);
-    
+
     oss.putStream(dest, stream).then(function (result) {
         cb(null, result);
     }).catch(function(err) {
@@ -26,7 +26,7 @@ exports.handler = function(event, context, cb) {
     const source = `/tmp/${filename}`;
     const dest = `${filename}`;
 
-    const cmd = `tar -cpzf /tmp/${filename} --numeric-owner --ignore-failed-read /var/fc/runtime`;
+    const cmd = `tar -cpzPf /tmp/${filename} --numeric-owner --ignore-failed-read /var/fc/runtime`;
 
     const child = childProcess.spawn('sh', ['-c', event.cmd || cmd]);
     child.stdout.setEncoding('utf8');
@@ -37,9 +37,7 @@ exports.handler = function(event, context, cb) {
 
     child.on('close', () => {
         if (event.cmd) return cb();
-        
         console.log('Zipping done! Uploading...');
-
         uploadFile(source, dest, context, cb);
     });
 };
