@@ -8,6 +8,7 @@ env:
   - RUNTIME=nodejs6
   - RUNTIME=nodejs8
   - RUNTIME=nodejs10
+  - RUNTIME=nodejs12
   - RUNTIME=java8
   - RUNTIME=php7.2
   - RUNTIME=custom
