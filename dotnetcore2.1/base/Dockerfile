@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/runtime-deps:2.1-stretch-slim
 
-MAINTAINER alibaba-serverless-fc
+LABEL maintainer="alibaba-serverless-fc"
 
 # Install .NET CLI dependencies
 RUN apt-get update \

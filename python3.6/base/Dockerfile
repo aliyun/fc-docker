@@ -1,6 +1,6 @@
 FROM python:3.6.3-jessie
 
-MAINTAINER alibaba-serverless-fc
+LABEL maintainer="alibaba-serverless-fc"
 
 # Server path.
 ENV FC_SERVER_PATH=/var/fc/runtime/python3

@@ -16,6 +16,7 @@ Runtime | Image
 [nodejs6](https://hub.docker.com/r/aliyunfc/runtime-nodejs6/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs6?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs6/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-nodejs6.svg)
 [nodejs8](https://hub.docker.com/r/aliyunfc/runtime-nodejs8/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs8?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs8/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-nodejs8.svg)
 [nodejs10](https://hub.docker.com/r/aliyunfc/runtime-nodejs10/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs10?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs10/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-nodejs10.svg)
+[nodejs12](https://hub.docker.com/r/aliyunfc/runtime-nodejs12/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs10?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs10/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-nodejs12.svg)
 [python2.7](https://hub.docker.com/r/aliyunfc/runtime-python2.7/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python2.7?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python2.7/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-python2.7.svg)
 [python3.6](https://hub.docker.com/r/aliyunfc/runtime-python3.6/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python3.6?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python3.6/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-python3.6.svg)
 [java8](https://hub.docker.com/r/aliyunfc/runtime-java8/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-java8?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-java8/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-java8.svg)
@@ -36,7 +37,7 @@ Runtime | Image
 您可以在 demos 目录体验：
 
 ```shell
-# 进入 demos/nodejs6 或者 demos/nodejs8 目录，执行下面命令分别在 nodejs6 和 nodejs8 中运行函数：
+# 进入 demos/nodejs6 或者 demos/nodejs8 或者 demos/nodejs10 或者 demos/nodejs12 目录，执行下面命令分别在对应目录中运行函数：
 
 docker run --rm -v $(pwd):/code aliyunfc/runtime-nodejs6 --handler "index.handler" --event '{"some": "event"}'
 

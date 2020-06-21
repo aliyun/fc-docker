@@ -1,6 +1,6 @@
 FROM maven:3.5-jdk-8-slim
 
-MAINTAINER alibaba-serverless-fc
+LABEL maintainer="alibaba-serverless-fc"
 
 # Environment variables can be overwritten by running
 # $ docker run --env <key>=<value>

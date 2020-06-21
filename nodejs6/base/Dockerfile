@@ -1,7 +1,7 @@
 FROM node:6.14.2-jessie
 ENV DEBIAN_FRONTEND=noninteractive
 
-MAINTAINER alibaba-serverless-fc
+LABEL maintainer="alibaba-serverless-fc"
 
 RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
 

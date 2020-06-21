@@ -1,6 +1,6 @@
 FROM node:8.9.0
 
-MAINTAINER alibaba-serverless-fc
+LABEL maintainer="alibaba-serverless-fc"
 
 # Environment variables.
 ENV FC_SERVER_PATH=/var/fc/runtime/nodejs8 \

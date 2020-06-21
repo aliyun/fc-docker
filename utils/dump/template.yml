@@ -1,12 +1,23 @@
 ROSTemplateFormatVersion: '2015-09-01'
 Transform: 'Aliyun::Serverless-2018-04-03'
 Resources:
-  dump-service: 
+  dump-service:
     Type: 'Aliyun::Serverless::Service'
     Properties:
       Description: 'dump service'
       Policies:
         - AliyunOSSFullAccess
+    dump-nodejs12:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: dump-nodejs.handler
+        Runtime: nodejs12
+        CodeUri: ./dump-nodejs
+        Timeout: 3
+        EnvironmentVariables:
+          Bucket: 'aliyun-ellison'
+          OSSRegion: 'oss-cn-shanghai'
+          FileName: 'nodejs12.tgz'
     dump-nodejs10:
       Type: 'Aliyun::Serverless::Function'
       Properties:
@@ -40,7 +51,7 @@ Resources:
           Bucket: 'my-fc-testt'
           OSSRegion: 'oss-cn-shanghai'
           FileName: 'nodejs6.tgz'
-    dump-python27: 
+    dump-python27:
       Type: 'Aliyun::Serverless::Function'
       Properties:
         Handler: dump-python.handler
@@ -53,7 +64,7 @@ Resources:
           OSSEndpoing: 'http://oss-cn-shanghai.aliyuncs.com'
           FileName: 'python2.7.tgz'
           PackageDir: /var/fc/runtime/python2.7
-    dump-python36: 
+    dump-python36:
       Type: 'Aliyun::Serverless::Function'
       Properties:
         Handler: dump-python.handler
@@ -78,7 +89,7 @@ Resources:
           Bucket: 'my-fc-testt'
           OSSRegion: 'oss-cn-shanghai'
           OSSEndpoint: 'http://oss-cn-shanghai.aliyuncs.com'
-    dump-php72: 
+    dump-php72:
       Type: 'Aliyun::Serverless::Function'
       Properties:
         Handler: dump-php.handler

@@ -9,6 +9,7 @@ NC='\033[0m' # No Color
 handler="index.handler"
 
 timeout=3
+memory=128
 initializer=
 initializationTimeout=3
 
@@ -66,17 +67,23 @@ done
 
 startTimestamp="$(date '+%s')$(date '+%N')"
 
+[[ -z ${FC_HANDLER} ]] && handler=${FC_HANDLER}
+[[ -z ${FC_TIMEOUT} ]] && timeout=${FC_TIMEOUT}
+[[ -z ${FC_INITIALIZER} ]] && initializer=${FC_INITIALIZER}
+[[ -z ${FC_MEMORY_SIZE} ]] && memory=${FC_MEMORY_SIZE}
+[[ -z ${FC_INITIALIZATIONIMEOUT} ]] && initializationTimeout=${FC_INITIALIZATIONIMEOUT}
+
 curlUtil() {
     curl -s -X POST $3 localhost:${serverPort}/$1 \
         -H "Content-Type: application/octet-stream" \
         -H "Expect: " \
         -H "x-fc-request-id: $requestId" \
         -H "x-fc-function-name: ${FC_FUNCTION_NAME:-fc-docker}" \
-        -H "x-fc-function-memory: ${FC_MEMORY_SIZE}" \
-        -H "x-fc-function-timeout: ${FC_TIMEOUT}" \
-        -H "x-fc-initialization-timeout: ${FC_INITIALIZATIONIMEOUT}" \
-        -H "x-fc-function-initializer: ${FC_INITIALIZER}" \
-        -H "x-fc-function-handler: ${FC_HANDLER}" \
+        -H "x-fc-function-memory: ${memory}" \
+        -H "x-fc-function-timeout: ${timeout}" \
+        -H "x-fc-initialization-timeout: ${initializationTimeout}" \
+        -H "x-fc-function-initializer: ${initializer}" \
+        -H "x-fc-function-handler: ${handler}" \
         -H "x-fc-account-id: ${FC_ACCOUND_ID}" \
         -H "x-fc-region: ${FC_REGION}" \
         -H "x-fc-service-name: ${FC_SERVICE_NAME}" \
@@ -103,7 +110,7 @@ if [ -n "$STDIN" ]; then
     else 
         curlUtil invoke @-
     fi
-else 
+else
     # event may be empty, must use quotation marks
     if [ -n "$HTTP_MODE" ]; then
         if [ -n "$EVENT_DECODE" ]; then
@@ -112,7 +119,7 @@ else
         else
             RESPONSE=$(echo "$event" | curlUtil invoke @- '-i' | base64)
         fi
-    else 
+    else
         if [ -n "$EVENT_DECODE" ]; then
             echo "$event" | base64 -d | curlUtil invoke @-
         else
@@ -141,4 +148,4 @@ fi
 # kill all child process before exit.
 # pkill -SIGINT -P "$(jobs -p)"
 
-# wait 
+# wait

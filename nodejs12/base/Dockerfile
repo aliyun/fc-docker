@@ -1,9 +1,9 @@
-FROM node:10.15.3-jessie
+FROM node:12.16.1-buster
 
 LABEL maintainer="alibaba-serverless-fc"
 
 # Environment variables.
-ENV FC_SERVER_PATH=/var/fc/runtime/nodejs10 \
+ENV FC_SERVER_PATH=/var/fc/runtime/nodejs12 \
     NODE_PATH=/usr/local/lib/node_modules \
     PATH=${FC_SERVER_PATH}/node_modules/.bin:${PATH}
 
@@ -37,15 +37,15 @@ WORKDIR ${FC_SERVER_PATH}
 EXPOSE ${FC_SERVER_PORT}
 
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
-COPY commons/debian-jessie-sources.list /etc/apt/sources.list
+COPY commons/debian-buster-sources.list /etc/apt/sources.list
 
 # Install common libraries
 RUN apt-get update && apt-get --no-install-recommends install -y \
         cmake \
-        imagemagick=8:6.8.9.9-5+deb8u15 \
-        libopencv-dev=2.4.9.1+dfsg-1+deb8u2 \
-        fonts-wqy-zenhei=0.9.45-6 \
-        fonts-wqy-microhei=0.2.0-beta-2 \
+        imagemagick=8:6.9.10.23+dfsg-2.1 \
+        libopencv-dev=3.2.0+dfsg-6 \
+        fonts-wqy-zenhei=0.9.45-7 \
+        fonts-wqy-microhei=0.2.0-beta-3 \
     && rm -rf /var/lib/apt/lists/*
 
 # Suppress opencv error: "libdc1394 error: Failed to initialize libdc1394"
@@ -56,16 +56,17 @@ RUN npm install --global --unsafe-perm \
         --registry http://registry.npm.taobao.org \
         co@4.6.0 \
         gm@1.23.0 \
-        ali-oss@4.10.1 \
-        aliyun-sdk@1.11.10 \
-        @alicloud/fc@1.2.2 \
-        tablestore@4.2.0\
-        @alicloud/fc2@2.1.0 \
-        opencv@6.2.0 \
+        ali-oss@6.6.0 \
+        aliyun-sdk@1.12.3 \
+        @alicloud/fc@1.2.3 \
+        tablestore@5.0.7\
+        @alicloud/fc2@2.2.0 \
+        opencv@7.0.0 \
         body@5.1.0 \
-        raw-body@2.3.2 \
-        ali-mns@2.6.5 \
-        @alicloud/pop-core@1.7.0
+        raw-body@2.4.1 \
+        ali-mns@2.6.8 \
+        @alicloud/pop-core@1.7.9 \
+        @alicloud/fnf-2019-03-15@1.1.0
 
 RUN npm cache clean --force
 
