@@ -20,16 +20,16 @@ COPY commons/debian-jessie-sources.list /etc/apt/sources.list
 
 # Install server dependencies.
 RUN npm install \
-        --loglevel error \
-        --registry http://registry.npm.taobao.org
+    --loglevel error \
+    --registry http://registry.npm.taobao.org
 
 # Install common libraries
 RUN apt-get update \
     && apt-get --no-install-recommends install -y \
-        imagemagick  \
-        libopencv-dev \
-        fonts-wqy-zenhei=0.9.45-6 \
-        fonts-wqy-microhei=0.2.0-beta-2 \
+    imagemagick=8:6.8.9.9-5+deb8u19 \
+    libopencv-dev=2.4.9.1+dfsg-1+deb8u2 \
+    fonts-wqy-zenhei=0.9.45-6 \
+    fonts-wqy-microhei=0.2.0-beta-2 \
     && rm -rf /var/lib/apt/lists/*
 
 # Suppress opencv error: "libdc1394 error: Failed to initialize libdc1394"
@@ -37,19 +37,30 @@ RUN ln /dev/null /dev/raw1394
 
 # Install thrid party libraries for user function.
 RUN npm install --global --unsafe-perm \
-        --registry http://registry.npm.taobao.org \
-        co@4.6.0 \
-        gm@1.23.0 \
-        ali-oss@4.10.1 \
-        aliyun-sdk@1.11.10 \
-        @alicloud/fc@1.2.2 \
-        opencv@6.2.0 \
-        tablestore@4.2.0\
-        @alicloud/fc2@2.1.0 \
-        body@5.1.0 \
-        raw-body@2.3.2 \
-        ali-mns@2.6.5 \
-        @alicloud/pop-core@1.7.0
+    --registry http://registry.npm.taobao.org \
+    co@4.6.0 \
+    gm@1.23.0 \
+    ali-oss@4.10.1 \
+    aliyun-sdk@1.11.10 \
+    @alicloud/fc@1.2.2 \
+    opencv@6.2.0 \
+    tablestore@4.2.0\
+    @alicloud/fc2@2.1.0 \
+    body@5.1.0 \
+    raw-body@2.3.2 \
+    ali-mns@2.6.5 \
+    @alicloud/pop-core@1.7.0 \
+    @alicloud/fnf-2019-03-15@1.1.0 \
+    axios@0.19.2 \
+    lodash@4.17.15 \
+    moment@2.25.3 \
+    uuid@8.0.0
+
+
+RUN apt-get update && apt-get install -y --force-yes \
+    zip \
+    unzip \
+    --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 RUN npm cache clean --force
 
@@ -58,7 +69,7 @@ RUN rm -f package.json
 
 # Generate usernames
 RUN for i in $(seq 10000 10999); do \
-        echo "user$i:x:$i:$i::/tmp:/usr/sbin/nologin" >> /etc/passwd; \
+    echo "user$i:x:$i:$i::/tmp:/usr/sbin/nologin" >> /etc/passwd; \
     done
 
 # Start a shell by default

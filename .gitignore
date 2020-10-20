@@ -17,3 +17,4 @@ dotnetcore2.1/run/debugger/[bB]in
 *.pyc
 __pycache__/
 .bash_history
+utils/dump/.fun

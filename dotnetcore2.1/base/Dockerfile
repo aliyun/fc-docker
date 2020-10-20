@@ -5,7 +5,7 @@ LABEL maintainer="alibaba-serverless-fc"
 # Install .NET CLI dependencies
 RUN apt-get update \
     && apt-get --no-install-recommends install -y \
-        curl \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Install ASP.NET Core
@@ -21,8 +21,8 @@ RUN curl -SL --output aspnetcore.tar.gz https://dotnetcli.blob.core.windows.net/
 
 RUN apt-get update \
     && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
-       libc6-dev=2.24-11+deb9u4 \
-       libgdiplus=4.2-1+b1  \
+    libc6-dev=2.24-11+deb9u4 \
+    libgdiplus=4.2-1+b1  \
     && rm -rf /var/lib/apt/lists/
 
 # Install .NET Core SDK
@@ -65,7 +65,7 @@ RUN chmod -R 777 /tmp/
 
 # Generate usernames
 RUN for i in $(seq 10000 10999); do \
-        echo "user$i:x:$i:$i::/tmp:/usr/sbin/nologin" >> /etc/passwd; \
+    echo "user$i:x:$i:$i::/tmp:/usr/sbin/nologin" >> /etc/passwd; \
     done
 
 ENV SystemLogLevel=TRACE

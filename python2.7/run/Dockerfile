@@ -7,7 +7,7 @@ RUN pip install ptvsd
 RUN pip install pydevd
 
 RUN rm -rf /var/runtime /var/lang && \
-  curl https://my-fc-testt.oss-cn-shanghai.aliyuncs.com/python2.7.tgz | tar -zx -C / && \
+  curl https://aliyun-fc-docker.oss-cn-shanghai.aliyuncs.com/python2.7.tgz | tar -zx -C / && \
   rm -rf /var/fc/runtime/*/var/log/*
 
 COPY commons/function-compute-mock.sh /var/fc/runtime/python2.7/mock

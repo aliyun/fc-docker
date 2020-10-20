@@ -41,15 +41,15 @@ COPY commons/debian-jessie-sources.list /etc/apt/sources.list
 RUN /bin/sh -c 'curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer'
 
 RUN apt-get update && apt-get --no-install-recommends install -y \
-        git \
-        wget \
-        unzip\
-        fonts-wqy-zenhei=0.9.45-6 \
-        fonts-wqy-microhei=0.2.0-beta-2 \
-        imagemagick \
-        libmagickwand-dev \
-        libmagickcore-dev \
-        libmemcached-dev=1.0.18-4 \
+    git \
+    wget \
+    unzip\
+    fonts-wqy-zenhei=0.9.45-6 \
+    fonts-wqy-microhei=0.2.0-beta-2 \
+    imagemagick \
+    libmagickwand-dev \
+    libmagickcore-dev \
+    libmemcached-dev=1.0.18-4 \
     && rm -rf /var/lib/apt/lists/*
 
 # phpunit and xdebug
@@ -77,12 +77,16 @@ COPY php7.2/base/composer.json ./
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 RUN composer install --no-dev
 
+RUN echo "memory_limit=3072M" >> /usr/local/etc/php/php.ini
+
+RUN echo "enable_post_data_reading=1" >> /usr/local/etc/php/php.ini
+
 # Change work directory.
 WORKDIR ${FC_SERVER_PATH}
 
 # Generate usernames
 RUN for i in $(seq 10000 10999); do \
-        echo "user$i:x:$i:$i::/tmp:/usr/sbin/nologin" >> /etc/passwd; \
+    echo "user$i:x:$i:$i::/tmp:/usr/sbin/nologin" >> /etc/passwd; \
     done
 
 # Start a shell by default
