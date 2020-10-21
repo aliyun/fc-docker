@@ -6,10 +6,10 @@
 *~
 node_modules/
 .vscode
-utils/dump/dump-java8/target/
+utils/dump/dump-java*/target/
 *.iml
-demos/java8/target/**
-!demos/java8/target/java8-1.0.0.jar
+demos/java*/target/**
+!demos/java*/target/java*-1.0.0.jar
 demos/dotnetcore2.1/[oO]bj
 demos/dotnetcore2.1/[bB]in
 dotnetcore2.1/run/debugger/[oO]bj

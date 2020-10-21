@@ -1,7 +1,12 @@
-
 # Using short/long param
-docker run --rm -it -v $(pwd):/code aliyunfc/runtime-php7.2 --handler "index.handler"
-docker run --rm -it -v $(pwd):/code aliyunfc/runtime-php7.2 --handler "index.handler" --event '{"key" : "value"}'
+
+```bash
+docker run --rm -v $(pwd):/code --env-file ./env.list aliyunfc/runtime-php7.2:1.9.7 --handler "index.handler"
+docker run --rm -v $(pwd):/code --env-file ./env.list aliyunfc/runtime-php7.2:1.9.7 --handler "index.handler" --event '{"key" : "value"}'
+```
 
 # Using initializer feature.
-docker run --rm -it -v $(pwd):/code aliyunfc/runtime-php7.2 --initializer "index.initializer" --handler "index.handler" --event '{"key" : "value"}'
+
+```bash
+docker run --rm -v $(pwd):/code --env-file ./env.list aliyunfc/runtime-php7.2:1.9.7 --initializer "index.initializer" --handler "index.handler" --event '{"key" : "value"}'
+```
