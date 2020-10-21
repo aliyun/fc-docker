@@ -2,12 +2,13 @@ ARG TAG="latest"
 FROM aliyunfc/runtime-php7.2:${TAG}
 
 RUN rm -rf /var/runtime /var/lang && \
-  curl https://my-fc-testt.oss-cn-shanghai.aliyuncs.com/php7.2.tgz | tar -zx -C / && \
+  curl https://aliyun-fc-docker.oss-cn-shanghai.aliyuncs.com/php7.2.tgz | tar -zx -C / && \
   rm -rf /var/fc/runtime/*/var/log/*
 
 COPY commons/function-compute-mock.sh /var/fc/runtime/php7.2/mock
+COPY php7.2/run/agent.sh /var/fc/runtime/php7.2/agent.sh
 
-ENV AGENT_SCRIPT=start_server.sh
+ENV AGENT_SCRIPT=agent.sh
 
 # for xdebug
 COPY php7.2/run/xdebug-2.6.1.tgz /var/fc/runtime/php7.2/xdebug-2.6.1.tgz

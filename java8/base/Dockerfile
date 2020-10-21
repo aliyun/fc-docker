@@ -29,15 +29,14 @@ RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
 COPY commons/debian-stretch-sources.list /etc/apt/sources.list
 
 # Install common libraries
-RUN apt-get -o Acquire::Check-Valid-Until=false update \
-    && apt-get --no-install-recommends install -y \
-        imagemagick \
-        make=4.1-9.1 \
-        libopencv-dev=2.4.9.1+dfsg1-2 \
-        fonts-wqy-zenhei=0.9.45-6 \
-        fonts-wqy-microhei=0.2.0-beta-2 \
+RUN apt-get update && apt-get --no-install-recommends install -y \
+    imagemagick \
+    make \
+    libopencv-dev \
+    fonts-wqy-zenhei=0.9.45-6 \
+    fonts-wqy-microhei=0.2.0-beta-2 \
     && rm -rf /var/lib/apt/lists/*
-        
+
 RUN ln -s /bin/bash /usr/bin/bash \
     && ln -s /bin/grep /usr/bin/grep
 
@@ -46,5 +45,5 @@ RUN ln /dev/null /dev/raw1394
 
 # Generate usernames
 RUN for i in $(seq 10000 10999); do \
-        echo "user$i:x:$i:$i::/tmp:/usr/sbin/nologin" >> /etc/passwd; \
+    echo "user$i:x:$i:$i::/tmp:/usr/sbin/nologin" >> /etc/passwd; \
     done

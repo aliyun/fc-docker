@@ -149,7 +149,7 @@ func main() {
 		var agentExe *exec.Cmd
 
 		// start process
-		agentExe = exec.Command("sh", "-c", fmt.Sprintf("%s", agentDir + "/" + agentScript))
+		agentExe = exec.Command("sh", "-c", fmt.Sprintf("%s", agentDir+"/"+agentScript))
 		agentExe.Stdout = os.Stdout
 		agentExe.Stderr = os.Stderr
 
@@ -168,15 +168,15 @@ func main() {
 	checkError(err)
 
 	if (*initializer) != "" {
-		request("/", "POST", "/initialize", nil)
+		request("/initialize", "POST", "/initialize", nil)
 	}
 
 	requestBody := getRequestBody()
 
 	if *httpFlag {
-		request("/", "POST", "/http-invoke", requestBody)
+		request("/invoke", "POST", "/http-invoke", requestBody)
 	} else {
-		request("/", "POST", "/invoke", requestBody)
+		request("/invoke", "POST", "/invoke", requestBody)
 	}
 }
 
