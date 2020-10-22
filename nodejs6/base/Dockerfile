@@ -39,7 +39,6 @@ RUN ln /dev/null /dev/raw1394
 
 # Install thrid party libraries for user function.
 RUN npm install --global --unsafe-perm \
-    --registry http://registry.npm.taobao.org \
     co@4.6.0 \
     gm@1.23.0 \
     ali-oss@4.10.1 \

@@ -22,7 +22,7 @@ env:
 before_script:
   - env | sort
 script:
-  - travis_wait 30 make build TAG="$TRAVIS_TAG";
+  - travis_wait 45 make build TAG="$TRAVIS_TAG";
   - make test;
   - if [ "$TRAVIS_BRANCH" != "master" ] && [ -z "$TRAVIS_TAG" ]; then travis_terminate
     0; fi
