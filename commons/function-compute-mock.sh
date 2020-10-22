@@ -71,7 +71,7 @@ startTimestamp="$(date '+%s')$(date '+%N')"
 [[ -z ${FC_TIMEOUT} ]] && timeout=${FC_TIMEOUT}
 [[ -z ${FC_INITIALIZER} ]] && initializer=${FC_INITIALIZER}
 [[ -z ${FC_MEMORY_SIZE} ]] && memory=${FC_MEMORY_SIZE}
-[[ -z ${FC_INITIALIZATIONIMEOUT} ]] && initializationTimeout=${FC_INITIALIZATIONIMEOUT}
+[[ -z ${FC_INITIALIZATIONTIMEOUT} ]] && initializationTimeout=${FC_INITIALIZATIONTIMEOUT}
 
 curlUtil() {
     curl -s -X POST $3 localhost:${serverPort}/$1 \

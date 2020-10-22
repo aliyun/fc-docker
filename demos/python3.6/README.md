@@ -1,7 +1,12 @@
-
 # Using short/long param
-docker run --rm -it -v $(pwd):/code aliyunfc/runtime-python3.6 --handler "index.handler"
-docker run --rm -it -v $(pwd):/code aliyunfc/runtime-python3.6 --handler "index.handler" --event '{"key" : "value"}'
+
+```bash
+docker run --rm -v $(pwd):/code --env-file ./env.list aliyunfc/runtime-python3.6:1.9.7 --handler "index.handler"
+docker run --rm -v $(pwd):/code --env-file ./env.list aliyunfc/runtime-python3.6:1.9.7 --handler "index.handler" --event '{"key" : "value"}'
+```
 
 # Using initializer feature.
-docker run --rm -it -v $(pwd):/code aliyunfc/runtime-python3.6 --initializer "index.initializer" --handler "index.handler" --event '{"key" : "value"}'
+
+```bash
+docker run --rm -v $(pwd):/code --env-file ./env.list aliyunfc/runtime-python3.6:1.9.7 --initializer "index.initializer" --handler "index.handler" --event '{"key" : "value"}'
+```
