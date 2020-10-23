@@ -1,9 +1,8 @@
-deb http://mirrors.163.com/debian/ buster main non-free contrib
-deb http://mirrors.163.com/debian/ buster-updates main non-free contrib
-deb http://mirrors.163.com/debian/ buster-backports main non-free contrib
-deb http://mirrors.163.com/debian-security/ buster/updates main non-free contrib
- 
-deb-src http://mirrors.163.com/debian/ buster main non-free contrib
-deb-src http://mirrors.163.com/debian/ buster-updates main non-free contrib
-deb-src http://mirrors.163.com/debian/ buster-backports main non-free contrib
-deb-src http://mirrors.163.com/debian-security/ buster/updates main non-free contrib
+deb https://mirrors.huaweicloud.com/debian/ buster main contrib non-free
+deb https://mirrors.huaweicloud.com/debian/ buster-updates main contrib non-free
+deb https://mirrors.huaweicloud.com/debian/ buster-backports main contrib non-free
+deb https://mirrors.huaweicloud.com/debian-security/ buster/updates main contrib non-free
+
+deb-src https://mirrors.huaweicloud.com/debian/ buster main contrib non-free
+deb-src https://mirrors.huaweicloud.com/debian/ buster-updates main contrib non-free
+deb-src https://mirrors.huaweicloud.com/debian/ buster-backports main contrib non-free 

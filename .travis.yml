@@ -10,6 +10,7 @@ env:
     - RUNTIME=nodejs10
     - RUNTIME=nodejs12
     - RUNTIME=java8
+    - RUNTIME=java11
     - RUNTIME=php7.2
     - RUNTIME=custom
     - RUNTIME=dotnetcore2.1

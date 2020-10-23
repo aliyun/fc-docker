@@ -10,7 +10,7 @@ if [ ! -d "$(pwd)/demos/$RUNTIME" ]; then
     exit 0
 fi
 
-if [[ "$RUNTIME" = "java8" ]]; then 
+if [[ "$RUNTIME" = "java8" ]] || [[ "$RUNTIME" = "java11" ]]; then 
     MOUNT=$(pwd)/demos/$RUNTIME/target
     HANDLER=examples.Hello::handleRequest
     INITIALIZER=examples.Hello::initialize

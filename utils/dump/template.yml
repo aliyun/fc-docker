@@ -89,6 +89,18 @@ Resources:
           Bucket: 'aliyun-fc-docker'
           OSSRegion: 'oss-cn-shanghai'
           OSSEndpoint: 'http://oss-cn-shanghai.aliyuncs.com'
+    dump-java11:
+      Type: 'Aliyun::Serverless::Function'
+      Properties:
+        Handler: com.aliyun.fc.runtime.DumpJava11::handleRequest
+        Runtime: java11
+        CodeUri: ./dump-java11/target/dump-java11-1.0.0.jar
+        Timeout: 3
+        EnvironmentVariables:
+          FileName: 'java11.tgz'
+          Bucket: 'aliyun-fc-docker'
+          OSSRegion: 'oss-cn-shanghai'
+          OSSEndpoint: 'http://oss-cn-shanghai.aliyuncs.com'
     dump-php72:
       Type: 'Aliyun::Serverless::Function'
       Properties:
