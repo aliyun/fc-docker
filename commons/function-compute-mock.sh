@@ -42,7 +42,7 @@ serverPort=${FC_SERVER_PORT:-9000}
 
 # used for java runtime
 export fc_max_server_heap_size="$[ memoryLimit / 10 * 9 ]m"
-export fc_min_server_heap_size="10m"
+export fc_min_server_heap_size="$[ memoryLimit / 10 * 3 ]m"
 
 if [ ! -f "$agentPath" ]; then
     echo "error: agent.sh not exist"
