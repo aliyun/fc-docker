@@ -37,7 +37,7 @@ RUN apt-get update && apt-get install -y \
 # https://github.com/puckel/docker-airflow/issues/182
 RUN mkdir -p /usr/share/man/man1
 RUN apt-get update && apt-get install -y \
-    openjdk-8-jdk=8u265-b01-0+deb9u1  \
+    openjdk-8-jdk=8u272-b10-0+deb9u1 \
     build-essential=12.3 \
     --no-install-recommends && rm -r /var/lib/apt/lists/*
 
