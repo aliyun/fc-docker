@@ -44,4 +44,7 @@ COPY commons/update-alternatives  /usr/bin/
 
 COPY commons/pycompile  /usr/bin/
 
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
+COPY commons/debian-buster-sources.list /etc/apt/sources.list
+
 WORKDIR /code

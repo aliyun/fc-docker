@@ -25,8 +25,8 @@ ENV MAVEN_REPOSITORY=/cache/maven.repository
 # Change work directory.
 WORKDIR ${FC_FUNC_CODE_PATH}
 
-RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
-COPY commons/debian-buster-sources.list /etc/apt/sources.list
+# RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
+# COPY commons/debian-buster-sources.list /etc/apt/sources.list
 
 # Install common libraries
 RUN apt-get update && apt-get install -y \
