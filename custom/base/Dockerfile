@@ -2,12 +2,7 @@ FROM python:3.7.4-slim-stretch
 
 LABEL maintainer="alibaba-serverless-fc"
 
-COPY commons/debian-jessie-sources.list /etc/apt/sources.list
-
-RUN echo "deb http://deb.debian.org/debian/ stretch main contrib non-free" > /etc/apt/sources.list \
-    && echo "deb-src http://deb.debian.org/debian/ stretch main contrib non-free" >> /etc/apt/sources.list \
-    && echo "deb http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list \
-    && echo "deb-src http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list
+COPY commons/debian-stretch-sources.list /etc/apt/sources.list
 
 RUN apt-get update && apt-get --no-install-recommends install -y \
     curl \
@@ -37,7 +32,7 @@ RUN apt-get update && apt-get install -y \
 # https://github.com/puckel/docker-airflow/issues/182
 RUN mkdir -p /usr/share/man/man1
 RUN apt-get update && apt-get install -y \
-    openjdk-8-jdk=8u272-b10-0+deb9u1 \
+    openjdk-8-jdk \
     build-essential=12.3 \
     --no-install-recommends && rm -r /var/lib/apt/lists/*
 
@@ -77,8 +72,17 @@ RUN apt-get update && apt-get install -y \
     libtool \
     --no-install-recommends && rm -r /var/lib/apt/lists/*
 
-# install swoole extension and enable it
-RUN pecl install swoole
+# install swoole 4.5.2 extension and enable it
+RUN curl -o /tmp/swoole.tar.gz https://github.com/swoole/swoole-src/archive/v4.5.2.tar.gz -L && \
+    tar zxvf /tmp/swoole.tar.gz && cd swoole-src* && \
+    phpize && \
+    ./configure \
+    --enable-sockets \
+    --enable-openssl  \
+    --enable-http2  \
+    --enable-mysqlnd && \
+    make && make install && \
+    rm -rf swoole*
 RUN echo "extension=swoole.so" >> /etc/php/7.4/cli/conf.d/20-swoole.ini
 
 # http://php.net/manual/en/info.configuration.php#ini.enable-dl
@@ -92,6 +96,11 @@ RUN pecl channel-update pecl.php.net \
     && pecl install protobuf-3.11.2 \
     && pecl install memcached-3.1.5 \
     && pecl install mcrypt-1.0.3
+
+RUN echo "extension=redis.so" >> /etc/php/7.4/cli/conf.d/20-redis.ini && \
+    echo "extension=protobuf.so" >> /etc/php/7.4/cli/conf.d/20-protobuf.ini && \
+    echo "extension=memcached.so" >> /etc/php/7.4/cli/conf.d/20-memcached.ini && \
+    echo "extension=mcrypt.so" >> /etc/php/7.4/cli/conf.d/20-mcrypt.ini
 
 # Install ruby2.7, https://www.ruby-lang.org/zh_cn/documentation/installation/
 RUN wget https://cache.ruby-lang.org/pub/ruby/2.7/ruby-2.7.0.tar.gz && \
