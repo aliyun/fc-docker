@@ -129,6 +129,13 @@ RUN npm cache clean --force
 # Remove package.json
 RUN rm -f package.json
 
+# Import the public repository GPG keys
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
+# Register the Microsoft Product feed
+RUN sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/microsoft.list'
+# Install powershell
+RUN apt-get update && apt-get install -y powershell=7.1.0-1.debian.9 --no-install-recommends && rm -r /var/lib/apt/lists/*
+
 # Generate usernames
 RUN for i in $(seq 10000 10999); do \
     echo "user$i:x:$i:$i::/tmp:/usr/sbin/nologin" >> /etc/passwd; \
