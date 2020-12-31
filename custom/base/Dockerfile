@@ -36,11 +36,6 @@ RUN apt-get update && apt-get install -y \
     build-essential=12.3 \
     --no-install-recommends && rm -r /var/lib/apt/lists/*
 
-RUN cd /usr/local/bin && wget http://www-eu.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
-RUN cd /usr/local/bin && tar xzf apache-maven-3.6.3-bin.tar.gz && ln -s apache-maven-3.6.3 apache-maven && rm apache-maven-3.6.3-bin.tar.gz
-ENV M2_HOME=/usr/local/bin/apache-maven
-ENV PATH=${M2_HOME}/bin:${PATH}
-
 # https://www.cloudbooklet.com/install-php-7-4-on-debian-10/
 RUN apt-get update && apt-get install -y gnupg2 ca-certificates lsb-release apt-transport-https --no-install-recommends && rm -r /var/lib/apt/lists/*
 RUN wget -qO - https://packages.sury.org/php/apt.gpg | apt-key add -
@@ -135,6 +130,9 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/microsoft.list'
 # Install powershell
 RUN apt-get update && apt-get install -y powershell=7.1.0-1.debian.9 --no-install-recommends && rm -r /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y maven --no-install-recommends && rm -r /var/lib/apt/lists/*
+ENV MAVEN_REPOSITORY=/cache/maven.repository
 
 # Generate usernames
 RUN for i in $(seq 10000 10999); do \
