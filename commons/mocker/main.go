@@ -198,6 +198,11 @@ func addFcReqHeaders(req *http.Request, reqeustId, controlPath string) {
 	securityToken := os.Getenv("FC_SECURITY_TOKEN")
 	accessKeyId := os.Getenv("FC_ACCESS_KEY_ID")
 	accessKeySecret := os.Getenv("FC_ACCESS_KEY_SECRET")
+	region := os.Getenv("FC_REGION")
+	accountId := os.Getenv("FC_ACCOUND_ID")
+	serviceName := os.Getenv("FC_SERVICE_NAME")
+	serviceLogproject := os.Getenv("FC_SERVICE_LOG_PROJECT")
+	serviceLogstore := os.Getenv("FC_SERVICE_LOG_STORE")
 
 	req.Header.Add("Content-Type", "application/octet-stream")
 	req.Header.Add("x-fc-request-id", reqeustId)
@@ -211,6 +216,11 @@ func addFcReqHeaders(req *http.Request, reqeustId, controlPath string) {
 	req.Header.Add("x-fc-access-key-secret", accessKeySecret)
 	req.Header.Add("x-fc-security-token", securityToken)
 	req.Header.Add("x-fc-control-path", controlPath)
+	req.Header.Add("x-fc-region", region)
+	req.Header.Add("x-fc-account-id", accountId)
+	req.Header.Add("x-fc-service-name", serviceName)
+	req.Header.Add("x-fc-service-logproject", serviceLogproject)
+	req.Header.Add("x-fc-service-logstore", serviceLogstore)
 }
 
 func updateHttpReqByHttpParams(req *http.Request) {
