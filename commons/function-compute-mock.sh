@@ -71,7 +71,7 @@ startTimestamp="$(date '+%s')$(date '+%N')"
 [[ -z ${FC_TIMEOUT} ]] && timeout=${FC_TIMEOUT}
 [[ -z ${FC_INITIALIZER} ]] && initializer=${FC_INITIALIZER}
 [[ -z ${FC_MEMORY_SIZE} ]] && memory=${FC_MEMORY_SIZE}
-[[ -z ${FC_INITIALIZATIONTIMEOUT} ]] && initializationTimeout=${FC_INITIALIZATIONTIMEOUT}
+[[ -z ${FC_INITIALIZATION_TIMEOUT} ]] && initializationTimeout=${FC_INITIALIZATION_TIMEOUT}
 
 curlUtil() {
     curl -s -X POST $3 localhost:${serverPort}/$1 \
@@ -84,7 +84,7 @@ curlUtil() {
         -H "x-fc-initialization-timeout: ${initializationTimeout}" \
         -H "x-fc-function-initializer: ${initializer}" \
         -H "x-fc-function-handler: ${handler}" \
-        -H "x-fc-account-id: ${FC_ACCOUND_ID}" \
+        -H "x-fc-account-id: ${FC_ACCOUNT_ID}" \
         -H "x-fc-region: ${FC_REGION}" \
         -H "x-fc-service-name: ${FC_SERVICE_NAME}" \
         -H "x-fc-service-logproject: ${FC_SERVICE_LOG_PROJECT}" \
