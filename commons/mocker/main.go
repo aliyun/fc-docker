@@ -199,7 +199,7 @@ func addFcReqHeaders(req *http.Request, reqeustId, controlPath string) {
 	accessKeyId := os.Getenv("FC_ACCESS_KEY_ID")
 	accessKeySecret := os.Getenv("FC_ACCESS_KEY_SECRET")
 	region := os.Getenv("FC_REGION")
-	accountId := os.Getenv("FC_ACCOUND_ID")
+	accountId := os.Getenv("FC_ACCOUNT_ID")
 	serviceName := os.Getenv("FC_SERVICE_NAME")
 	serviceLogproject := os.Getenv("FC_SERVICE_LOG_PROJECT")
 	serviceLogstore := os.Getenv("FC_SERVICE_LOG_STORE")
