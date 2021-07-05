@@ -18,7 +18,7 @@ COPY commons/debian-jessie-sources.list /etc/apt/sources.list
 WORKDIR ${FC_FUNC_CODE_PATH}
 
 # Install dev dependencies.
-RUN pip install coverage
+RUN pip install coverage debugpy -i https://mirrors.aliyun.com/pypi/simple/
 
 # Install common libraries
 # imagemagick=8:6.9.7.4+dfsg-11+deb9u3 already exist, ignore
@@ -67,7 +67,8 @@ RUN pip install \
     aliyun-python-sdk-cdn==3.0.8 \
     cprotobuf==0.1.9 \
     pydatahub==2.11.2 \
-    oss2==2.13.0
+    oss2==2.13.0 \
+    -i https://mirrors.aliyun.com/pypi/simple/
 
 # iot sdk support 6.1.0
 RUN curl --connect-timeout 60  -m 3600 -fsSL http://lambda-public.oss-cn-hangzhou.aliyuncs.com/lambda/aliyunsdkiot_py2_v20170420.tar.gz | tar -xzC /usr/local/lib/python2.7/site-packages/aliyunsdkiot/request/
