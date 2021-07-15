@@ -25,8 +25,8 @@ ENV MAVEN_REPOSITORY=/cache/maven.repository
 # Change work directory.
 WORKDIR ${FC_FUNC_CODE_PATH}
 
-# RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
-# COPY commons/debian-buster-sources.list /etc/apt/sources.list
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
+COPY commons/debian-buster-sources.list /etc/apt/sources.list
 
 # Install common libraries
 RUN apt-get update && apt-get install -y \
@@ -49,6 +49,8 @@ RUN for i in $(seq 10000 10999); do \
     echo "user$i:x:$i:$i::/tmp:/usr/sbin/nologin" >> /etc/passwd; \
     done
 
+RUN mv /usr/share/maven/conf/settings.xml /usr/share/maven/conf/settings.xml.bk
+COPY java11/base/settings.xml /usr/share/maven/conf/settings.xml
 RUN ["mvn", "clean", "install"]
 RUN ["mvn", "dependency:go-offline"]
 RUN rm -f pom.xml
