@@ -42,8 +42,16 @@ RUN ln -s /bin/bash /usr/bin/bash \
 
 # Suppress opencv error: "libdc1394 error: Failed to initialize libdc1394"
 RUN ln /dev/null /dev/raw1394
+# Copy all files to home directory.
+COPY java8/base/pom.xml .
 
 # Generate usernames
 RUN for i in $(seq 10000 10999); do \
     echo "user$i:x:$i:$i::/tmp:/usr/sbin/nologin" >> /etc/passwd; \
     done
+
+RUN mv /usr/share/maven/conf/settings.xml /usr/share/maven/conf/settings.xml.bk
+COPY java8/base/settings.xml /usr/share/maven/conf/settings.xml
+#download all the dependencies
+RUN ["mvn", "clean", "install"]
+RUN ["mvn", "dependency:go-offline"]
