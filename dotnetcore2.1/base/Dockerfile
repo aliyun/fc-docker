@@ -11,7 +11,8 @@ RUN apt-get update \
 # Install ASP.NET Core
 ENV ASPNETCORE_VERSION 2.1.7
 
-RUN curl -SL --output aspnetcore.tar.gz https://dotnetcli.blob.core.windows.net/dotnet/aspnetcore/Runtime/$ASPNETCORE_VERSION/aspnetcore-runtime-$ASPNETCORE_VERSION-linux-x64.tar.gz \
+# https://dotnetcli.blob.core.windows.net/dotnet/aspnetcore/Runtime/$ASPNETCORE_VERSION/aspnetcore-runtime-$ASPNETCORE_VERSION-linux-x64.tar.gz
+RUN curl -SL --output aspnetcore.tar.gz http://binary.devsapp.cn/dotnet/aspnetcore-runtime-$ASPNETCORE_VERSION-linux-x64.tar.gz \
     && aspnetcore_sha512='feef7cf9e296011b799b196f3f7cec93e685e5e1b981238064d934bc003eebc75a10567db3af02384c68000ce1d0a64f769928f6b91392934acdacb008c238ad' \
     && echo "$aspnetcore_sha512  aspnetcore.tar.gz" | sha512sum -c - \
     && mkdir -p /usr/share/dotnet \
@@ -28,7 +29,8 @@ RUN apt-get update \
 # Install .NET Core SDK
 ENV DOTNET_SDK_VERSION 2.1.803
 
-RUN curl -SL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz \
+# https://dotnetcli.azureedge.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz
+RUN curl -SL --output dotnet.tar.gz http://binary.devsapp.cn/dotnet/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz \
     && dotnet_sha512='57d48d6ca1bd92ac348dc05220d984811c0cf005774d7afdfbbf125a842acb0a26572146ed25a7eb26f4e0404fe840b70d1e7ec1fb7c9a5c6cfe81fefc41b363' \
     && echo "$dotnet_sha512 dotnet.tar.gz" | sha512sum -c - \
     && mkdir -p /usr/share/dotnet \
