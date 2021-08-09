@@ -2,6 +2,9 @@ FROM mcr.microsoft.com/dotnet/core/runtime-deps:2.1-stretch-slim
 
 LABEL maintainer="alibaba-serverless-fc"
 
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
+COPY commons/debian-stretch-sources.list /etc/apt/sources.list
+
 # Install .NET CLI dependencies
 RUN apt-get update \
     && apt-get --no-install-recommends install -y \
