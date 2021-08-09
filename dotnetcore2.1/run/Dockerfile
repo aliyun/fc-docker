@@ -39,6 +39,9 @@ WORKDIR /debugger
 RUN dotnet publish --configuration Release --output /debugger/output
 RUN cp /debugger/output/Debugger.* /var/fc/runtime/dotnetcore2.1/bootstrap
 
+
+RUN apt-get update && apt-get install -y nfs-common --no-install-recommends && rm -r /var/lib/apt/lists/*
+
 WORKDIR /code
 
 ENV AGENT_DIR=/var/fc/runtime/dotnetcore2.1 \
