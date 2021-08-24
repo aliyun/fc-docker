@@ -5,16 +5,16 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN mkdir -p /mnt/auto
 RUN apt-get update \
     && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
-        dialog \
-        vim \ 
-        cmake \
-        zip \
-        unzip \
-        clang \
-        build-essential \
-        libgmp3-dev \
-        python2.7-dev \
-        sudo \
+    dialog \
+    vim \ 
+    cmake \
+    zip \
+    unzip \
+    clang \
+    build-essential \
+    libgmp3-dev \
+    python2.7-dev \
+    sudo \
     && rm -rf /var/lib/apt/lists/*
 
 RUN echo "ALL ALL=NOPASSWD: ALL" >> /etc/sudoers
@@ -38,11 +38,13 @@ RUN curl -s https://gosspublic.alicdn.com/fun-install/fun-install-${FUN_INSTALL_
     && mv /usr/local/bin/fun-install-v* /usr/local/bin/fun-install
 
 RUN mv /usr/bin/update-alternatives  /usr/bin/update-alternatives-origin \
- && ((test -f /usr/bin/pycompile && mv /usr/bin/pycompile  /usr/bin/pycompile-origin) || true)
+    && ((test -f /usr/bin/pycompile && mv /usr/bin/pycompile  /usr/bin/pycompile-origin) || true)
 
 COPY commons/update-alternatives  /usr/bin/ 
 
 COPY commons/pycompile  /usr/bin/
+
+RUN npm config set registry https://registry.npm.taobao.org
 
 WORKDIR /code
 
