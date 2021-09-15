@@ -1,58 +1,36 @@
-FROM maven:3.6.3-jdk-11
+FROM registry.cn-beijing.aliyuncs.com/aliyunfc/runtime-java11:dev-v6
 
 LABEL maintainer="alibaba-serverless-fc"
-
-# Environment variables can be overwritten by running
-# $ docker run --env <key>=<value>
-ENV FC_SERVER_PATH=/var/fc/runtime/java11
-
-ENV FC_RUNTIME_ROOT_PATH=${FC_SERVER_PATH}/bootstrap \
-    FC_RUNTIME_SYSTEM_PATH=${FC_SERVER_PATH}
-
-ENV FC_SERVER_PORT=9000 \
-    FC_SERVER_LOG_PATH=${FC_SERVER_PATH}/var/log \
-    FC_SERVER_LOG_LEVEL=debug \
-    FC_FUNC_CODE_PATH=/code
-
-ENV LD_LIBRARY_PATH=${FC_FUNC_CODE_PATH}:${FC_FUNC_CODE_PATH}/lib
-
-RUN mkdir -p ${FC_SERVER_LOG_PATH}
-RUN chmod 777 ${FC_SERVER_LOG_PATH}
-RUN chmod -R 777 /tmp/
-
-ENV MAVEN_REPOSITORY=/cache/maven.repository
-
-# Change work directory.
-WORKDIR ${FC_FUNC_CODE_PATH}
 
 RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
 COPY commons/debian-buster-sources.list /etc/apt/sources.list
 
-# Install common libraries
-RUN apt-get update && apt-get install -y \
-    make \
-    imagemagick \
-    libopencv-dev \
-    fonts-wqy-zenhei \
-    fonts-wqy-microhei
+EXPOSE ${FC_SERVER_PORT}
 
-RUN ln -s /bin/bash /usr/bin/bash \
-    && ln -s /bin/grep /usr/bin/grep
+ENV FC_FUNC_CODE_PATH=/code/ \
+    FC_RUNTIME_ROOT_PATH=${FC_SERVER_PATH}/bootstrap \
+    FC_RUNTIME_SYSTEM_PATH=${FC_SERVER_PATH}
 
-# Suppress opencv error: "libdc1394 error: Failed to initialize libdc1394"
-RUN ln /dev/null /dev/raw1394
+ENV LD_LIBRARY_PATH=${FC_FUNC_CODE_PATH}:${FC_FUNC_CODE_PATH}/lib \
+    PATH=${FC_FUNC_CODE_PATH}:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-COPY java11/base/pom.xml .
+RUN apt-get update && apt-get install -y curl && rm -r /var/lib/apt/lists/*
 
-# Generate usernames
-RUN for i in $(seq 10000 10999); do \
-    echo "user$i:x:$i:$i::/tmp:/usr/sbin/nologin" >> /etc/passwd; \
-    done
+RUN curl -o /tmp/ffmpeg.tar.gz https://lambda-public.oss-cn-hangzhou.aliyuncs.com/runtime/ffmpeg.tar.gz \
+    && tar -xzf /tmp/ffmpeg.tar.gz -C /usr/local/bin \
+    && rm -rf /tmp/ffmpeg.tar.gz
 
-RUN mv /usr/share/maven/conf/settings.xml /usr/share/maven/conf/settings.xml.bk
-COPY java11/base/settings.xml /usr/share/maven/conf/settings.xml
-RUN ["mvn", "clean", "install"]
-RUN ["mvn", "dependency:go-offline"]
-RUN rm -f pom.xml
+# Create function directories.
+RUN mkdir -p \
+    ${FC_FUNC_CODE_PATH} \
+    ${FC_RUNTIME_ROOT_PATH} \
+    ${FC_RUNTIME_SYSTEM_PATH}
 
-RUN cp /usr/local/openjdk-11/bin/java /usr/bin/java
+# Set home working directory.
+WORKDIR ${FC_FUNC_CODE_PATH}
+
+#set async logger
+ENV Log4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector
+
+# Enable CDS
+RUN /usr/bin/java -Xshare:dump

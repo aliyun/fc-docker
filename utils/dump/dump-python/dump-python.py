@@ -10,7 +10,8 @@ def handler(event, context):
     source = '/tmp/{}'.format(filename)
     dest = filename
 
-    cmd = 'tar -cpzf {} --numeric-owner --ignore-failed-read {}'.format(source, package_dir)
+    cmd = 'tar -cpzf {} --numeric-owner --ignore-failed-read {}'.format(
+        source, package_dir)
 
     subprocess.call(['sh', '-c', cmd])
 
@@ -21,15 +22,14 @@ def handler(event, context):
                         creds.access_key_secret,
                         creds.security_token)
 
-    endpoint = os.environ['OSSEndpoing']
+    endpoint = os.environ['OSSEndpoint']
     bucket = os.environ['Bucket']
 
     print('endpoint: ' + endpoint)
     print('bucket: ' + bucket)
 
-    bucket = oss2.Bucket(auth, endpoint, bucket) 
+    bucket = oss2.Bucket(auth, endpoint, bucket)
 
     bucket.put_object_from_file(dest, source)
 
     return 'Zipping done and uploading done!'
-

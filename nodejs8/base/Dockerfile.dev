@@ -1,9 +1,6 @@
-FROM registry.cn-beijing.aliyuncs.com/aliyunfc/runtime-nodejs8:dev-v15
+FROM node:8.9.0
 
 LABEL maintainer="alibaba-serverless-fc"
-
-RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
-COPY commons/debian-jessie-sources.list /etc/apt/sources.list
 
 # Environment variables.
 ENV FC_SERVER_PATH=/var/fc/runtime/nodejs8 \
