@@ -18,3 +18,4 @@ dotnetcore2.1/run/debugger/[bB]in
 __pycache__/
 .bash_history
 utils/dump/.fun
+.s

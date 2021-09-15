@@ -2,7 +2,7 @@ ARG TAG="latest"
 FROM aliyunfc/runtime-php7.2:${TAG}
 
 RUN rm -rf /var/runtime /var/lang && \
-  curl https://aliyun-fc-docker.oss-cn-shanghai.aliyuncs.com/php7.2.tgz | tar -zx -C / && \
+  curl https://aliyunfc-docker.oss-cn-shanghai.aliyuncs.com/php7.2.tgz | tar -zx -C / && \
   rm -rf /var/fc/runtime/*/var/log/*
 
 RUN apt-get update && apt-get install -y nfs-common --no-install-recommends && rm -r /var/lib/apt/lists/*

@@ -1,7 +1,9 @@
 <?php
+
 use OSS\OssClient;
 
-function handler($event, $context) {
+function handler($event, $context)
+{
 	$package_dir = $_ENV['PackageDir'];
 	$filename = $_ENV['FileName'];
 	$source = '/tmp/' . $filename;
@@ -12,7 +14,7 @@ function handler($event, $context) {
 
 	echo 'Zipping done! Uploading...' . PHP_EOL;
 
-	$endpoint = $_ENV['OSSEndpoing'];
+	$endpoint = $_ENV['OSSEndpoint'];
 	$bucket = $_ENV['Bucket'];
 
 	echo 'endpoint: ' . $endpoint . PHP_EOL;

@@ -1,0 +1,172 @@
+edition: 1.0.0
+name: fc-util-dumps
+access: funcraft
+vars:
+  region: ap-northeast-1
+  dump-service:
+    name: dump-service
+    description: dump service
+    role:
+      name: dump-serviceDefaultRole
+      policies:
+        - AliyunOSSFullAccess
+    internetAccess: true
+services:
+  fc-dump-service-dump-nodejs12:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.dump-service}
+      function:
+        name: dump-nodejs12
+        handler: dump-nodejs.handler
+        timeout: 600
+        runtime: nodejs12
+        environmentVariables:
+          Bucket: aliyunfc-docker
+          OSSRegion: oss-cn-shanghai
+          FileName: nodejs12.tgz
+        codeUri: ./dump-nodejs
+  fc-dump-service-dump-nodejs10:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.dump-service}
+      function:
+        name: dump-nodejs10
+        handler: dump-nodejs.handler
+        timeout: 600
+        runtime: nodejs10
+        environmentVariables:
+          Bucket: aliyunfc-docker
+          OSSRegion: oss-cn-shanghai
+          FileName: nodejs10.tgz
+        codeUri: ./dump-nodejs
+  fc-dump-service-dump-nodejs8:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.dump-service}
+      function:
+        name: dump-nodejs8
+        handler: dump-nodejs.handler
+        timeout: 600
+        runtime: nodejs8
+        environmentVariables:
+          Bucket: aliyunfc-docker
+          OSSRegion: oss-cn-shanghai
+          FileName: nodejs8.tgz
+        codeUri: ./dump-nodejs
+  fc-dump-service-dump-nodejs6:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.dump-service}
+      function:
+        name: dump-nodejs6
+        handler: dump-nodejs.handler
+        timeout: 600
+        runtime: nodejs6
+        environmentVariables:
+          Bucket: aliyunfc-docker
+          OSSRegion: oss-cn-shanghai
+          FileName: nodejs6.tgz
+        codeUri: ./dump-nodejs
+  fc-dump-service-dump-python27:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.dump-service}
+      function:
+        name: dump-python27
+        handler: dump-python.handler
+        timeout: 600
+        runtime: python2.7
+        environmentVariables:
+          Bucket: aliyunfc-docker
+          OSSRegion: oss-cn-shanghai
+          OSSEndpoint: http://oss-cn-shanghai.aliyuncs.com
+          FileName: python2.7.tgz
+          PackageDir: /var/fc/runtime/python2.7
+        codeUri: ./dump-python
+  fc-dump-service-dump-python36:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.dump-service}
+      function:
+        name: dump-python36
+        handler: dump-python.handler
+        timeout: 600
+        runtime: python3
+        environmentVariables:
+          Bucket: aliyunfc-docker
+          OSSRegion: oss-cn-shanghai
+          OSSEndpoint: http://oss-cn-shanghai.aliyuncs.com
+          FileName: python3.6.tgz
+          PackageDir: /var/fc/runtime/python3
+        codeUri: ./dump-python
+  fc-dump-service-dump-java8:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.dump-service}
+      function:
+        name: dump-java8
+        handler: com.aliyun.fc.runtime.DumpJava8::handleRequest
+        timeout: 600
+        runtime: java8
+        environmentVariables:
+          FileName: java8.tgz
+          Bucket: aliyunfc-docker
+          OSSRegion: oss-cn-shanghai
+          OSSEndpoint: http://oss-cn-shanghai.aliyuncs.com
+        codeUri: ./dump-java8/target/dump-java8-1.0.0.jar
+  fc-dump-service-dump-java11:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.dump-service}
+      function:
+        name: dump-java11
+        handler: com.aliyun.fc.runtime.DumpJava11::handleRequest
+        timeout: 600
+        runtime: java11
+        environmentVariables:
+          FileName: java11.tgz
+          Bucket: aliyunfc-docker
+          OSSRegion: oss-cn-shanghai
+          OSSEndpoint: http://oss-cn-shanghai.aliyuncs.com
+        codeUri: ./dump-java11/target/dump-java11-1.0.0.jar
+  fc-dump-service-dump-php72:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.dump-service}
+      function:
+        name: dump-php72
+        handler: dump-php.handler
+        timeout: 600
+        runtime: php7.2
+        environmentVariables:
+          Bucket: aliyunfc-docker
+          OSSRegion: oss-cn-shanghai
+          OSSEndpoint: http://oss-cn-shanghai.aliyuncs.com
+          FileName: php7.2.tgz
+          PackageDir: /var/fc/runtime/php7.2
+        codeUri: ./dump-php
+  fc-dump-service-dump-dotnetcore21:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.dump-service}
+      function:
+        name: dump-dotnetcore21
+        handler: dump-dotnetcore::dump_dotnetcore.App::Handler
+        timeout: 600
+        runtime: dotnetcore2.1
+        environmentVariables:
+          Bucket: aliyunfc-docker
+          OSSEndpoint: oss-cn-shanghai.aliyuncs.com
+          FileName: dotnetcore2.1.tgz
+        codeUri: ./dump-dotnetcore/bin/Release/netcoreapp2.1/publish/
