@@ -3,8 +3,8 @@ FROM aliyunfc/runtime-python2.7:${TAG}
 
 ENV PYTHONUNBUFFERED=1
 
-RUN pip install ptvsd
-RUN pip install pydevd
+RUN pip install ptvsd -i https://mirrors.aliyun.com/pypi/simple/
+RUN pip install pydevd -i https://mirrors.aliyun.com/pypi/simple/
 
 RUN rm -rf /var/runtime /var/lang && \
   curl https://aliyunfc-docker.oss-cn-shanghai.aliyuncs.com/python2.7.tgz | tar -zx -C / && \
