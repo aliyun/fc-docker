@@ -2,10 +2,8 @@ ARG TAG="latest"
 FROM aliyunfc/runtime-java11:${TAG}
 
 RUN rm -rf /var/runtime /var/lang && \
-  curl https://aliyunfc-docker.oss-cn-shanghai.aliyuncs.com/java11.tgz | tar -zx -C / && \
+  curl https://alifc-docker.oss-cn-shanghai.aliyuncs.com/java11.tgz | tar -zx -C / && \
   rm -rf /var/fc/runtime/*/var/log/*
-
-RUN apt-get update && apt-get install -y nfs-common --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 COPY commons/function-compute-mock.sh /var/fc/runtime/java11/mock
 COPY java11/run/agent.sh /var/fc/runtime/java11/agent.sh

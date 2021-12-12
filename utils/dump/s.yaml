@@ -1,8 +1,8 @@
 edition: 1.0.0
 name: fc-util-dumps
-access: funcraft
+access: fc-console
 vars:
-  region: ap-northeast-1
+  region: cn-shanghai
   dump-service:
     name: dump-service
     description: dump service
@@ -23,7 +23,7 @@ services:
         timeout: 600
         runtime: nodejs12
         environmentVariables:
-          Bucket: aliyunfc-docker
+          Bucket: alifc-docker
           OSSRegion: oss-cn-shanghai
           FileName: nodejs12.tgz
         codeUri: ./dump-nodejs
@@ -38,7 +38,7 @@ services:
         timeout: 600
         runtime: nodejs10
         environmentVariables:
-          Bucket: aliyunfc-docker
+          Bucket: alifc-docker
           OSSRegion: oss-cn-shanghai
           FileName: nodejs10.tgz
         codeUri: ./dump-nodejs
@@ -53,7 +53,7 @@ services:
         timeout: 600
         runtime: nodejs8
         environmentVariables:
-          Bucket: aliyunfc-docker
+          Bucket: alifc-docker
           OSSRegion: oss-cn-shanghai
           FileName: nodejs8.tgz
         codeUri: ./dump-nodejs
@@ -68,7 +68,7 @@ services:
         timeout: 600
         runtime: nodejs6
         environmentVariables:
-          Bucket: aliyunfc-docker
+          Bucket: alifc-docker
           OSSRegion: oss-cn-shanghai
           FileName: nodejs6.tgz
         codeUri: ./dump-nodejs
@@ -83,11 +83,11 @@ services:
         timeout: 600
         runtime: python2.7
         environmentVariables:
-          Bucket: aliyunfc-docker
+          Bucket: alifc-docker
           OSSRegion: oss-cn-shanghai
           OSSEndpoint: http://oss-cn-shanghai.aliyuncs.com
           FileName: python2.7.tgz
-          PackageDir: /var/fc/runtime/python2.7
+          PackageDir: /var/fc/runtime
         codeUri: ./dump-python
   fc-dump-service-dump-python36:
     component: devsapp/fc
@@ -100,11 +100,11 @@ services:
         timeout: 600
         runtime: python3
         environmentVariables:
-          Bucket: aliyunfc-docker
+          Bucket: alifc-docker
           OSSRegion: oss-cn-shanghai
           OSSEndpoint: http://oss-cn-shanghai.aliyuncs.com
           FileName: python3.6.tgz
-          PackageDir: /var/fc/runtime/python3
+          PackageDir: /var/fc/runtime
         codeUri: ./dump-python
   fc-dump-service-dump-java8:
     component: devsapp/fc
@@ -118,7 +118,7 @@ services:
         runtime: java8
         environmentVariables:
           FileName: java8.tgz
-          Bucket: aliyunfc-docker
+          Bucket: alifc-docker
           OSSRegion: oss-cn-shanghai
           OSSEndpoint: http://oss-cn-shanghai.aliyuncs.com
         codeUri: ./dump-java8/target/dump-java8-1.0.0.jar
@@ -134,7 +134,7 @@ services:
         runtime: java11
         environmentVariables:
           FileName: java11.tgz
-          Bucket: aliyunfc-docker
+          Bucket: alifc-docker
           OSSRegion: oss-cn-shanghai
           OSSEndpoint: http://oss-cn-shanghai.aliyuncs.com
         codeUri: ./dump-java11/target/dump-java11-1.0.0.jar
@@ -149,7 +149,7 @@ services:
         timeout: 600
         runtime: php7.2
         environmentVariables:
-          Bucket: aliyunfc-docker
+          Bucket: alifc-docker
           OSSRegion: oss-cn-shanghai
           OSSEndpoint: http://oss-cn-shanghai.aliyuncs.com
           FileName: php7.2.tgz
@@ -166,7 +166,7 @@ services:
         timeout: 600
         runtime: dotnetcore2.1
         environmentVariables:
-          Bucket: aliyunfc-docker
+          Bucket: alifc-docker
           OSSEndpoint: oss-cn-shanghai.aliyuncs.com
           FileName: dotnetcore2.1.tgz
         codeUri: ./dump-dotnetcore/bin/Release/netcoreapp2.1/publish/

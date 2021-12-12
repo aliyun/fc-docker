@@ -35,7 +35,11 @@ agentPath="${SHELL_DIR}/${agentScript}"
 requestId="$(cat /proc/sys/kernel/random/uuid)"
 
 hostLimit="$(free -m | awk 'NR==2{printf $2 }')"
-dockerLimit="$[$(cat /sys/fs/cgroup/memory/memory.limit_in_bytes) / 1024 / 1024]"
+dockerLimit=2147483647
+memoryFile="/sys/fs/cgroup/memory/memory.limit_in_bytes"
+if [ -f "$memoryFile"]; then
+    dockerLimit="$[$(cat /sys/fs/cgroup/memory/memory.limit_in_bytes) / 1024 / 1024]"
+fi
 # min(hostLimit, dockerLimit)
 memoryLimit=$([ $hostLimit -le $dockerLimit ] && echo $hostLimit || echo $dockerLimit)
 serverPort=${FC_SERVER_PORT:-9000}

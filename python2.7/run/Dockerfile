@@ -7,10 +7,8 @@ RUN pip install ptvsd -i https://mirrors.aliyun.com/pypi/simple/
 RUN pip install pydevd -i https://mirrors.aliyun.com/pypi/simple/
 
 RUN rm -rf /var/runtime /var/lang && \
-  curl https://aliyunfc-docker.oss-cn-shanghai.aliyuncs.com/python2.7.tgz | tar -zx -C / && \
+  curl https://alifc-docker.oss-cn-shanghai.aliyuncs.com/python2.7.tgz | tar -zx -C / && \
   rm -rf /var/fc/runtime/*/var/log/*
-
-RUN apt-get update && apt-get install -y nfs-common --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 COPY commons/function-compute-mock.sh /var/fc/runtime/python2.7/mock
 COPY python2.7/run/agent.sh /var/fc/runtime/python2.7/agent.sh

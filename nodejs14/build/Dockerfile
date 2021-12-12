@@ -1,19 +1,18 @@
 ARG TAG="latest"
-FROM aliyunfc/runtime-custom:${TAG}
-ENV DEBIAN_FRONTEND=noninteractive
+FROM aliyunfc/runtime-nodejs14:${TAG}
 
 RUN mkdir -p /mnt/auto
-
 RUN apt-get update \
     && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
     dialog \
-    vim \
+    vim \ 
     cmake \
     zip \
     unzip \
     clang \
     build-essential \
     libgmp3-dev \
+    python2.7-dev \
     sudo \
     && rm -rf /var/lib/apt/lists/*
 
@@ -40,15 +39,11 @@ RUN curl -s https://gosspublic.alicdn.com/fun-install/fun-install-${FUN_INSTALL_
 RUN mv /usr/bin/update-alternatives  /usr/bin/update-alternatives-origin \
     && ((test -f /usr/bin/pycompile && mv /usr/bin/pycompile  /usr/bin/pycompile-origin) || true)
 
-COPY commons/update-alternatives  /usr/bin/ 
-
+COPY commons/update-alternatives  /usr/bin/
 COPY commons/pycompile  /usr/bin/
 
-# custom maven speedup
-COPY custom/build/pom.xml .
-RUN mv /usr/share/maven/conf/settings.xml /usr/share/maven/conf/settings.xml.bk
-COPY custom/build/settings.xml /usr/share/maven/conf/settings.xml
-RUN ["mvn", "dependency:go-offline"]
-RUN rm -f pom.xml
+RUN npm config set registry https://registry.npm.taobao.org
 
 WORKDIR /code
+
+CMD ["npm", "rebuild"]

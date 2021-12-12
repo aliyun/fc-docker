@@ -1,42 +1,28 @@
-FROM registry.cn-beijing.aliyuncs.com/aliyunfc/runtime-nodejs8:dev-v15
+FROM aliyunfc/fc-runtime:stretch-base
 
-LABEL maintainer="alibaba-serverless-fc"
-
-RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
-COPY commons/debian-jessie-sources.list /etc/apt/sources.list
+ENV NODE_VERSION v8.17.0
+RUN wget http://mirrors.nju.edu.cn/nodejs/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.gz -O /tmp/node-${NODE_VERSION}-linux-x64.tar.gz \
+    && cd /tmp && tar -zxvf /tmp/node-${NODE_VERSION}-linux-x64.tar.gz \
+    && cp /tmp/node-${NODE_VERSION}-linux-x64/bin/node /usr/local/bin/ \
+    && cp -r /tmp/node-${NODE_VERSION}-linux-x64/lib/node_modules /usr/local/lib/node_modules \
+    && cp -r /tmp/node-${NODE_VERSION}-linux-x64/include/node /usr/local/include/node \
+    && ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
+    && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx \
+    && rm -rf /tmp/node-${NODE_VERSION}-linux-x64*
 
 # Environment variables.
-ENV FC_SERVER_PATH=/var/fc/runtime/nodejs8 \
-    NODE_PATH=/usr/local/lib/node_modules \
-    FC_FUNC_CODE_PATH=/code
-ENV PATH=${FC_FUNC_CODE_PATH}/node_modules/.bin:${PATH}
-ENV LD_LIBRARY_PATH=${FC_FUNC_CODE_PATH}:${FC_FUNC_CODE_PATH}/lib
+ENV FC_SERVER_PATH=/var/fc/runtime/nodejs8 
 
 # Create directory.
 RUN mkdir -p ${FC_SERVER_PATH}
 
+ENV FC_SERVER_LOG_PATH=${FC_SERVER_PATH}/var/log
+ENV LD_LIBRARY_PATH=${FC_FUNC_CODE_PATH}:${FC_FUNC_CODE_PATH}/lib
+ENV PATH=${PATH}:${FC_SERVER_PATH}/node_modules/.bin
+ENV NODE_PATH=/usr/local/lib/node_modules:/opt/nodejs/node8/node_modules:/opt/nodejs/node_modules
+
 # Change work directory.
 WORKDIR ${FC_FUNC_CODE_PATH}
-
-RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak
-COPY commons/debian-jessie-sources.list /etc/apt/sources.list
-
-# Install server dependencies.
-RUN npm install \
-    --loglevel error \
-    --registry http://registry.npm.taobao.org
-
-# Install common libraries
-RUN apt-get update \
-    && apt-get --no-install-recommends install -y \
-    imagemagick=8:6.8.9.9-5+deb8u19 \
-    libopencv-dev=2.4.9.1+dfsg-1+deb8u2 \
-    fonts-wqy-zenhei=0.9.45-6 \
-    fonts-wqy-microhei=0.2.0-beta-2 \
-    && rm -rf /var/lib/apt/lists/*
-
-# Suppress opencv error: "libdc1394 error: Failed to initialize libdc1394"
-RUN ln /dev/null /dev/raw1394
 
 # Install thrid party libraries for user function.
 RUN npm install --global --unsafe-perm \
@@ -59,21 +45,7 @@ RUN npm install --global --unsafe-perm \
     moment@2.25.3 \
     uuid@8.0.0
 
-
-RUN apt-get update && apt-get install -y --force-yes \
-    zip \
-    unzip \
-    --no-install-recommends && rm -r /var/lib/apt/lists/*
-
 RUN npm cache clean --force
-
-# Remove package.json
-RUN rm -f package.json
-
-# Generate usernames
-RUN for i in $(seq 10000 10999); do \
-    echo "user$i:x:$i:$i::/tmp:/usr/sbin/nologin" >> /etc/passwd; \
-    done
 
 # Start a shell by default
 CMD ["bash"]
