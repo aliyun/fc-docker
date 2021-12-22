@@ -35,7 +35,15 @@ agentPath="${SHELL_DIR}/${agentScript}"
 requestId="$(cat /proc/sys/kernel/random/uuid)"
 
 hostLimit="$(free -m | awk 'NR==2{printf $2 }')"
-dockerLimit="$[$(cat /sys/fs/cgroup/memory/memory.limit_in_bytes) / 1024 / 1024]"
+
+dockerLimit=8589934592  #8G, 暂时随机设置的一个值
+# docker 20 版本有变更: https://github.com/oracle/docker-images/issues/1939
+if [[ -f /sys/fs/cgroup/cgroup.controllers ]]; then
+   dockerLimit=8589934592  #8G, 暂时随机设置的一个值
+else
+   dockerLimit="$[$(cat /sys/fs/cgroup/memory/memory.limit_in_bytes) / 1024 / 1024]"
+fi
+
 # min(hostLimit, dockerLimit)
 memoryLimit=$([ $hostLimit -le $dockerLimit ] && echo $hostLimit || echo $dockerLimit)
 serverPort=${FC_SERVER_PORT:-9000}
@@ -129,7 +137,14 @@ else
 fi
 
 endTimestamp="$(date '+%s')$(date '+%N')"
-memoryUsage=$[$(cat /sys/fs/cgroup/memory/memory.usage_in_bytes) / 1024 / 1024]
+
+memoryUsage=32
+# docker 20 版本有变更: https://github.com/oracle/docker-images/issues/1939
+if [[ -f /sys/fs/cgroup/cgroup.controllers ]]; then
+   memoryUsage=$[$(cat /sys/fs/cgroup/memory.current) / 1024 / 1024]
+else
+   memoryUsage=$[$(cat /sys/fs/cgroup/memory/memory.usage_in_bytes) / 1024 / 1024]
+fi
 
 billedTime=$[(endTimestamp - startTimestamp) / 1000000]
 
