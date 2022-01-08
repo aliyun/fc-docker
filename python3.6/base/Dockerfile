@@ -5,6 +5,7 @@ ENV LANG C.UTF-8
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		libbluetooth-dev \
 		tk-dev \
+		libbz2-dev \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y \

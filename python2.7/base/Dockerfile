@@ -1,6 +1,6 @@
 FROM aliyunfc/fc-runtime:stretch-base
 
-RUN apt-get update &&  apt-get install -y python2.7 python-pip python2.7-dev \
+RUN apt-get update &&  apt-get install -y libbz2-dev python2.7 python-pip python2.7-dev \
     --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 COPY commons/pip.conf /etc/pip.conf
