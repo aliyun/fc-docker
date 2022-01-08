@@ -5,7 +5,7 @@ RUN wget http://mirrors.nju.edu.cn/nodejs/${NODE_VERSION}/node-${NODE_VERSION}-l
     && cd /tmp && tar -zxvf /tmp/node-${NODE_VERSION}-linux-x64.tar.gz \
     && cp /tmp/node-${NODE_VERSION}-linux-x64/bin/node /usr/local/bin/ \
     && cp -r /tmp/node-${NODE_VERSION}-linux-x64/lib/node_modules /usr/local/lib/node_modules \
-    && cp -r /tmp/node-${NODE_VERSION}-linux-x64/include/node /usr/include/node \
+    && cp -r /tmp/node-${NODE_VERSION}-linux-x64/include/node /usr/local/include/node \
     && ln -s /usr/local/lib/node_modules/npm/bin/npm-cli.js /usr/local/bin/npm \
     && ln -s /usr/local/lib/node_modules/npm/bin/npx-cli.js /usr/local/bin/npx \
     && rm -rf /tmp/node-${NODE_VERSION}-linux-x64*
