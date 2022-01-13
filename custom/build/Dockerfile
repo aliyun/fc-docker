@@ -51,4 +51,8 @@ COPY custom/build/settings.xml /usr/share/maven/conf/settings.xml
 RUN ["mvn", "dependency:go-offline"]
 RUN rm -f pom.xml
 
+RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
+RUN npm config set registry https://registry.npm.taobao.org
+RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+
 WORKDIR /code
