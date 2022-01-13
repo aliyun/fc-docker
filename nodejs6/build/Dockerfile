@@ -47,6 +47,8 @@ COPY commons/pycompile  /usr/bin/
 
 RUN npm config set registry https://registry.npm.taobao.org
 
+RUN npm install -g yarn
+
 WORKDIR /code
 
 CMD ["npm", "rebuild"]
