@@ -1,5 +1,11 @@
 FROM aliyunfc/fc-runtime:java8-stretch-base
 
+# fix  ModuleNotFoundError: No module named '_ctypes'
+RUN apt-get update && apt-get install -y \
+ zlibc zlib1g zlib1g-dev \
+ libffi-dev libssl-dev libreadline-dev \
+ --no-install-recommends && rm -r /var/lib/apt/lists/*
+
 # Install python3.7 and Make python 3.7 the default
 ENV LANG C.UTF-8
 # extra dependencies (over what buildpack-deps already includes)
@@ -240,7 +246,6 @@ RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 RUN sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/microsoft.list'
 # Install powershell
 RUN apt-get update && apt-get install -y powershell=7.1.0-1.debian.9 --no-install-recommends && rm -r /var/lib/apt/lists/*
-
 
 ENV FC_SERVER_PORT=9000 \
     FC_FUNC_CODE_PATH=/code
