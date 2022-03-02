@@ -221,7 +221,7 @@ RUN wget https://cache.ruby-lang.org/pub/ruby/2.7/ruby-2.7.0.tar.gz && \
     make && make install && \
     cd ../ && rm -rf ruby-2.7.0 && rm ruby-2.7.0.tar.gz
 
-ENV PATH=$PATH:/usr/local/ruby/bin
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/ruby/bin:$PATH
 
 # support rails, https://edgeguides.rubyonrails.org/getting_started.html
 RUN apt-get update && apt-get install -y \
