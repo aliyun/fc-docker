@@ -20,6 +20,7 @@ fc docker 是对线上函数运行环境的完全模拟，并且能够让您在�
 | [nodejs12](https://hub.docker.com/r/aliyunfc/runtime-nodejs12/tags)           | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs10?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-nodejs10/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-nodejs12.svg)                |
 | [python2.7](https://hub.docker.com/r/aliyunfc/runtime-python2.7/tags)         | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python2.7?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python2.7/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-python2.7.svg)             |
 | [python3.6](https://hub.docker.com/r/aliyunfc/runtime-python3.6/tags)         | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python3.6?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python3.6/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-python3.6.svg)             |
+| [python3.9](https://hub.docker.com/r/aliyunfc/runtime-python3.9/tags)         | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python3.9?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-python3.9/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-python3.9.svg)             |
 | [java8](https://hub.docker.com/r/aliyunfc/runtime-java8/tags)                 | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-java8?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-java8/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-java8.svg)                         |
 | [php7.2](https://hub.docker.com/r/aliyunfc/runtime-php7.2/tags)               | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-php7.2?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-php7.2/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-php7.2.svg)                      |
 | [dotnetcore2.1](https://hub.docker.com/r/aliyunfc/runtime-dotnetcore2.1/tags) | ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-dotnetcore2.1?label=image%20size) ![](https://img.shields.io/microbadger/image-size/aliyunfc/runtime-dotnetcore2.1/build?label=build%20image%20size) ![](https://img.shields.io/docker/pulls/aliyunfc/runtime-dotnetcore2.1.svg) |
@@ -47,6 +48,9 @@ docker run --rm -v $(pwd):/code --env-file ./env.list aliyunfc/runtime-python2.7
 
 # 进入 demos/python3.6 目录，执行下面命令在 python3.6 中运行函数：
 docker run --rm -v $(pwd):/code --env-file ./env.list aliyunfc/runtime-python3.6 --handler "index.handler" --event '{"some": "event"}'
+
+# 进入 demos/python3.9 目录，执行下面命令在 python3.9 中运行函数：
+docker run --rm -v $(pwd):/code --env-file ./env.list aliyunfc/runtime-python3.9 --handler "index.handler" --event '{"some": "event"}'
 
 # 进入 demos/php7.2 目录，执行下面命令在 php7.2 中运行函数：
 docker run --rm -v $(pwd):/code --env-file ./env.list aliyunfc/runtime-php7.2 --handler "index.handler" --event '{"some": "event"}'
@@ -77,6 +81,7 @@ docker run --rm -v $(pwd):/code aliyunfc/runtime-nodejs6:build
 # 在 build 容器中运行自定义命令
 docker run --rm -v $(pwd):/code aliyunfc/runtime-python2.7:build fun
 docker run --rm -v $(pwd):/code aliyunfc/runtime-python3.6:build fcli
+docker run --rm -v $(pwd):/code aliyunfc/runtime-python3.9:build fcli
 
 # 在 build 容器中运行交互式 bash
 docker run --rm -it -v $(pwd):/code aliyunfc/runtime-python2.7:build bash

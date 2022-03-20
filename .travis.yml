@@ -5,6 +5,7 @@ env:
   matrix:
     - RUNTIME=python2.7
     - RUNTIME=python3.6
+    - RUNTIME=python3.9
     - RUNTIME=nodejs6
     - RUNTIME=nodejs8
     - RUNTIME=nodejs10
