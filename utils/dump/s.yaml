@@ -106,6 +106,23 @@ services:
           FileName: python3.6.tgz
           PackageDir: /var/fc/runtime
         codeUri: ./dump-python
+  fc-dump-service-dump-python39:
+    component: devsapp/fc
+    props:
+      region: ${vars.region}
+      service: ${vars.dump-service}
+      function:
+        name: dump-python39
+        handler: dump-python.handler
+        timeout: 600
+        runtime: python3.9
+        environmentVariables:
+          Bucket: alifc-docker
+          OSSRegion: oss-cn-shanghai
+          OSSEndpoint: http://oss-cn-shanghai.aliyuncs.com
+          FileName: python3.9.tgz
+          PackageDir: /var/fc/runtime
+        codeUri: ./dump-python
   fc-dump-service-dump-java8:
     component: devsapp/fc
     props:
