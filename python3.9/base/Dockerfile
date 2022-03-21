@@ -3,6 +3,9 @@ FROM aliyunfc/fc-runtime:stretch-base
 ENV LANG C.UTF-8
 # Install python3.9
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential libssl-dev zlib1g-dev \
+	libreadline-dev libsqlite3-dev llvm \
+    libncursesw5-dev xz-utils libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev \
 	libbluetooth-dev \
 	tk-dev \
 	libbz2-dev \
@@ -13,7 +16,7 @@ RUN apt-get update && apt-get install -y \
 	dirmngr \
 	&& rm -rf /var/lib/apt/lists/*
 
-ENV GPG_KEY 0D96DF4D4110E5C43FBFB17F2D347EA6AA65421D
+ENV GPG_KEY E3FF2839C048B25C084DEBE9B26995E310250568
 ENV PYTHON_VERSION 3.9.8
 
 RUN set -ex \
@@ -98,13 +101,18 @@ RUN cd /usr/local/bin \
 	&& ln -s python3 python \
 	&& ln -s python3-config python-config
 
+RUN apt-get purge -y --auto-remove \
+    build-essential libssl-dev zlib1g-dev \
+	libreadline-dev libsqlite3-dev llvm \
+    libncursesw5-dev xz-utils libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+
 # if this is called "PIP_VERSION", pip explodes with "ValueError: invalid truth value '<VERSION>'"
 ENV PYTHON_PIP_VERSION 21.2.4
 # https://github.com/docker-library/python/issues/365
 ENV PYTHON_SETUPTOOLS_VERSION 57.5.0
 # https://github.com/pypa/get-pip
 ENV PYTHON_GET_PIP_URL https://bootstrap.pypa.io/get-pip.py
-ENV PYTHON_GET_PIP_SHA256 c518250e91a70d7b20cceb15272209a4ded2a0c263ae5776f129e0d9b5674309
+ENV PYTHON_GET_PIP_SHA256 e235c437e5c7d7524fbce3880ca39b917a73dc565e0c813465b7a7a329bb279a
 
 RUN set -ex; \
 	\
@@ -141,15 +149,15 @@ RUN pip install -U six
 RUN pip install -U pip && pip install -U setuptools
 
 # fc-docker fix: cprotobuf 0.1.10, dependency of pydatahub, could not be installed, so using 0.1.9
-RUN pip install --user cython==0.29.14 cprotobuf==0.1.9 -i https://mirrors.aliyun.com/pypi/simple/
+RUN pip install --user cython -i https://mirrors.aliyun.com/pypi/simple/
 RUN pip install --user \
-	scipy==1.0.0 \
-	numpy==1.13.3 \
-	wand==0.4.4 \
-	opencv-python==3.4.0.14 \
-	matplotlib==2.0.2 \
-	scrapy==1.4.0 \
-	cbor==1.0.0 \
+	scipy \
+	numpy \
+	wand \
+	opencv-python \
+	matplotlib \
+	scrapy \
+	cbor \
 	aliyun-fc==0.6 \
 	meinheld==0.6.1 \
 	aliyun-fc2==2.3.0 \
