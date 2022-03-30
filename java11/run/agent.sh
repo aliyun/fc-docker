@@ -35,7 +35,8 @@ case ${command} in
             unset $key
         done
 
-        params="-cp ${fc_runtime_root_path}/*:${fc_runtime_root_path} "
+        params="${DEBUG_OPTIONS} "
+        params+="-cp ${fc_runtime_root_path}/*:${fc_runtime_root_path} "
         params+="-Dfc.runtime.system.path=${fc_runtime_system_path} "
         params+="-Dfc.func.code.path=${fc_func_code_path} "
         params+="-Dfile.encoding=UTF-8 "
