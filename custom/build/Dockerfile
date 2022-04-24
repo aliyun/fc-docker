@@ -27,7 +27,7 @@ RUN curl -s https://gosspublic.alicdn.com/fcli/fcli-${FCLI_VERSION}-linux-amd64.
     && unzip -o fcli.zip -d /usr/local/bin/ \
     && rm fcli.zip
 
-RUN curl -s https://gosspublic.alicdn.com/fun/fun-${FUN_VERSION}-linux.zip > fun.zip \
+RUN curl -o fun.zip  https://gosspublic.alicdn.com/fun/fun-${FUN_VERSION}-linux.zip \
     && unzip -o fun.zip -d /usr/local/bin/ \
     && rm fun.zip \
     && mv /usr/local/bin/fun-v* /usr/local/bin/fun
@@ -35,7 +35,8 @@ RUN curl -s https://gosspublic.alicdn.com/fun/fun-${FUN_VERSION}-linux.zip > fun
 RUN curl -s https://gosspublic.alicdn.com/fun-install/fun-install-${FUN_INSTALL_VERSION}-linux-64.zip > fun-install.zip \
     && unzip -o fun-install.zip -d /usr/local/bin/ \
     && rm fun-install.zip \
-    && mv /usr/local/bin/fun-install-v* /usr/local/bin/fun-install
+    && mv /usr/local/bin/fun-install-v* /usr/local/bin/fun-install \
+    && ln -s /usr/local/bin/fun-install /usr/local/bin/s-install 
 
 RUN mv /usr/bin/update-alternatives  /usr/bin/update-alternatives-origin \
     && ((test -f /usr/bin/pycompile && mv /usr/bin/pycompile  /usr/bin/pycompile-origin) || true)
