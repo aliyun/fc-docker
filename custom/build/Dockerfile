@@ -23,7 +23,7 @@ ARG FUN_VERSION
 ARG FCLI_VERSION
 ARG FUN_INSTALL_VERSION
 
-RUN curl -s https://gosspublic.alicdn.com/fcli/fcli-${FCLI_VERSION}-linux-amd64.zip > fcli.zip \
+RUN curl -o fcli.zip https://gosspublic.alicdn.com/fcli/fcli-${FCLI_VERSION}-linux-amd64.zip \
     && unzip -o fcli.zip -d /usr/local/bin/ \
     && rm fcli.zip
 
@@ -32,7 +32,7 @@ RUN curl -o fun.zip  https://gosspublic.alicdn.com/fun/fun-${FUN_VERSION}-linux.
     && rm fun.zip \
     && mv /usr/local/bin/fun-v* /usr/local/bin/fun
 
-RUN curl -s https://gosspublic.alicdn.com/fun-install/fun-install-${FUN_INSTALL_VERSION}-linux-64.zip > fun-install.zip \
+RUN curl -o fun-install.zip https://gosspublic.alicdn.com/fun-install/fun-install-${FUN_INSTALL_VERSION}-linux-64.zip  \
     && unzip -o fun-install.zip -d /usr/local/bin/ \
     && rm fun-install.zip \
     && mv /usr/local/bin/fun-install-v* /usr/local/bin/fun-install \
