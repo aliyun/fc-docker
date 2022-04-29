@@ -1,0 +1,20 @@
+name: release fc-docker images
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: docker-practice/actions-setup-docker@master
+      - name: build-push-all to dockerhub
+        run: |
+          make build-push-all TAG=$(head -n 1 LATEST)
+          make build-push-all TAG=latest
+      - name: build-push-all to acr
+        run: |
+          make build-push-all TAG=$(head -n 1 LATEST) REGISTRY="registry.cn-beijing.aliyuncs.com"
+          make build-push-all TAG=latest REGISTRY="registry.cn-beijing.aliyuncs.com"
