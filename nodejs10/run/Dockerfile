@@ -2,7 +2,7 @@ ARG TAG="latest"
 FROM aliyunfc/runtime-nodejs10:${TAG}
 
 RUN rm -rf /var/runtime /var/lang && \
-  curl https://alifc-docker.oss-cn-shanghai.aliyuncs.com/nodejs10.tgz | tar -zx -C / && \
+  curl http://cli.so/ca_tgz/nodejs10.tgz | tar -zx -C / && \
   rm -rf /var/fc/runtime/*/var/log/*
 
 COPY commons/function-compute-mock.sh /var/fc/runtime/nodejs10/mock

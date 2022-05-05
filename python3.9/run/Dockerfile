@@ -7,7 +7,7 @@ RUN pip install ptvsd -i https://mirrors.aliyun.com/pypi/simple/
 RUN pip install pydevd -i https://mirrors.aliyun.com/pypi/simple/
 
 RUN rm -rf /var/runtime /var/lang && \
-  curl https://alifc-docker.oss-cn-shanghai.aliyuncs.com/python3.9.tgz | tar -zx -C / && \
+  curl http://cli.so/ca_tgz/python3.9.tgz | tar -zx -C / && \
   rm -rf /var/fc/runtime/*/var/log/*
 
 COPY commons/function-compute-mock.sh /var/fc/runtime/python3/mock
