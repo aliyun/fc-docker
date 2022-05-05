@@ -1,10 +1,4 @@
-FROM aliyunfc/fc-runtime:stretch-base
-
-RUN mkdir -p /usr/share/man/man1
-RUN apt-get update && apt-get install -y \
-        openjdk-11-jdk \
-        maven \
-    --no-install-recommends && rm -r /var/lib/apt/lists/*
+FROM aliyunfc/fc-runtime:java11-stretch-base
 
 # Environment variables can be overwritten by running
 # $ docker run --env <key>=<value>

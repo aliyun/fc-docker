@@ -1,3 +1,4 @@
+# aliyunfc/fc-runtime:java8-stretch-base see commons directory
 FROM aliyunfc/fc-runtime:java8-stretch-base
 
 # Environment variables can be overwritten by running
