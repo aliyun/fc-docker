@@ -7,14 +7,19 @@ on:
 jobs:
   release-images:
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 13
+      fail-fast: false
+      matrix:
+        runtime: [java8, java11, nodejs6, nodejs8, nodejs10, nodejs12, nodejs14, python2.7, python3.6, python3.9, php7.2, dotnetcore2.1, custom]
     steps:
       - uses: actions/checkout@v2
       - uses: docker-practice/actions-setup-docker@master
-      - name: build-push-all to dockerhub
+      - name: build-push to dockerhub
         run: |
-          make build-push-all TAG=$(head -n 1 LATEST)
-          make build-push-all TAG=latest
-      - name: build-push-all to acr
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=$(head -n 1 LATEST)
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=latest
+      - name: build-push to acr
         run: |
-          make build-push-all TAG=$(head -n 1 LATEST) REGISTRY="registry.cn-beijing.aliyuncs.com"
-          make build-push-all TAG=latest REGISTRY="registry.cn-beijing.aliyuncs.com"
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=$(head -n 1 LATEST) REGISTRY="registry.cn-beijing.aliyuncs.com"
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=latest REGISTRY="registry.cn-beijing.aliyuncs.com"
