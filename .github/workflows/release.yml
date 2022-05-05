@@ -4,6 +4,12 @@ on:
   release:
     types: [created]
 
+env:
+  DOCKER_USER : ${{secrets.DOCKER_USER}}
+  DOCKER_PASS : ${{secrets.DOCKER_PASS}}
+  ALIYUN_DOCKER_USER : ${{secrets.ALIYUN_DOCKER_USER}}
+  ALIYUN_DOCKER_PASS : ${{secrets.ALIYUN_DOCKER_PASS}}
+
 jobs:
   release-images:
     runs-on: ubuntu-latest
