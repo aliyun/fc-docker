@@ -1,6 +1,6 @@
 FROM aliyunfc/fc-runtime:stretch-base
 
-ENV NODE_VERSION v14.16.1 
+ENV NODE_VERSION v14.18.1 
 RUN wget http://mirrors.nju.edu.cn/nodejs/${NODE_VERSION}/node-${NODE_VERSION}-linux-x64.tar.gz -O /tmp/node-${NODE_VERSION}-linux-x64.tar.gz \
     && cd /tmp && tar -zxvf /tmp/node-${NODE_VERSION}-linux-x64.tar.gz \
     && cp /tmp/node-${NODE_VERSION}-linux-x64/bin/node /usr/local/bin/ \
