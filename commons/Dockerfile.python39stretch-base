@@ -4,11 +4,11 @@ ENV LANG C.UTF-8
 # Install python3.9
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential libssl-dev zlib1g-dev \
-	libreadline-dev libsqlite3-dev llvm \
+		libreadline-dev libsqlite3-dev llvm \
     libncursesw5-dev xz-utils libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev \
-	libbluetooth-dev \
-	tk-dev \
-	libbz2-dev \
+		libbluetooth-dev \
+		tk-dev \
+		libbz2-dev \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y \

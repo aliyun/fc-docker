@@ -3,6 +3,17 @@ FROM aliyunfc/fc-runtime:python27-stretch-base
 
 COPY commons/pip.conf /etc/pip.conf
 
+# Install third party libraries for user function.
+RUN pip install -U pip setuptools 
+
+# fc-docker fix: as online
+COPY python2.7/base/requirements.txt ./requirements.txt
+RUN pip install --user -r requirements.txt  -i https://mirrors.aliyun.com/pypi/simple/
+RUN rm ./requirements.txt
+
+# iot sdk support 6.1.0
+RUN curl --connect-timeout 60  -m 3600 -fsSL http://lambda-public.oss-cn-hangzhou.aliyuncs.com/lambda/aliyunsdkiot_py2_v20170420.tar.gz | tar -xzC /root/.local/lib/python2.7/site-packages/aliyunsdkiot/request/
+
 # Change work directory.
 WORKDIR ${FC_FUNC_CODE_PATH}
 
