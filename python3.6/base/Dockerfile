@@ -6,44 +6,14 @@ COPY commons/pip.conf /etc/pip.conf
 # Change work directory.
 WORKDIR ${FC_FUNC_CODE_PATH}
 
-# Install dev dependencies.
-RUN pip install coverage debugpy -i https://mirrors.aliyun.com/pypi/simple/
-
 # Install third party libraries for user function.
-RUN pip install -U six
-RUN pip install -U pip && pip install -U setuptools
+RUN pip install -U pip setuptools
 
-# fc-docker fix: cprotobuf 0.1.10, dependency of pydatahub, could not be installed, so using 0.1.9
-RUN pip install --user cython==0.29.14 cprotobuf==0.1.9 -i https://mirrors.aliyun.com/pypi/simple/
-RUN pip install --user \
-    scipy==1.0.0 \
-    numpy==1.13.3 \
-    wand==0.4.4 \
-    opencv-python==3.4.0.14 \
-    matplotlib==2.0.2 \
-    scrapy==1.4.0 \
-    cbor==1.0.0 \
-    aliyun-fc==0.6 \
-    meinheld==0.6.1 \
-    aliyun-fc2==2.3.0 \
-    tablestore==5.1.0 \
-    aliyun-python-sdk-core-v3==2.13.11 \
-    aliyun-python-sdk-iot==7.8.0 \
-    aliyun-python-sdk-ecs==4.10.1 \
-    aliyun-python-sdk-vpc==3.0.2 \
-    aliyun-python-sdk-rds==2.1.4 \
-    aliyun-python-sdk-kms==2.5.0 \
-    aliyun-python-sdk-imm==1.3.4 \
-    aliyun-log-python-sdk==0.6.38 \
-    aliyun-python-sdk-ram==3.0.0 \
-    aliyun-python-sdk-sts==3.0.0 \
-    aliyun-python-sdk-fnf==1.3.0 \
-    aliyun-python-sdk-dds==2.0.7 \
-    aliyun-mns==1.1.5 \
-    aliyun-python-sdk-cdn==3.0.8 \
-    oss2==2.9.1 \
-    pydatahub==2.11.2 \
-    -i https://mirrors.aliyun.com/pypi/simple/
+# fc-docker fix: as online
+RUN pip install --user Cython==0.29.27 incremental==21.3.0  Automat==20.2.0 attrs==21.4.0 constantly==15.1.0 hyperlink==21.0.0 idna==2.7 numpy==1.13.3 zope.interface==5.4.0 six==1.16.0 scipy==1.0.0
+COPY python3.6/base/requirements.txt ./requirements.txt
+RUN pip install --user -r requirements.txt  -i https://mirrors.aliyun.com/pypi/simple/
+RUN rm ./requirements.txt
 
 # iot sdk support 6.1.0
 RUN curl --connect-timeout 60  -m 3600 -fsSL http://lambda-public.oss-cn-hangzhou.aliyuncs.com/lambda/aliyunsdkiot_py3_v20170420.tar.gz | tar -xzC /root/.local/lib/python3.6/site-packages/aliyunsdkiot/request/
