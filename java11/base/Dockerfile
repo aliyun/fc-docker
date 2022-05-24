@@ -26,11 +26,18 @@ WORKDIR ${FC_FUNC_CODE_PATH}
 RUN ln -s /bin/bash /usr/bin/bash \
     && ln -s /bin/grep /usr/bin/grep
 
+# Copy all files to home directory.
 COPY java11/base/pom.xml .
+COPY java11/base/settings.xml /root/.m2/settings.xml
 
-RUN mv /usr/share/maven/conf/settings.xml /usr/share/maven/conf/settings.xml.bk
-COPY java11/base/settings.xml /usr/share/maven/conf/settings.xml
-
+#download all the dependencies
 RUN ["mvn", "clean", "install"]
 RUN ["mvn", "dependency:go-offline"]
 RUN rm -f pom.xml
+
+WORKDIR /root
+COPY ./java11/base/java11-example /root/java11-example
+WORKDIR /root/java11-example
+RUN ["mvn", "clean", "package"]
+WORKDIR /root
+RUN rm -rf java11-example

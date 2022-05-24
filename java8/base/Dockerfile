@@ -29,11 +29,16 @@ RUN ln -s /bin/bash /usr/bin/bash \
 
 # Copy all files to home directory.
 COPY java8/base/pom.xml .
-
-RUN mv /usr/share/maven/conf/settings.xml /usr/share/maven/conf/settings.xml.bk
-COPY java8/base/settings.xml /usr/share/maven/conf/settings.xml
+COPY java8/base/settings.xml /root/.m2/settings.xml
 
 #download all the dependencies
 RUN ["mvn", "clean", "install"]
 RUN ["mvn", "dependency:go-offline"]
 RUN rm -f pom.xml
+
+WORKDIR /root
+COPY ./java8/base/java8-example /root/java8-example
+WORKDIR /root/java8-example
+RUN ["mvn", "clean", "package"]
+WORKDIR /root
+RUN rm -rf java8-example
