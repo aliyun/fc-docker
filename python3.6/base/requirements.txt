@@ -38,7 +38,7 @@ icc-rt==16.0.3
 importlib-resources==5.4.0
 intel-openmp==2022.0.2
 jmespath==0.10.0
-lxml==4.7.1
+lxml==4.9.1
 lz4==3.1.10
 matplotlib==2.0.2
 opencv-python==3.3.0.10
