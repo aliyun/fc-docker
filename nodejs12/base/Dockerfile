@@ -34,12 +34,12 @@ WORKDIR ${FC_SERVER_PATH}
 EXPOSE ${FC_SERVER_PORT}
 
 RUN npm install --global --unsafe-perm \
-    --registry http://registry.npm.taobao.org \
+    --registry http://registry.npmmirror.com \
     node-gyp rebuild
     
 # Install thrid party libraries for user function.
 RUN npm install --global --unsafe-perm \
-    --registry http://registry.npm.taobao.org \
+    --registry http://registry.npmmirror.com \
     co@4.6.0 \
     gm@1.23.0 \
     ali-oss@6.6.0  \

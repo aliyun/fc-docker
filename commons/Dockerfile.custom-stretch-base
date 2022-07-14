@@ -231,7 +231,7 @@ RUN apt-get update && apt-get install -y \
 
 # support typescript
 RUN npm install --global --unsafe-perm \
-        --registry http://registry.npm.taobao.org \
+        --registry http://registry.npmmirror.com \
         typescript@3.8.3 \
         yarn@1.22.4
 

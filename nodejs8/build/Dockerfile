@@ -45,7 +45,7 @@ COPY commons/update-alternatives  /usr/bin/
 
 COPY commons/pycompile  /usr/bin/
 
-RUN npm config set registry https://registry.npm.taobao.org
+RUN npm config set registry https://registry.npmmirror.com
 
 RUN npm install -g yarn
 

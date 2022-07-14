@@ -53,7 +53,7 @@ RUN ["mvn", "dependency:go-offline"]
 RUN rm -f pom.xml
 
 RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
-RUN npm config set registry https://registry.npm.taobao.org
+RUN npm config set registry https://registry.npmmirror.com
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
 
 WORKDIR /code
