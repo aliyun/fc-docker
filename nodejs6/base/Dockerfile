@@ -29,7 +29,7 @@ RUN npm install --global --unsafe-perm node-pre-gyp
 
 # Install thrid party libraries for user function.
 RUN npm install --global --unsafe-perm \
-    #--registry http://registry.npm.taobao.org \
+    #--registry http://registry.npmmirror.com \
     co@4.6.0 \
     gm@1.23.1 \
     ali-oss@4.10.1 \
