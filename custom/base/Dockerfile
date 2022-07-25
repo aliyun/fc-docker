@@ -1,6 +1,8 @@
 # aliyunfc/fc-runtime:custom-stretch-base see commons directory
 FROM aliyunfc/fc-runtime:custom-stretch-base
 
+RUN mv /etc/apt/sources.list.d/php7.list /etc/apt/sources.list.d/php7.list.bk
+
 ENV FC_SERVER_PORT=9000 \
     FC_FUNC_CODE_PATH=/code
 
