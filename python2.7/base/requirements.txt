@@ -79,7 +79,7 @@ regex==2021.8.3
 requests==2.26.0
 scandir==1.10.0
 scipy==1.0.0
-Scrapy==1.4.0
+Scrapy==2.6.2
 service-identity==21.1.0
 simplejson==3.17.3
 singledispatch==3.6.2
