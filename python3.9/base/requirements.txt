@@ -84,7 +84,7 @@ queuelib==1.6.2
 regex==2021.11.10
 requests==2.26.0
 scipy==1.7.2
-Scrapy==2.5.1
+Scrapy==2.6.2
 service-identity==21.1.0
 six==1.16.0
 tablestore==5.2.1
