@@ -3,5 +3,8 @@ FROM aliyunfc/fc-runtime:stretch-base
 RUN apt-get update &&  apt-get install -y libbz2-dev python2.7 python-pip python2.7-dev libffi-dev libxml2-dev zlib1g-dev \
     --no-install-recommends && rm -r /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libcurl4-openssl-dev libssl-dev \
+	&& rm -rf /var/lib/apt/lists/*
 # Start a shell by default
 CMD ["bash"]

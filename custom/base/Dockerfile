@@ -3,6 +3,10 @@ FROM aliyunfc/fc-runtime:custom-stretch-base
 
 RUN mv /etc/apt/sources.list.d/php7.list /etc/apt/sources.list.d/php7.list.bk
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libcurl4-openssl-dev libssl-dev \
+	&& rm -rf /var/lib/apt/lists/*
+
 ENV FC_SERVER_PORT=9000 \
     FC_FUNC_CODE_PATH=/code
 

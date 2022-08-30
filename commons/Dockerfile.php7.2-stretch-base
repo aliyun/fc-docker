@@ -1,0 +1,29 @@
+FROM aliyunfc/php7.2-stretch:standard
+
+# https://tracker.debian.org/pkg/imagemagick
+RUN apt-get update && apt-get install -y  --force-yes \
+  wget \
+  unzip\
+  libssl-dev \
+  libpng-dev \
+  libbz2-dev \
+  cython \
+  libmagickwand-dev \
+  libmagickcore-dev \
+  libmemcached-dev \
+  --no-install-recommends && rm -r /var/lib/apt/lists/*
+
+RUN /bin/sh -c 'curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer'
+
+# ensure session.so loads before redis.so, https://github.com/phpredis/phpredis/issues/470
+RUN mv /usr/local/etc/php/conf.d/docker-php-ext-session.ini /usr/local/etc/php/conf.d/docker-php-ext-a_session.ini
+
+RUN pecl channel-update pecl.php.net
+RUN pecl install redis-4.1.1
+RUN pecl install xdebug-2.6.0
+RUN pecl install imagick-3.4.3
+RUN pecl install protobuf-3.6.0
+RUN pecl install memcached-3.0.4
+RUN docker-php-ext-enable redis xdebug imagick protobuf memcached
+
+RUN docker-php-ext-install zip gd

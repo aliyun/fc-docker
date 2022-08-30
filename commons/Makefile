@@ -5,8 +5,9 @@ build:
 	docker build -t aliyunfc/fc-runtime:java11-stretch-base -f Dockerfile.java11-stretch-base .
 	docker build -t aliyunfc/fc-runtime:python36-stretch-base -f Dockerfile.python36stretch-base .
 	docker build -t aliyunfc/fc-runtime:python39-stretch-base -f Dockerfile.python39stretch-base .
-	docker build -t aliyunfc/fc-runtime:custom-stretch-base -f Dockerfile.custom-stretch-base .
+	# docker build -t aliyunfc/fc-runtime:custom-stretch-base -f Dockerfile.custom-stretch-base .
 	docker build -t aliyunfc/fc-runtime:python27-stretch-base -f Dockerfile.python27stretch-base .
+	docker build -t aliyunfc/fc-runtime:php7.2-stretch-base -f Dockerfile.php7.2-stretch-base .
 
 push:
 	docker push aliyunfc/fc-runtime:jessie
@@ -15,5 +16,6 @@ push:
 	docker push aliyunfc/fc-runtime:java11-stretch-base
 	docker push aliyunfc/fc-runtime:python36-stretch-base
 	docker push aliyunfc/fc-runtime:python39-stretch-base
-	docker push aliyunfc/fc-runtime:custom-stretch-base
+	# docker push aliyunfc/fc-runtime:custom-stretch-base
 	docker push aliyunfc/fc-runtime:python27-stretch-base
+	docker push aliyunfc/fc-runtime:php7.2-stretch-base
