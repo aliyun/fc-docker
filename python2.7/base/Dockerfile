@@ -8,7 +8,7 @@ RUN pip install -U pip setuptools
 
 # fc-docker fix: as online
 COPY python2.7/base/requirements.txt ./requirements.txt
-RUN pip install -r requirements.txt  -i https://mirrors.aliyun.com/pypi/simple/
+RUN pip install -r requirements.txt  --ignore-installed -i https://mirrors.aliyun.com/pypi/simple/
 RUN rm ./requirements.txt
 
 # iot sdk support 6.1.0
