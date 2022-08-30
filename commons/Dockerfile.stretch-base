@@ -14,13 +14,20 @@ RUN apt-get update && apt-get install -y \
     apt-utils \
     procps \
     wget \
-    curl \
-    vim \
+    libssl-dev \
     telnet \
+    curl \
+    cython \
     imagemagick \
     libopencv-dev\
     fonts-wqy-zenhei \
+    vim \
     fonts-wqy-microhei \
+    libpng-dev \
+    libbz2-dev \
+    tk \
+    libmemcached11 \
+    libmemcachedutil2 \
     --no-install-recommends && rm -r /var/lib/apt/lists/*
 
 # get libpng12-0,libmysqlclient18,libssl1.0.0 in jessie
