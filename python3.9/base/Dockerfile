@@ -24,6 +24,11 @@ ENV FC_SERVER_LOG_PATH=${FC_SERVER_PATH}/var/log
 RUN mkdir -p ${FC_SERVER_LOG_PATH}
 ENV LD_LIBRARY_PATH=${FC_FUNC_CODE_PATH}:${FC_FUNC_CODE_PATH}/lib:/usr/local/lib
 
+# Install libopencv-dev
+RUN apt-get update \
+    && apt-get install -y libopencv-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 # Start a shell by default
 CMD ["bash"]
 
