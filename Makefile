@@ -6,7 +6,7 @@ SHELL = /bin/bash
 IMAGE_PREFIX ?= runtime-
 REPO ?= aliyunfc
 
-RUNTIMES ?= java8 java11 nodejs6 nodejs8 nodejs10 nodejs12 nodejs14 python2.7 python3.6 python3.9 php7.2 dotnetcore2.1 custom
+RUNTIMES ?= java8 java11 nodejs6 nodejs8 nodejs10 nodejs12 nodejs14 python2.7 python3.6 python3.9 php7.2 dotnetcore2.1 go1 custom
 VARIANTS ?= base build run
 
 FUN_VERSION ?= v3.6.20
@@ -67,6 +67,19 @@ build: check-runtime-env
 	else \
 		for VARIANT in "base" "build" "run" ; do \
 			make build RUNTIME=$(RUNTIME) VARIANT=$$VARIANT TAG=$$TAG || exit 1; \
+		done \
+	fi;
+
+# build multi-arch images by docker buildx
+buildx-push: check-runtime-env login
+	@if [ -n "$(VARIANT)" ]; then \
+		echo "docker buildx build --platform linux/amd64 --push -f \"$(DIR)/Dockerfile\" -t \"$(IMAGE)\" --build-arg TAG=$(BUILD_ARG_TAG) --build-arg FUN_VERSION=${FUN_VERSION} --build-arg FCLI_VERSION=${FCLI_VERSION} --build-arg FUN_INSTALL_VERSION=${FUN_INSTALL_VERSION} ."; \
+		if ! docker buildx build --platform linux/amd64 --push -f "$(DIR)/Dockerfile" -t "$(IMAGE)" --build-arg TAG=$(BUILD_ARG_TAG) --build-arg FUN_VERSION=${FUN_VERSION} --build-arg FCLI_VERSION=${FCLI_VERSION} --build-arg FUN_INSTALL_VERSION=${FUN_INSTALL_VERSION}  .; then \
+			exit 1; \
+		fi \
+	else \
+		for VARIANT in "base" "build" "run" ; do \
+			make buildx-push RUNTIME=$(RUNTIME) VARIANT=$$VARIANT TAG=$$TAG || exit 1; \
 		done \
 	fi;
 
