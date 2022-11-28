@@ -1,7 +1,5 @@
 # aliyunfc/fc-runtime:custom-stretch-base see commons directory
-FROM aliyunfc/fc-runtime:custom-stretch-base
-
-RUN mv /etc/apt/sources.list.d/php7.list /etc/apt/sources.list.d/php7.list.bk
+FROM aliyunfc/fc-runtime:custom-stretch-base-v1
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libcurl4-openssl-dev libssl-dev \
