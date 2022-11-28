@@ -34,7 +34,7 @@ cryptography==3.3.2
 cssselect==1.1.0
 cycler==0.10.0
 dateparser==0.7.6
-debugpy
+debugpy==1.5.1
 distlib==0.3.2
 elasticsearch==6.8.2
 enum34==1.1.10
