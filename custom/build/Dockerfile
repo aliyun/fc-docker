@@ -7,10 +7,6 @@ RUN mkdir -p /mnt/auto
 RUN apt-get update \
     && apt-get --no-install-recommends  install -y apt-utils ca-certificates \
     dialog \
-    vim \
-    cmake \
-    zip \
-    unzip \
     clang \
     build-essential \
     libgmp3-dev \
@@ -47,7 +43,6 @@ COPY commons/pycompile  /usr/bin/
 
 # custom maven speedup
 COPY custom/build/pom.xml .
-RUN mv /usr/share/maven/conf/settings.xml /usr/share/maven/conf/settings.xml.bk
 COPY custom/build/settings.xml /usr/share/maven/conf/settings.xml
 RUN ["mvn", "dependency:go-offline"]
 RUN rm -f pom.xml
