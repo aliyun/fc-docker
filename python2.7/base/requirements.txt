@@ -40,7 +40,7 @@ elasticsearch==6.8.2
 enum34==1.1.10
 filelock==3.0.12
 functools32==3.2.3.post2
-future==0.18.2
+future==0.18.3
 futures==3.3.0
 greenlet==0.4.13
 hyperlink==21.0.0
