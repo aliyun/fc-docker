@@ -18,3 +18,4 @@ WORKDIR ${FC_FUNC_CODE_PATH}
 
 # Start a shell by default
 CMD ["bash"]
+ENTRYPOINT []
