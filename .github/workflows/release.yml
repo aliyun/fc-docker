@@ -17,7 +17,7 @@ jobs:
       max-parallel: 13
       fail-fast: false
       matrix:
-        runtime: [java8, java11, nodejs6, nodejs8, nodejs10, nodejs12, nodejs14, python2.7, python3.6, python3.9, php7.2, dotnetcore2.1, custom, go1]
+        runtime: [java8, java11, nodejs6, nodejs8, nodejs10, nodejs12, nodejs14, python2.7, python3.6, python3.9, php7.2, dotnetcore2.1, custom, go1, python3.10]
     steps:
       - uses: actions/checkout@v2
       - uses: docker-practice/actions-setup-docker@master

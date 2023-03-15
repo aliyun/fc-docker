@@ -106,6 +106,7 @@ curlUtil() {
         -H "x-fc-access-key-id: ${FC_ACCESS_KEY_ID}" \
         -H "x-fc-access-key-secret: ${FC_ACCESS_KEY_SECRET}" \
         -H "x-fc-security-token: ${FC_SECURITY_TOKEN}" \
+        -H "x-fc-retry-count: 1" \
         -H "${HTTP_PARAMS_HEADER}" \
         --data-binary "$2"
 }
