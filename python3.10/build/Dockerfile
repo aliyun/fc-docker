@@ -20,14 +20,9 @@ RUN apt-get update \
 
 RUN echo "ALL ALL=NOPASSWD: ALL" >> /etc/sudoers
 
-# RUN curl -o fun-install.zip https://gosspublic.alicdn.com/fun-install/fun-install-${FUN_INSTALL_VERSION}-linux-64.zip  \
-#     && unzip -o fun-install.zip -d /usr/local/bin/ \
-#     && rm fun-install.zip \
-#     && mv /usr/local/bin/fun-install-v* /usr/local/bin/fun-install \
-#     && ln -s /usr/local/bin/fun-install /usr/local/bin/s-install 
-
-COPY python3.10/fun-install-v0.16.3-linux-64.zip ./fun-install.zip
-RUN unzip -o fun-install.zip -d /usr/local/bin/ \
+ARG FUN_INSTALL_VERSION
+RUN curl -o fun-install.zip https://gosspublic.alicdn.com/fun-install/fun-install-${FUN_INSTALL_VERSION}-linux-64.zip  \
+    && unzip -o fun-install.zip -d /usr/local/bin/ \
     && rm fun-install.zip \
     && mv /usr/local/bin/fun-install-v* /usr/local/bin/fun-install \
     && ln -s /usr/local/bin/fun-install /usr/local/bin/s-install 
