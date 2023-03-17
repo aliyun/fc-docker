@@ -14,7 +14,7 @@ jobs:
   release-images:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 13
+      max-parallel: 15
       fail-fast: false
       matrix:
         runtime: [java8, java11, nodejs6, nodejs8, nodejs10, nodejs12, nodejs14, python2.7, python3.6, python3.9, php7.2, dotnetcore2.1, custom, go1, python3.10]
