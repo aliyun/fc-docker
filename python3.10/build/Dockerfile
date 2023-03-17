@@ -20,6 +20,7 @@ RUN apt-get update \
 
 RUN echo "ALL ALL=NOPASSWD: ALL" >> /etc/sudoers
 
+ARG FUN_INSTALL_VERSION
 RUN curl -o fun-install.zip https://gosspublic.alicdn.com/fun-install/fun-install-${FUN_INSTALL_VERSION}-linux-64.zip  \
     && unzip -o fun-install.zip -d /usr/local/bin/ \
     && rm fun-install.zip \
