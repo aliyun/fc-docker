@@ -6,12 +6,12 @@ SHELL = /bin/bash
 IMAGE_PREFIX ?= runtime-
 REPO ?= aliyunfc
 
-RUNTIMES ?= java8 java11 nodejs6 nodejs8 nodejs10 nodejs12 nodejs14 python2.7 python3.6 python3.9 php7.2 dotnetcore2.1 go1 custom
+RUNTIMES ?= java8 java11 nodejs6 nodejs8 nodejs10 nodejs12 nodejs14 python2.7 python3.6 python3.9 php7.2 dotnetcore2.1 go1 custom python3.10 custom.debian10
 VARIANTS ?= base build run
 
 FUN_VERSION ?= v3.6.20
 FCLI_VERSION ?= v1.0.4
-FUN_INSTALL_VERSION ?= v0.16.2
+FUN_INSTALL_VERSION ?= v0.16.3
 
 # build or empty
 TAG_PREFIX := $(VARIANT:run%=%)
