@@ -1,4 +1,4 @@
-FROM aliyunfc/fc-runtime-debian10:custom-buster-base-v0.1
+FROM aliyunfc/fc-runtime.debian10:custom-buster-base-v0.1
 
 COPY commons/pip.conf /etc/pip.conf
 
@@ -9,4 +9,5 @@ WORKDIR ${FC_FUNC_CODE_PATH}
 RUN mkdir -p ${FC_SERVER_LOG_PATH}
 
 # Start a shell by default
+ENTRYPOINT []
 CMD ["bash"]
