@@ -1,4 +1,4 @@
-FROM aliyunfc/fc-runtime.debian10:custom-buster-base-v0.1
+FROM aliyunfc/fc-runtime:custom-buster-base-v0.1
 
 COPY commons/pip.conf /etc/pip.conf
 
