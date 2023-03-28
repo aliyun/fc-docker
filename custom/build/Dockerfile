@@ -11,6 +11,12 @@ RUN apt-get update \
     build-essential \
     libgmp3-dev \
     sudo \
+    libffi-dev \
+    zlibc \
+    zlib1g \
+    zlib1g-dev \
+    libssl-dev \
+    libreadline-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN echo "ALL ALL=NOPASSWD: ALL" >> /etc/sudoers
@@ -50,5 +56,6 @@ RUN rm -f pom.xml
 RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 RUN npm config set registry https://registry.npmmirror.com
 RUN composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
+RUN pip install --upgrade pip
 
 WORKDIR /code
