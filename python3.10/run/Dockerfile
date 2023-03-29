@@ -10,7 +10,7 @@ RUN pip install pydevd -i https://mirrors.aliyun.com/pypi/simple/
 
 COPY commons/function-compute-mock-2.0.sh /var/fc/runtime/mock
 
-ENV FC_RIE_VERSION 0.0.2
+ENV FC_RIE_VERSION 0.0.3
 
 RUN cd /var/fc/runtime/python3.10 \
     && curl -o /tmp/fc-rie-v${FC_RIE_VERSION}.tar.gz https://fc-runtime-public.oss-cn-hangzhou.aliyuncs.com/fc-rie-v${FC_RIE_VERSION}.tar.gz \
