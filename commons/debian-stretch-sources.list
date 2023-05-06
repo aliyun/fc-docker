@@ -1,8 +1,8 @@
-deb http://mirrors.aliyun.com/debian/ stretch main non-free contrib
-deb http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib
-deb http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib
-deb-src http://mirrors.aliyun.com/debian/ stretch main non-free contrib
-deb-src http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib
-deb-src http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib
-deb http://mirrors.aliyun.com/debian-security/ stretch/updates main non-free contrib
-deb-src http://mirrors.aliyun.com/debian-security/ stretch/updates main non-free contrib
+deb http://archive.debian.org/debian/ stretch main contrib non-free
+deb http://archive.debian.org/debian/ stretch-proposed-updates main non-free contrib
+deb http://archive.debian.org/debian/ stretch-backports main non-free contrib
+deb http://archive.debian.org/debian-security stretch/updates main contrib non-free
+deb-src http://archive.debian.org/debian/ stretch main contrib non-free
+deb-src http://archive.debian.org/debian/ stretch-proposed-updates main contrib non-free
+deb-src http://archive.debian.org/debian/ stretch-backports main contrib non-free
+deb-src http://archive.debian.org/debian-security stretch/updates main contrib non-free

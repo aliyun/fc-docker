@@ -32,24 +32,29 @@ RUN apt-get update && apt-get install -y \
 
 # get libpng12-0,libmysqlclient18,libssl1.0.0 in jessie
 # https://packages.debian.org/search?keywords=libpng12-0
-RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak \
-    && echo "deb http://deb.debian.org/debian/ jessie main contrib non-free" > /etc/apt/sources.list \
-    && echo "deb-src http://deb.debian.org/debian/ jessie main contrib non-free" >> /etc/apt/sources.list \
-    && echo "deb http://security.debian.org/ jessie/updates main contrib non-free" >> /etc/apt/sources.list \
-    && echo "deb-src http://security.debian.org/ jessie/updates main contrib non-free" >> /etc/apt/sources.list \
-    && echo "deb http://archive.debian.org/debian jessie-backports main contrib non-free" >> /etc/apt/sources.list \
-    && echo "deb-src http://archive.debian.org/debian jessie-backports main contrib non-free" >> /etc/apt/sources.list \
-    && echo "Acquire::Check-Valid-Until \"false\";" > /etc/apt/apt.conf.d/100disablechecks
+# RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak \
+#     && echo "deb http://deb.debian.org/debian/ jessie main contrib non-free" > /etc/apt/sources.list \
+#     && echo "deb-src http://deb.debian.org/debian/ jessie main contrib non-free" >> /etc/apt/sources.list \
+#     && echo "deb http://security.debian.org/ jessie/updates main contrib non-free" >> /etc/apt/sources.list \
+#     && echo "deb-src http://security.debian.org/ jessie/updates main contrib non-free" >> /etc/apt/sources.list \
+#     && echo "deb http://archive.debian.org/debian jessie-backports main contrib non-free" >> /etc/apt/sources.list \
+#     && echo "deb-src http://archive.debian.org/debian jessie-backports main contrib non-free" >> /etc/apt/sources.list \
+#     && echo "Acquire::Check-Valid-Until \"false\";" > /etc/apt/apt.conf.d/100disablechecks
+
+RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
+COPY ./debian-jessie-sources.list /etc/apt/sources.list
+# RUN apt-get install debian-archive-keyring
 
 RUN apt-get update && apt-get install -y \
     libpng12-0 \
     libmysqlclient18 \
     libssl1.0.0 \
     libwebp5 \
-    --no-install-recommends && rm -r /var/lib/apt/lists/* 
+    --no-install-recommends \
+    --allow-unauthenticated \
+    && rm -r /var/lib/apt/lists/* 
 
 RUN mv /etc/apt/sources.list.bak /etc/apt/sources.list 
-RUN rm  /etc/apt/apt.conf.d/100disablechecks
 
 RUN apt-get update && apt-get install -y \
     nfs-common gnupg ca-certificates \

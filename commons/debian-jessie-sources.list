@@ -1,4 +1,4 @@
-deb http://mirrors.aliyun.com/debian/ jessie main non-free contrib
-deb-src http://mirrors.aliyun.com/debian/ jessie main non-free contrib
-deb http://mirrors.aliyun.com/debian-security/ jessie/updates main non-free contrib
-deb-src http://mirrors.aliyun.com/debian-security/ jessie/updates main non-free contrib
+deb http://archive.debian.org/debian/ jessie main non-free contrib
+deb-src http://archive.debian.org/debian/ jessie main non-free contrib
+deb http://archive.debian.org/debian-security/ jessie/updates main non-free contrib
+deb-src http://archive.debian.org/debian-security/ jessie/updates main non-free contrib
