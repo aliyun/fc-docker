@@ -23,9 +23,17 @@ jobs:
       - uses: docker-practice/actions-setup-docker@master
       - name: build-push to dockerhub
         run: |
-          make build-push RUNTIME=${{ matrix.runtime }} TAG=$(head -n 1 LATEST)
-          make build-push RUNTIME=${{ matrix.runtime }} TAG=latest
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=$(head -n 1 LATEST) VARIANT=base
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=$(head -n 1 LATEST) VARIANT=build
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=$(head -n 1 LATEST) VARIANT=run
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=latest VARIANT=base
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=latest VARIANT=build
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=latest VARIANT=run
       - name: build-push to acr
         run: |
-          make build-push RUNTIME=${{ matrix.runtime }} TAG=$(head -n 1 LATEST) REGISTRY="registry.cn-beijing.aliyuncs.com"
-          make build-push RUNTIME=${{ matrix.runtime }} TAG=latest REGISTRY="registry.cn-beijing.aliyuncs.com"
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=$(head -n 1 LATEST) REGISTRY="registry.cn-beijing.aliyuncs.com" VARIANT=base
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=$(head -n 1 LATEST) REGISTRY="registry.cn-beijing.aliyuncs.com" VARIANT=build
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=$(head -n 1 LATEST) REGISTRY="registry.cn-beijing.aliyuncs.com" VARIANT=run
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=latest REGISTRY="registry.cn-beijing.aliyuncs.com" VARIANT=base
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=latest REGISTRY="registry.cn-beijing.aliyuncs.com" VARIANT=build
+          make build-push RUNTIME=${{ matrix.runtime }} TAG=latest REGISTRY="registry.cn-beijing.aliyuncs.com" VARIANT=run
