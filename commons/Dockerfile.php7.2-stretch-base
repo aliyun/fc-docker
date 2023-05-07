@@ -1,5 +1,8 @@
 FROM aliyunfc/php7.2-stretch:standard
 
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak 
+COPY debian-stretch-sources.list /etc/apt/sources.list
+
 # https://tracker.debian.org/pkg/imagemagick
 RUN apt-get update && apt-get install -y  --force-yes \
   wget \
