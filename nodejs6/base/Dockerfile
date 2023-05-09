@@ -51,3 +51,4 @@
 
 # no change
 FROM aliyunfc/runtime-nodejs6:base-1.10.2
+COPY ./commons/debian-stretch-sources.list /etc/apt/sources.list

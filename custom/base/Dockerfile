@@ -1,6 +1,8 @@
 # aliyunfc/fc-runtime:custom-stretch-base see commons directory
 FROM aliyunfc/fc-runtime:custom-stretch-base-v1
 
+COPY ./commons/debian-stretch-sources.list /etc/apt/sources.list
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libcurl4-openssl-dev libssl-dev \
 	&& rm -rf /var/lib/apt/lists/*
