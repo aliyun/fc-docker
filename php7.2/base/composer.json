@@ -1,9 +1,9 @@
 {
   "require": {
-    "aliyunfc/fc-php-sdk": "~1.2",
-    "aliyuncs/oss-sdk-php": "~2.0",
-    "aliyun/aliyun-tablestore-sdk-php": "~4.0",
-    "wushunyi/aliyun-sdk-mns":"^1.3.5",
+    "aliyunfc/fc-php-sdk": "^1.2",
+    "aliyuncs/oss-sdk-php": "2.4.3",
+    "aliyun/aliyun-tablestore-sdk-php": "4.1.1",
+    "wushunyi/aliyun-sdk-mns": "^1.3.5",
     "alibabacloud/fnf": "^1.7"
   }
 }
