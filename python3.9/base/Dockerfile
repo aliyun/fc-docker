@@ -26,7 +26,7 @@ ENV LD_LIBRARY_PATH=${FC_FUNC_CODE_PATH}:${FC_FUNC_CODE_PATH}/lib:/usr/local/lib
 
 # Install libopencv-dev
 RUN apt-get update \
-    && apt-get install -y libopencv-dev \
+    && apt-get install -y libopencv-dev libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Start a shell by default
