@@ -52,7 +52,7 @@ incremental==21.3.0
 intel-openmp==2021.3.0
 ipaddress==1.0.23
 jmespath==0.10.0
-lxml==4.6.3
+lxml==4.9.1
 lz4==2.2.1
 matplotlib==2.0.2
 numpy==1.13.3
