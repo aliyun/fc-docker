@@ -62,7 +62,7 @@ packaging==16.8
 parsel==1.6.0
 pathlib2==2.3.6
 platformdirs==2.0.2
-protobuf==3.13.0
+protobuf==3.18.3
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20
