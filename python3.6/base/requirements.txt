@@ -32,7 +32,7 @@ dateparser==1.1.0
 debugpy
 elasticsearch==6.8.2
 enum34==1.1.10
-future==0.18.2
+future==0.18.3
 greenlet==0.4.13
 icc-rt==16.0.3
 importlib-resources==5.4.0
