@@ -15,7 +15,7 @@ ENV FC_SERVER_PATH=/var/fc/runtime/nodejs16
 ENV FC_SERVER_LOG_PATH=${FC_SERVER_PATH}/var/log
 ENV LD_LIBRARY_PATH=${FC_FUNC_CODE_PATH}:${FC_FUNC_CODE_PATH}/lib
 ENV PATH=${FC_SERVER_PATH}/node_modules/.bin:${PATH}
-ENV NODE_PATH=/usr/local/lib/node_modules:/opt/nodejs/node14/node_modules:/opt/nodejs/node_modules
+ENV NODE_PATH=/usr/local/lib/node_modules:/opt/nodejs/node16/node_modules:/opt/nodejs/node_modules
 
 # Create directory.
 RUN mkdir -p ${FC_SERVER_PATH}
